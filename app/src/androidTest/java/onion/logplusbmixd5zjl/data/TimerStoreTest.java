@@ -10,9 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Tests the TimerStore class.
@@ -96,11 +94,8 @@ public class TimerStoreTest extends InstrumentationTestCase {
     @Test
     public void test_remove_timer_orders() throws Exception {
         TimerEntry e = new TimerEntry("test_remove_timer_orders", 123, 1);
-        ts.save(e);
-        ts.remove(e);
-        // i = getCount
-        // remove
-        // check that getting entry no i fails
+        TimerEntry unexist = ts.getEntry(ts.getCount());
+        assertEquals(unexist.getID(), -1);
     }
 
     @Test
