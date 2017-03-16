@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/c_all"
+    android:orientation="vertical"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    >
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      >
+    <!--td: ref: merge tag for timer and count layout header-->
+    <ImageButton
+	android:id="@+id/c_previous"
+	android:contentDescription="@string/previousEntry"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	android:onClick="pressPrevious"
+	android:src="@drawable/ic_arrow_back_black_24dp"
+	/>
+    <Spinner
+	android:id="@+id/c_title"
+	android:layout_height="wrap_content"
+	android:layout_width="0dip"
+	android:layout_weight="1"
+	android:text="@string/error_init"
+	/>
+    <ImageButton
+	android:id="@+id/c_next"
+	android:contentDescription="@string/nextEntry"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	android:onClick="pressNext"
+	android:src="@drawable/ic_arrow_forward_black_24dp"
+	/>
+  </LinearLayout>
+  <TextView
+      android:id="@+id/c_countView"
+      android:gravity="center_horizontal"
+      android:layout_height="0dp"
+      android:layout_width="fill_parent"
+      android:layout_weight="8"
+      android:text="@string/error_init"
+      android:textSize="40sp"
+      />
+  <Button
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:onClick="press1"
+      android:text="td: +1"
+      />
+  <Button
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:onClick="press10"
+      android:text="td: +10"
+      />
+  <Button
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:onClick="press100"
+      android:text="td: +100"
+      />
+</LinearLayout>

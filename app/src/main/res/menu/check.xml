@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/check_m_add"
+          android:icon="@drawable/addtimer"
+          android:title="@string/check_m_new_task"/>
+    <!--tdref: merge tags, same in check and timer-->
+    <item android:id="@+id/check_m_test"
+          android:icon="@drawable/test"
+          android:title="@string/test"/>
+</menu>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+  <TextView
+      android:id="@+id/n_remind"
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      android:layout_weight="1"
+      android:text="@string/e_a_label"
+      android:visibility="gone"
+      />
+  <Button
+      android:id="@+id/n_snooze"
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content" 
+      android:onClick="pressSnooze"
+      android:text="@string/n_snooze"
+      android:layout_weight="1"
+      />
+  <Button 
+      android:id="@+id/n_stop"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:onClick="pressStop"
+      android:text="@string/n_stop"
+      android:layout_weight="1"
+      />
+</LinearLayout>

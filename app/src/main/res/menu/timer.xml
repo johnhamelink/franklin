@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/timer_m_add"
+          android:icon="@drawable/addtimer"
+          android:title="@string/timer_m_new"/>
+    <item android:id="@+id/timer_m_edit"
+          android:icon="@drawable/edittimer"
+          android:title="@string/timer_m_edit"/>
+    <!--td: icon: composite timer+edit-->
+    <item android:id="@+id/timer_m_justlog"
+          android:icon="@drawable/addlogs"
+          android:title="@string/justlog"/>
+    <item android:id="@+id/timer_m_showlog"
+          android:icon="@drawable/ic_menu_white_48dp"
+          android:title="@string/t_logs"/>
+</menu>

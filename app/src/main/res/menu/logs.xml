@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/logs_m_justlog"
+          android:icon="@drawable/addlogs"
+          android:title="@string/justlog"/>
+    <item android:id="@+id/logs_m_exportlogs"
+          android:icon="@drawable/exportlogs"
+          android:title="@string/logs_export"/>
+</menu>

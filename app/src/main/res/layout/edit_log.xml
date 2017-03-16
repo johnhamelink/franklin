@@ -1,0 +1,49 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    >
+  <!-- td: move to list layout for freely expandable text field -->
+  <TableLayout
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      >
+    <TableRow>
+      <TextView
+	  android:text="@string/e_n_label"
+	  />
+      <EditText
+	  android:id="@+id/editlog_name"
+	  android:hint="@string/e_n_hint"
+	  android:inputType="text"
+	  android:layout_width="fill_parent"
+	  android:layout_weight="1"
+	  />
+    </TableRow>
+    <TableRow>
+      <TextView
+	  android:text="@string/e_d_label"
+	  />
+      <EditText
+	  android:id="@+id/editlog_duration"
+	  android:hint="@string/e_d_hint"
+	  android:inputType="number"
+	  android:layout_width="fill_parent"
+	  android:layout_weight="1"
+	  />
+    </TableRow>
+    <TableRow>
+      <TextView
+	  android:text="@string/e_c_label"
+	  />
+      <EditText
+	  android:id="@+id/editlog_comment"
+	  android:hint="@string/e_c_hint"
+	  android:inputType="textMultiLine"
+	  android:layout_width="fill_parent"
+	  android:layout_weight="1"
+	  />
+    </TableRow>
+  </TableLayout>
+</ScrollView>
+	      

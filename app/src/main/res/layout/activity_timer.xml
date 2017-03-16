@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/t_all"
+    android:orientation="vertical"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    tools:context="onion.logplusbmixd5zjl.Timer">
+    >
+    <!-- title -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        >
+        <ImageButton
+            android:contentDescription="@string/previousEntry"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:onClick="pressPrevious"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            />
+        <Spinner
+            android:id="@+id/t_name"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/error_init"
+            />
+        <ImageButton
+            android:contentDescription="@string/nextEntry"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:onClick="pressNext"
+            android:src="@drawable/ic_arrow_forward_black_24dp"
+            />
+    </LinearLayout>
+    <!-- main -->
+    <TextView
+        android:id="@+id/t_current"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_weight="8"
+        android:text="@string/error_init"
+        android:textSize="72sp"
+        />
+    <!-- buttons -->
+    <!-- android:layout_weight="1"
+
+    -->
+    <Button
+        android:id="@+id/t_start"
+        android:drawableLeft="@drawable/ic_play_arrow_black_48dp"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:onClick="pressStart"
+        android:text="@string/t_start"
+        />
+</LinearLayout>

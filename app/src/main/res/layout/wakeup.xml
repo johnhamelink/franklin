@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+  <TextView
+      android:id="@+id/w_daystart"
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:text="@string/error_init"
+      />
+  <TextView
+      android:id="@+id/w_sunrise"
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:text="@string/error_init"
+      />
+  <TextView
+      android:id="@+id/w_sunset"
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:text="@string/error_init"
+      />
+  <EditText
+      android:id="@+id/w_latitude"
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:hint="@string/w_latitude"
+      android:inputType="numberDecimal|numberSigned"
+      />
+  <EditText
+      android:id="@+id/w_longitude"
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:hint="@string/w_longitude"
+      android:inputType="numberDecimal|numberSigned"
+      />
+  <Button
+      android:id="@+id/w_set"
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:text="@string/w_set"
+      android:onClick="pressSet"
+      />
+</LinearLayout>
