@@ -1,0 +1,5 @@
+* logplus/franklin
+  Timer and Counting with logging and stats.
+** Versions
+*** 0.0.0
+    initial public commimt
