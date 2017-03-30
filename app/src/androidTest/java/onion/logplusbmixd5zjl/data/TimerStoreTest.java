@@ -125,17 +125,22 @@ public class TimerStoreTest extends InstrumentationTestCase {
     }
 
     @Test
-    public void test_save_reminder() throws Exception {
-        TimerEntry t = new TimerEntry("save_reminder", 123, 45, 1, 2, 3);
-        ts.save(t);
-        TimerEntry t2 = ts.getEntry(t.getID());
-        assertEquals(t, t2);
-        ts.remove(t);
+    public void test_save_two() throws Exception {
+        TimerEntry t1 = new TimerEntry("save_reminder", 123, 45, 1, 2, 3);
+        assertTrue(ts.save(t1));
+        TimerEntry t2 = new TimerEntry("save_reminder", 23, 4, 5, 6, 7);
+        assertTrue(ts.save(t2));
+        TimerEntry t1store = ts.getEntry(t1.getID());
+        TimerEntry t2store = ts.getEntry(t2.getID());
+        assertEquals(t1, t1store);
+        assertEquals(t2, t2store);
+        ts.remove(t1);
+        ts.remove(t2);
     }
 
     @Test
     public void test_save_with_reminder() throws Exception {
-        TimerEntry e = new TimerEntry("SaveWithReminder", 123, 1, 10, 10, 10);
+        TimerEntry e = new TimerEntry("save_reminder", 123, 45, 1, 2, 3);
         assertTrue(ts.save(e));
         TimerEntry e2 = ts.getEntry(e.ID);
         assertEquals(e.verboseString() + " vs " + e2.verboseString(), e, e2);

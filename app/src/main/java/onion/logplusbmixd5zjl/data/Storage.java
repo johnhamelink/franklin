@@ -123,7 +123,6 @@ public final class Storage {
     /** saves scheduled data */
     public void save() {
 	// td: move here, adapt for multiple short-term saves
-	// td: what happens if no editor?
 	editor.apply();
 	editor = null;
     }
