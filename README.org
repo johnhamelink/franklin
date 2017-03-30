@@ -1,5 +1,10 @@
 * logplus/franklin
   Timer and Counting with logging and stats.
 ** Versions
+*** 0.1.0
+**** Added
+     logo
+**** Fixed
+     crashed for empty duration field in LogEdit
 *** 0.0.0
     initial public commit
