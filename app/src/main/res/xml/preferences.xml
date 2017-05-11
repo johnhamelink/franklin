@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <CheckBoxPreference
+      android:key="activateNag"
+      android:title="Activate reminder"
+      android:defaultValue="False"/>
+  <!-- sub if True: duration -->
+  <CheckBoxPreference
+      android:key="solar"
+      android:title="Solar time"
+      android:defaultValue="False"/>
+  <!-- sub if True: position -->
+</PreferenceScreen>

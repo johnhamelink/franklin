@@ -7,9 +7,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Vector;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import onion.logplusbmixd5zjl.Common;
 import onion.logplusbmixd5zjl.R;
 import onion.logplusbmixd5zjl.Timer;

@@ -1,9 +1,7 @@
 package onion.logplusbmixd5zjl.data;
 
 import android.content.Context;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -12,7 +10,7 @@ import onion.logplusbmixd5zjl.R;
 
 //TODO: odm?
 public final class TimerStore {
-    private static final Logger log = LoggerFactory.getLogger(TimerStore.class);
+    private static final String TAG = TimerStore.class.getName();
 
     private static int count = -1;
     private static int current = -1;
@@ -54,7 +52,7 @@ public final class TimerStore {
 	if ( count < 0 ) {
 	    count = storage.getInt(".tasks.count", 0);
 	}
-	log.trace("getCount() with count {}", count);
+	Log.v(TAG, "getCount() with count " + count);
 
 	return count;
     }

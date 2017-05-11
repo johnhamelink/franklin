@@ -2,6 +2,7 @@ package onion.logplusbmixd5zjl;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -20,13 +21,11 @@ import onion.logplusbmixd5zjl.data.CountEntry;
 import onion.logplusbmixd5zjl.util.OnSwipeTouchListener;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 /**
  * Count stuff.
  */
 public class Count extends Activity implements OnItemSelectedListener {
-    private static final Logger log = LoggerFactory.getLogger(Count.class);
+    private static final String TAG = Count.class.getName();
 
     private ArrayAdapter adapter;
     private Vector<CountEntry> entries;
@@ -40,7 +39,7 @@ public class Count extends Activity implements OnItemSelectedListener {
     /** Called when the activity is first created. */
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-	log.debug("onResume()");
+	Log.d(TAG, "onResume()");
 
 	// tmp
 	entries = new Vector<CountEntry>();
@@ -64,7 +63,7 @@ public class Count extends Activity implements OnItemSelectedListener {
         setContentView(R.layout.count);
 	ButterKnife.inject(this);
 
-	log.trace("all: {}", all);
+	Log.v(TAG, "all: " +  all);
 	all.setOnTouchListener(new OnSwipeTouchListener(this) {
 		@Override public void onSwipeLeft() {
 		    nextEntry();
@@ -80,7 +79,7 @@ public class Count extends Activity implements OnItemSelectedListener {
 
     @Override public void onResume() {
 	super.onResume();
-	log.debug("onResume()");
+	Log.d(TAG, "onResume()");
 
 	adapter = new ArrayAdapter<CountEntry>(this, android.R.layout.simple_spinner_item, entries);
 	spinner.setAdapter(adapter);
@@ -90,7 +89,8 @@ public class Count extends Activity implements OnItemSelectedListener {
 
 
     public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
-	log.debug("onItemSelected(adapterview, view, {}, {})", pos, id);
+	Log.d(TAG, String.format("onItemSelected(adapterview, view, %d, %d)",
+                                 pos, id));
 	updateCountView();
     }
     public void onNothingSelected(AdapterView<?> parent) {

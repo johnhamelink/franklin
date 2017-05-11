@@ -38,6 +38,12 @@
   <Button
       android:layout_height="wrap_content"
       android:layout_width="wrap_content"
+      android:onClick="pressSettings"
+      android:text="show settings"
+      />
+  <Button
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
       android:onClick="pressTimer"
       android:text="@string/t_timer"
       />

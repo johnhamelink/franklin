@@ -3,18 +3,16 @@ package onion.logplusbmixd5zjl;
 import android.content.Intent;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import onion.logplusbmixd5zjl.data.LogEntry;
 import onion.logplusbmixd5zjl.util.TextValidator;
 
 /** Edits a log entry */
 public class EditLog extends Activity {
-    private static final Logger log = LoggerFactory.getLogger(EditLog.class);
+    private static final String TAG = EditLog.class.getName();
 
     private EditText commentView;
     private EditText durationView;
@@ -55,7 +53,7 @@ public class EditLog extends Activity {
     }
 
     @Override public void onPause() {
-        log.debug("onPause()");
+        Log.d(TAG, "onPause()");
         long durationTmp = -1;
         try {
             durationTmp = Long.parseLong(durationView.getText().toString());

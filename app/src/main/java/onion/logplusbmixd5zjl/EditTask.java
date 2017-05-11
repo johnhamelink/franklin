@@ -5,20 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
 import onion.logplusbmixd5zjl.util.TextValidator;
 
 public class EditTask extends FragmentActivity {
-    private static final Logger log = LoggerFactory.getLogger(EditTask.class);
+    private static final String TAG = EditTask.class.getName();
 
     private Button howmanyButton;
     private TimerEntry task;
@@ -56,7 +54,7 @@ public class EditTask extends FragmentActivity {
     // td: refactor, too long
       // - save()-method
     @Override public void onPause() {
-        log.debug("onPause()");
+        Log.d(TAG, "onPause()");
 
         long duration;
         String name;
@@ -85,7 +83,7 @@ public class EditTask extends FragmentActivity {
         }
 
         if ( task == null ) {
-            log.trace("task == null");
+            Log.v(TAG, "task == null");
             task = new TimerEntry(name, duration, repetitions);
         } else {
             task.update(name, duration, repetitions);
@@ -147,12 +145,12 @@ public class EditTask extends FragmentActivity {
     private void fillTask() {
         Bundle extras = getIntent().getExtras();
         if (extras == null || !extras.containsKey("edit") ) {
-            log.trace("creating new task");
+            Log.v(TAG, "creating new task");
             textDayRepeat.setText("1");
         } else {
             if ( TimerStore.getCount(this) > 0 ) {
                 task = TimerStore.getCurrentEntry(this); // td: by id?
-                log.trace("editing existing task: {}", task);
+                Log.v(TAG, "editing existing task: " + task);
                 textName.setText(task.getName());
                 textDurationSeconds.setText(String.valueOf(task.getDuration()/1000));
                 textDayRepeat.setText(String.valueOf(task.getRepetitions()));

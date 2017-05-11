@@ -11,7 +11,7 @@ import onion.logplusbmixd5zjl.Common;
 public class Scheduler {
     public static final long MILLIS_BEFORE_NAG = Common.HOUR; // td: settings
 
-    private static final String TAG = Scheduler.class.getName(); // TODO: slf4j
+    private static final String TAG = Scheduler.class.getName();
     
     private static Scheduler instance;
 

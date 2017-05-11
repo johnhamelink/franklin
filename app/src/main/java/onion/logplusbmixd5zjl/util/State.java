@@ -1,9 +1,7 @@
 package onion.logplusbmixd5zjl.util;
 
 import android.content.Context;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import android.util.Log;
 
 import onion.logplusbmixd5zjl.R;
 import onion.logplusbmixd5zjl.data.Storage;
@@ -16,7 +14,7 @@ public final class State {
     public static final int BACKGROUND = 3;
     public static final int CLOSED = 4;
 
-    private static final Logger log = LoggerFactory.getLogger(State.class);
+    private static final String TAG = State.class.getName();
 
     private static State instance;
 
@@ -66,7 +64,7 @@ public final class State {
     }
     /** @return <code>this</code> (to allow chaining with @see #save() ) */
     public State set(int state) {
-	log.debug("set({})", state);
+	Log.d(TAG, String.format("set(%s)", state));
 	current = state;
 	return this;
     }
@@ -75,14 +73,14 @@ public final class State {
 	return countdownEnd;
     }
     public State setEnd(long countdownEnd) {
-	log.debug("setEnd({})", countdownEnd);
+	Log.d(TAG, String.format("setEnd(%d)", countdownEnd));
 	this.countdownEnd = countdownEnd;
 	return this;
     }
 
     /** saves to permanent storage*/
     public void save() {
-	log.debug("save()");
+	Log.d(TAG, "save()");
 	Storage.get(context).putInt(".state", current)
 	    .putLong(".countdownEnd", countdownEnd)
 	    .save();

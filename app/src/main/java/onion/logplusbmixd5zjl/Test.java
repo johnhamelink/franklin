@@ -35,6 +35,9 @@ public class Test extends Activity {
         i.putExtra("remind", "reminder");
 	startActivity(i);
     }
+    public void pressSettings(View view) {
+	startActivity(new Intent(this, Settings.class));
+    }
     public void pressTimer(View view) {
 	startActivity(new Intent(this, Timer.class));
     }

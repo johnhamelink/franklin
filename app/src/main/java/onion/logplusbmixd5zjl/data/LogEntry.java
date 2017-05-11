@@ -1,6 +1,7 @@
 package onion.logplusbmixd5zjl.data;
 // td: duplication of ".log." -part
 import android.content.Context;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.util.Collections;
@@ -10,12 +11,10 @@ import java.util.Vector;
 import org.apache.commons.lang3.StringEscapeUtils; //td later: proguard
 import org.apache.commons.lang3.text.StrTokenizer; // same here
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /** Contains a single entry into the log */
 public class LogEntry extends Entry {
-    // td: refactor (and move below if afterwards necessary)
+    private static final String TAG = LogEntry.class.getName();
+    // TODO: refactor (and move below if afterwards necessary)
     /** @return tagpart to access property at TaskEntry of ID ..., uses */
     private String storagePart(String last) {
         return storagePart(this.ID, last);
@@ -24,21 +23,19 @@ public class LogEntry extends Entry {
         return ".log." + ID + "." + last;
     }
     
-    private static final Logger log = LoggerFactory.getLogger(LogEntry.class);
-
     //    private static final String storage = Common.packageName + ".log.";
     private static Vector<LogEntry> all = null;
     private static Vector<LogEntry> reversed = null;
 
-    // td: maybe just seconds since epoch? (less conversion)
-    private Date date;//td: changeable in logedit
+    // TODO: maybe just seconds since epoch? (less conversion)
+    private Date date;//TODO: changeable in logedit
     private String comment;
-    // td: rename durationMillis to value due to CountEntry
+    // TODO: rename durationMillis to value due to CountEntry
     private long durationMillis;
 
     protected LogEntry(Context context, int itsIndex) {
         super(context, null);
-        log.debug("LogEntry(context, {})", itsIndex);
+        Log.d(TAG, String.format("LogEntry(context, %d)", itsIndex));
 
         ID = itsIndex;
 
@@ -49,7 +46,7 @@ public class LogEntry extends Entry {
         comment = storage.getString(storagePart("comment"), null);
         date = new Date(storage.getLong(storagePart("date"), -1));
         durationMillis = storage.getLong(storagePart("duration"),-1);
-        name = storage.getString(storagePart("name"), "TD: no name");
+        name = storage.getString(storagePart("name"), "TODO: no name");
     }
     // public access for testing, otherwise package
     /** just creates a logentry, no meta-operations at all */
@@ -62,8 +59,7 @@ public class LogEntry extends Entry {
 
     public LogEntry(Context context, String name, long duration, long endTime) {
         super(context, name);
-        log.debug("LogEntry(context, {}, {}, {})",
-                  new Object[]{name, duration, endTime});
+        Log.d(TAG, String.format("LogEntry(context, %s, %d, %d)".format(name, duration, endTime)));
 
         this.date = new Date(endTime);
         this.durationMillis = duration;
@@ -74,7 +70,7 @@ public class LogEntry extends Entry {
 
     public LogEntry(Context context, String csv) {
         super(context, null);
-        log.debug("LogEntry(context, '{}'", csv);
+        Log.d(TAG, String.format("LogEntry(context, '%s')", csv));
 
         StrTokenizer values = StrTokenizer.getCSVInstance(csv);
         this.date = new Date(Long.parseLong(values.next()));
@@ -90,7 +86,7 @@ public class LogEntry extends Entry {
 
 
     public static LogEntry get(Context context, int index) {
-        log.debug("get(context, {})", index);
+        Log.d(TAG, String.format("get(context, %d)", index));
         if ( all == null ) {
             initAll(context);
         }
@@ -98,14 +94,14 @@ public class LogEntry extends Entry {
     }
 
     public static Vector<LogEntry> getAll(Context context) {
-        log.debug("getAll()");
+        Log.d(TAG, "getAll()");
         if ( all == null ) {
             initAll(context);
         }
         return all;
     }
 
-    // hack td: sum in countentry
+    // hack TODO: sum in countentry
     public static LogEntry getByName(Context context, String name, Date noOlder){
         for ( LogEntry entry: getReversed(context) ) {
             if ( entry.getDate().before(noOlder) ) {
@@ -119,16 +115,16 @@ public class LogEntry extends Entry {
         return null;
     }
 
-    // td: rm (ls)
+    // TODO: rm (ls)
     /** @return the number of log entries */
     public static int getCount(Context context) {
-        log.debug("getCount()");
+        Log.d(TAG, "getCount()");
 
         return Storage.get(context).getInt(".log.count", 0);
     }
 
     public static LogEntry getReversed(Context context, int index) {
-        log.debug("getReversed(context, {})", index);
+        Log.d(TAG, String.format("getReversed(context, %d)", index));
         if ( reversed == null ) {
             initReversed(context);
         }
@@ -136,7 +132,7 @@ public class LogEntry extends Entry {
     }
 
     public static Vector<LogEntry> getReversed(Context context) {
-        log.debug("getReversed()");
+        Log.d(TAG, "getReversed()");
         if ( reversed == null ) {
             initReversed(context);
         }
@@ -168,12 +164,12 @@ public class LogEntry extends Entry {
         if ( !(other instanceof LogEntry) ) {
             return false;
         }
-        return ((LogEntry)other).date.equals(this.date); // td: think through
+        return ((LogEntry)other).date.equals(this.date); // TODO: think through
     }
 
     public final String getComment() { return comment; }
     public final Date getDate()      { return (Date)date.clone(); }
-    public final long getDuration()  { return durationMillis; } //td: rename /ce
+    public final long getDuration()  { return durationMillis; } //TODO: rename /ce
 
     @Override public int hashCode() {
         throw new UnsupportedOperationException("equals() implemented");
@@ -182,7 +178,7 @@ public class LogEntry extends Entry {
     // codup
     /** removes this LogEntry */
     public synchronized void remove() {
-        log.trace("remove(): {}", verboseString());
+        Log.v(TAG, "remove(): " + verboseString());
         if ( all == null ) {
             initAll(context);
         }
@@ -241,8 +237,8 @@ public class LogEntry extends Entry {
         return out;
     }
 
-    // td: where to commit, best later?
-    // td: empty string vs null comment, where to handle
+    // TODO: where to commit, best later?
+    // TODO: empty string vs null comment, where to handle
     // package access for testing
     /** @return True if value changed */
     boolean setComment(String comment) {
@@ -326,9 +322,9 @@ public class LogEntry extends Entry {
     }
 
     private static void addToAll(Context context, LogEntry le) {
-        log.debug("addToAll(context, {})", le);
+        Log.d(TAG, String.format("addToAll(context, %s)", le));
         if ( all == null ) {
-            initAll(context); //td: maybe remove (+rewrite "// sort if ..."below)
+            initAll(context); //TODO: maybe remove (+rewrite "// sort if ..."below)
         } else {
             all.add(le);
             if ( reversed != null ) {
@@ -345,7 +341,7 @@ public class LogEntry extends Entry {
 
     /** initialises vector of LogEntries */
     private static void initAll(Context context) {
-        log.debug("initAll()");
+        Log.d(TAG, "initAll()");
 
         int logCount = getCount(context);
        
@@ -357,7 +353,7 @@ public class LogEntry extends Entry {
     }
     /** all vector in reverse order */
     private static void initReversed(Context context) {
-        log.debug("initReversed()");
+        Log.d(TAG, "initReversed()");
 
         if ( all == null ) {
             initAll(context);
@@ -366,9 +362,9 @@ public class LogEntry extends Entry {
         reversed = (Vector<LogEntry>)all.clone();
         Collections.reverse(reversed);
     }
-    // td: codup with timerentry
+    // TODO: codup with timerentry
     private static void sortAndSave(Context context) {
-        log.debug("sortAndSave()");
+        Log.d(TAG, "sortAndSave()");
         Collections.sort(all);
         for ( int i = 0; i < all.size(); i++ ) {
             LogEntry entry = all.get(i);
@@ -387,7 +383,7 @@ public class LogEntry extends Entry {
         // TODO?: pro Tag eigenes mit Zeit, Tagesheader (wie Anruferliste)?
     }
 
-    // td: ref: duplicates some code
+    // TODO: ref: duplicates some code
     /** saves data to next free storage and returns its ID */
     private int getIDandSave() {
         int newID = storage.getInt(".log.count", 0);
@@ -406,28 +402,28 @@ public class LogEntry extends Entry {
     /**
      * schedules comment for removal if null or put to storage
      */
-    // td: rename to IfNecessary ?? (see also storage for refactor)
+    // TODO: rename to IfNecessary ?? (see also storage for refactor)
     private void putComment() {
-        if ( comment == null ) { // td: || comment.equals("")
+        if ( comment == null ) { // TODO: || comment.equals("")
             storage.remove(storagePart("comment"));
         } else {
             storage.putString(storagePart("comment"), comment);
         }
     }
 
-    // td: remove this?
+    // TODO: remove this?
     private void putDate() {
         storage.putLong(storagePart("date"), date.getTime());
     }
 
-    // td: remove this?
+    // TODO: remove this?
     private void putDuration() {
         storage.putLong(storagePart("duration"), durationMillis);
     }
 
     private void removeLastFromDB() {
-        log.debug("removeLastFromDB()");
-        int last = getCount(context); // td: from timerstore?
+        Log.d(TAG, "removeLastFromDB()");
+        int last = getCount(context); // TODO: from timerstore?
         storage.remove(storagePart(last, "name"));
         storage.remove(storagePart(last, "date"));
         storage.remove(storagePart(last, "duration"));
