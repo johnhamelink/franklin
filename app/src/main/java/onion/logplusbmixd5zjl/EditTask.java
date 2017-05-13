@@ -144,9 +144,10 @@ public class EditTask extends FragmentActivity {
 
     private void fillTask() {
         Bundle extras = getIntent().getExtras();
-        if (extras == null || !extras.containsKey("edit") ) {
+        if (extras == null ||
+            !extras.containsKey("edit") ||
+            TimerStore.getCount(this) == 0) {
             Log.v(TAG, "creating new task");
-            textDayRepeat.setText("1");
         } else {
             if ( TimerStore.getCount(this) > 0 ) {
                 task = TimerStore.getCurrentEntry(this); // td: by id?

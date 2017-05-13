@@ -139,7 +139,7 @@ public final class Storage {
         return sb.toString();
     }
 
-    @SuppressLint("CommitPrefEdits")
+    @SuppressLint("CommitPrefEdits") // makes several data entries at once possible
     private void ensureEditor() {
         if ( editor == null ) {
             editor = getSharedPreferences(context).edit();

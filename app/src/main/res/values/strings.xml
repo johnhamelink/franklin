@@ -11,7 +11,7 @@
     <string name="c_yesterday">Yesterday: </string>
     <string name="e_a_label">Reminder:</string>
     <string name="e_a_n_hint">target before time</string>
-    <string name="e_a_t_start">no time set</string>
+    <string name="e_a_t_start">set time</string>
     <string name="e_c_hint">comment</string>
     <string name="e_c_label">Comment:</string>
     <string name="e_d_hint">duration in seconds</string>
