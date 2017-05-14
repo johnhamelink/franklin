@@ -2,9 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
   <CheckBoxPreference
       android:key="activateNag"
-      android:title="Activate reminder"
+      android:title="Recurring pauses"
       android:defaultValue="False"/>
   <!-- sub if True: duration -->
+  <CheckBoxPreference
+      android:key="activateReminder"
+      android:title="Reminder of goals"
+      android:defaultValue="False"/>
   <CheckBoxPreference
       android:key="solar"
       android:title="Solar time"

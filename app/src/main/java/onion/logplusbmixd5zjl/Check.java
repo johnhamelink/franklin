@@ -3,6 +3,7 @@ package onion.logplusbmixd5zjl;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log; // debug: all calls of Log.d
 import android.util.TypedValue;
 import android.view.Menu;
@@ -36,6 +37,7 @@ public class Check extends Activity {
         Log.d(TAG, "onCreate()");
 
         setContentView(R.layout.check);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         table = (TableLayout) findViewById(R.id.c_table);
         valueButtons = new HashMap<String, Button>();
