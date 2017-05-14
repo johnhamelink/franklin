@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
 import onion.logplusbmixd5zjl.util.TextValidator;
@@ -102,11 +104,13 @@ public class EditTask extends FragmentActivity {
 
     /** sets reminder time */
     public void doSetTime(int hourOfDay, int minute) {
-        howmanyButton.setText(String.format("%d:%02d", hourOfDay, minute));
+        howmanyButton.setText(String.format(Locale.US, "%d:%02d",
+                                            hourOfDay, minute));
         hours = hourOfDay;
         minutes = minute;
         Common.showToast(this,
-                         String.format("set time: %d:%02d", hourOfDay, minute));
+                         String.format(Locale.US, "set time: %d:%02d",
+                                       hourOfDay, minute));
     }
 
     public void pressEditAlarmTime(View view) {
@@ -169,6 +173,7 @@ public class EditTask extends FragmentActivity {
     }
 
     private void setTimeButtonText(int hourOfDay, int minute) {
-        howmanyButton.setText(String.format("%d:%02d", hourOfDay, minute));
+        howmanyButton.setText(String.format(Locale.US, "%d:%02d",
+                                            hourOfDay, minute));
     }
 }
