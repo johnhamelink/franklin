@@ -89,7 +89,7 @@ public class Nag extends Activity {
     }
 
     /** initializes the background resume
-     * @param snoozeMillis snooze this many seconds */
+     * @param snoozeMillis snooze this many milliseconds */
     void initializeAlarm(long snoozeMillis) {
         Scheduler.get(this)
             .scheduleAlarm(System.currentTimeMillis() + snoozeMillis,
