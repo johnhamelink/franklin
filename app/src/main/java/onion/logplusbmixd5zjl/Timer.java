@@ -97,6 +97,7 @@ public class Timer extends AppCompatActivity implements AdapterView.OnItemSelect
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.timer, menu);
+        inflater.inflate(R.menu.settings, menu);
         return true;
     }
 
@@ -113,6 +114,10 @@ public class Timer extends AppCompatActivity implements AdapterView.OnItemSelect
                 return true;
             case R.id.timer_m_showlog:
                 startActivity(new Intent(this, Logs.class));
+                return true;
+                // codup
+            case R.id.settings:
+                startActivity(new Intent(this, Settings.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

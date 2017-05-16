@@ -47,6 +47,7 @@ public class Check extends Activity {
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.check, menu);
+        inflater.inflate(R.menu.settings, menu);
         return true;
     }
     @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -56,6 +57,10 @@ public class Check extends Activity {
             return true;
         case R.id.check_m_test:
             startActivity(new Intent(this, Test.class));
+            return true;
+            // codup
+        case R.id.settings:
+            startActivity(new Intent(this, Settings.class));
             return true;
         default:
             return super.onOptionsItemSelected(item);

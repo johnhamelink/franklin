@@ -54,6 +54,7 @@ public class Logs extends FragmentActivity {
     @Override public boolean onCreateOptionsMenu(Menu menu) {
 	MenuInflater inflater = getMenuInflater();
 	inflater.inflate(R.menu.logs, menu);
+        inflater.inflate(R.menu.settings, menu);
 	return true;
     }
 
@@ -71,6 +72,10 @@ public class Logs extends FragmentActivity {
 	case R.id.logs_m_exportlogs:
 	    exportToFile();
 	    return true;
+            // codup
+        case R.id.settings:
+            startActivity(new Intent(this, Settings.class));
+            return true;
 	default:
 	    return super.onOptionsItemSelected(item);
 	}
