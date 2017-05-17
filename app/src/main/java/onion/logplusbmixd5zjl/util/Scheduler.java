@@ -4,7 +4,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
+import android.preference.PreferenceManager;
 
 import onion.logplusbmixd5zjl.Common;
 
@@ -17,7 +19,8 @@ public class Scheduler {
 
     private AlarmManager alarmManager;
     private Context context;
-
+    private SharedPreferences prefs;
+    
     protected Scheduler() {
         // pass
     }
@@ -25,6 +28,7 @@ public class Scheduler {
     protected Scheduler(Context context) {
         this.context = context.getApplicationContext();
         this.alarmManager = (AlarmManager)(context.getSystemService(Context.ALARM_SERVICE));
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public static Scheduler get(Context context) {
@@ -60,6 +64,9 @@ public class Scheduler {
     }
     /** schedules a nag at <code>now+millisWhen</code> */
     public void scheduleNag(long millisWhen) {
-        scheduleAlarm(millisWhen, new Intent("my.nag"));
+         // should always exist, see Check.java.onCreate::PreferenceManager...
+        if ( prefs.getBoolean("activateNag", true) ) {
+            scheduleAlarm(millisWhen, new Intent("my.nag"));
+        }
     }
 }

@@ -2,6 +2,7 @@ package onion.logplusbmixd5zjl.data;
 
 import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -114,7 +115,10 @@ public class Reminder {
         }
         Reminder[] a = new Reminder[reminders.size()];
         Calendar c = nextDeadline(context, reminders.toArray(a));
-        scheduler.scheduleAlarm(c.getTime().getTime(), new Intent("my.minder"));
+        if ( PreferenceManager.getDefaultSharedPreferences(context)
+             .getBoolean("activateReminder", true) ) {
+            scheduler.scheduleAlarm(c.getTime().getTime(), new Intent("my.minder"));
+        }
         Log.d(TAG, String.format("scheduled next alert at %s", c.getTime().toLocaleString()));
     }
 
