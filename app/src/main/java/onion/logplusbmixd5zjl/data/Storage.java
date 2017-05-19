@@ -10,6 +10,7 @@ import java.util.Set;
 import onion.logplusbmixd5zjl.Common;
 
 /** Access to persistent storage  */
+@SuppressWarnings("StaticFieldLeak")
 public final class Storage {
     public static final String storage = Common.packageName;
     private static final String acronym = "frkln";

@@ -16,6 +16,7 @@ import onion.logplusbmixd5zjl.data.Storage;
 /**
  * Saves and restores location data (Singleton).
  */
+@SuppressWarnings("StaticFieldLeak")
 public final class Location {
     public static final Locale LOCALE = Locale.US;
     

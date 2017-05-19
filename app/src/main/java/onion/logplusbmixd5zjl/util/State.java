@@ -8,6 +8,7 @@ import onion.logplusbmixd5zjl.data.Storage;
 
 //td:maybe enum
 //tdmb: state.close(); etc
+@SuppressWarnings("StaticFieldLeak")
 public final class State {
     public static final int IDLE = 0;
     public static final int RUNNING = 1;

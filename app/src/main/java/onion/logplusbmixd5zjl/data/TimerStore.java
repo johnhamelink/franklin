@@ -9,6 +9,7 @@ import onion.logplusbmixd5zjl.Common;
 import onion.logplusbmixd5zjl.R;
 
 //TODO: odm?
+@SuppressWarnings("StaticFieldLeak")
 public final class TimerStore {
     private static final String TAG = TimerStore.class.getName();
 

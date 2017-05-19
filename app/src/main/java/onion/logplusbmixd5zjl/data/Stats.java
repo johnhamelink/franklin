@@ -12,6 +12,7 @@ import onion.logplusbmixd5zjl.Common;
 /**
  * Keeps track of how much was done.
  */
+@SuppressWarnings("StaticFieldLeak")
 public class Stats {
     private static Stats instance;
 
