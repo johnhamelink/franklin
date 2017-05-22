@@ -116,7 +116,7 @@ public class Reminder {
         Reminder[] a = new Reminder[reminders.size()];
         Calendar c = nextDeadline(context, reminders.toArray(a));
         if ( PreferenceManager.getDefaultSharedPreferences(context)
-             .getBoolean("activateReminder", true) ) {
+             .getBoolean("reminder", true) ) {
             scheduler.scheduleAlarm(c.getTime().getTime(), new Intent("my.minder"));
         }
         Log.d(TAG, String.format("scheduled next alert at %s", c.getTime().toLocaleString()));

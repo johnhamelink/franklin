@@ -65,7 +65,7 @@ public class Scheduler {
     /** schedules a nag at <code>now+millisWhen</code> */
     public void scheduleNag(long millisWhen) {
          // should always exist, see Check.java.onCreate::PreferenceManager...
-        if ( prefs.getBoolean("activateNag", true) ) {
+        if ( prefs.getBoolean("nag", true) ) {
             scheduleAlarm(millisWhen, new Intent("my.nag"));
         }
     }

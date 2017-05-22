@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
   <CheckBoxPreference
-      android:key="activateNag"
+      android:key="nag"
       android:title="Recurring pauses"
       android:defaultValue="False"/>
   <EditTextPreference
-      android:key="nagTime"
-      android:title="nagTime"
+      android:key="nagInterval"
+      android:title="Pause interval"
       android:defaultValue="600"
-      android:dependency="activateNag"/>
-  <!-- sub if True: duration -->
+      android:dependency="nag"/>
   <CheckBoxPreference
-      android:key="activateReminder"
+      android:key="reminder"
       android:title="Reminder of goals"
       android:defaultValue="False"/>
-  <CheckBoxPreference
-      android:key="solar"
-      android:title="Solar time"
-      android:defaultValue="False"/>
-  <!-- sub if True: position -->
+  <EditTextPreference
+      android:key="reminderExtraTime"
+      android:title="Extra time for reminders"
+      android:defaultValue="600"
+      android:dependency="reminder"/>
 </PreferenceScreen>

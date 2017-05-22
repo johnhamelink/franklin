@@ -61,8 +61,7 @@ public abstract class Entry implements Comparable<Entry> {
     }
     
     public String verboseString() {
-        String out = "ID: " + ID
+        return "ID: " + ID
             + "\nname: " + name;
-        return out;
     }
 }
