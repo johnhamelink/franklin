@@ -4,6 +4,11 @@
       android:key="activateNag"
       android:title="Recurring pauses"
       android:defaultValue="False"/>
+  <EditTextPreference
+      android:key="nagTime"
+      android:title="nagTime"
+      android:defaultValue="600"
+      android:dependency="activateNag"/>
   <!-- sub if True: duration -->
   <CheckBoxPreference
       android:key="activateReminder"
