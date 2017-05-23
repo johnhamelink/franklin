@@ -12,7 +12,6 @@ import onion.logplusbmixd5zjl.Common;
 
 @SuppressWarnings("StaticFieldLeak")
 public class Scheduler {
-    private static final long MILLIS_BEFORE_NAG = Common.HOUR; // td: settings
     private static final String TAG = Scheduler.class.getName();
     
     private static Scheduler instance;
@@ -58,13 +57,13 @@ public class Scheduler {
         alarmManager.set(AlarmManager.RTC_WAKEUP, millisWhen, alarmIntent);
     }
 
-    /** schedules a nag at <code>now+MILLIS_BEFORE_NAG</code> */
+    /** schedules a nag at <code>now+prefs.nagMinutes</code> */
     public void scheduleNag() {
-        scheduleNag(System.currentTimeMillis() + MILLIS_BEFORE_NAG);
+        scheduleNag(System.currentTimeMillis()
+                    + Long.valueOf(prefs.getString("nagMinutes", "60"))*60*1000);
     }
     /** schedules a nag at <code>now+millisWhen</code> */
     public void scheduleNag(long millisWhen) {
-         // should always exist, see Check.java.onCreate::PreferenceManager...
         if ( prefs.getBoolean("nag", true) ) {
             scheduleAlarm(millisWhen, new Intent("my.nag"));
         }

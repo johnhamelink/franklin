@@ -4,11 +4,14 @@
       android:key="nag"
       android:title="Recurring pauses"
       android:defaultValue="False"/>
-  <EditTextPreference
-      android:key="nagInterval"
+  <onion.logplusbmixd5zjl.MyETP
+      android:key="nagMinutes"
       android:title="Pause interval"
-      android:defaultValue="600"
-      android:dependency="nag"/>
+      android:defaultValue="60"
+      android:dependency="nag"
+      android:inputType="number"
+      android:digits="0123456789"
+      android:summary="Pause every %s minutes"/>
   <CheckBoxPreference
       android:key="reminder"
       android:title="Reminder of goals"
