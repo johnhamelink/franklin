@@ -37,9 +37,6 @@ public class Scheduler {
         return instance;
     }
 
-    // ref: test if FLAG_ACTIVITY_NEW_TASK is necessary, if not remove
-    // the flags-version
-    
     // "If there is already an alarm scheduled for the same
     // IntentSender, it will first be canceled." (@see #AlarmManager.set())
     public void scheduleAlarm(long millisWhen, Intent intent) {

@@ -67,8 +67,8 @@ public class Reminder {
     public static Calendar nextDeadline(Context context, Reminder ... all) {
         return nextDeadline(Stats.get(context), all);
     }
-    /** @return next deadline computed from reminders */
 
+    /** @return next deadline computed from reminders */
     public static Calendar nextDeadline(Stats stats, Reminder ... all) {
         Map<Calendar, Long> durationPerDate = new HashMap<>();
         for (Reminder r: all) {
@@ -76,7 +76,8 @@ public class Reminder {
                 mapIncrement(durationPerDate, r.time(),
                              r.millisRequired(stats));
             } else {
-                durationPerDate.put(r.time(), Long.valueOf(r.millisRequired(stats)));
+                durationPerDate.put(r.time(),
+                                    Long.valueOf(r.millisRequired(stats)));
             }
         }
         Map<Calendar, Long> durationCumulative = new HashMap<>();
@@ -109,16 +110,17 @@ public class Reminder {
     }
     /** schedules next reminder */
     public static void schedule(Context context, Scheduler scheduler) {
+        if ( ! PreferenceManager.getDefaultSharedPreferences(context)
+             .getBoolean("reminder", true) ) {
+            return;
+        }
         Vector<Reminder> reminders = new Vector<Reminder>();
         for ( TaskEntry e: TaskEntry.getAllChilds(context) ) {
             reminders.add(e.getReminder());
         }
         Reminder[] a = new Reminder[reminders.size()];
         Calendar c = nextDeadline(context, reminders.toArray(a));
-        if ( PreferenceManager.getDefaultSharedPreferences(context)
-             .getBoolean("reminder", true) ) {
-            scheduler.scheduleAlarm(c.getTime().getTime(), new Intent("my.minder"));
-        }
+        scheduler.scheduleAlarm(c.getTime().getTime(), new Intent("my.minder"));
         Log.d(TAG, String.format("scheduled next alert at %s", c.getTime().toLocaleString()));
     }
 

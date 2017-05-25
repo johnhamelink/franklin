@@ -75,16 +75,17 @@ public class Nag extends Activity {
 	super.onStop();
     }
 
+    public void pressGoCheck(View view) {
+	startActivity(new Intent(this, Check.class));
+    }
+
     public void pressSnooze(View view) {
-	Log.d(TAG, "pressSnooze()"); // debug
-	// td: increase level
 	initializeAlarm(snoozeMillis);
 	finish();
     }
 
     public void pressStop(View view) {
-	Log.d(TAG, "pressStop"); // debug
-	// pass: what to do? (specify)
+	// pass: what to do? log?
 	finish();
     }
 

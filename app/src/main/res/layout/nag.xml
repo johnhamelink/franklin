@@ -5,11 +5,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-  <TextView
+  <Button
       android:id="@+id/n_remind"
       android:layout_width="fill_parent" 
       android:layout_height="wrap_content" 
       android:layout_weight="1"
+      android:onClick="pressGoCheck"
       android:text="@string/e_a_label"
       android:visibility="gone"
       />
@@ -17,9 +18,9 @@
       android:id="@+id/n_snooze"
       android:layout_width="fill_parent" 
       android:layout_height="wrap_content" 
+      android:layout_weight="1"
       android:onClick="pressSnooze"
       android:text="@string/n_snooze"
-      android:layout_weight="1"
       />
   <Button 
       android:id="@+id/n_stop"
