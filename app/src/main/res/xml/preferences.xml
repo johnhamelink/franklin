@@ -17,8 +17,9 @@
       android:title="Reminder of goals"
       android:defaultValue="False"/>
   <EditTextPreference
-      android:key="reminderExtraTime"
-      android:title="Extra time for reminders"
-      android:defaultValue="600"
-      android:dependency="reminder"/>
+      android:key="reminderExtraSeconds"
+      android:title="Extra time between reminders"
+      android:defaultValue="60"
+      android:dependency="reminder"
+      android:summary="Plan %s seconds between tasks"/>
 </PreferenceScreen>

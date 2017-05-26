@@ -70,14 +70,17 @@ public class Reminder {
 
     /** @return next deadline computed from reminders */
     public static Calendar nextDeadline(Stats stats, Reminder ... all) {
+        long extra = Long.valueOf(prefs.getString("reminderExtraSeconds",
+                                                  "60")*1000);
         Map<Calendar, Long> durationPerDate = new HashMap<>();
         for (Reminder r: all) {
             if ( durationPerDate.containsKey(r.time()) ) {
                 mapIncrement(durationPerDate, r.time(),
-                             r.millisRequired(stats));
+                             r.millisRequired(stats) + extra);
             } else {
                 durationPerDate.put(r.time(),
-                                    Long.valueOf(r.millisRequired(stats)));
+                                    Long.valueOf(r.millisRequired(stats))
+                                    + extra);
             }
         }
         Map<Calendar, Long> durationCumulative = new HashMap<>();

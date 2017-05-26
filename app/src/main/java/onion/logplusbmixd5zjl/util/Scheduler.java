@@ -57,7 +57,7 @@ public class Scheduler {
     /** schedules a nag at <code>now+prefs.nagMinutes</code> */
     public void scheduleNag() {
         scheduleNag(System.currentTimeMillis()
-                    + Long.valueOf(prefs.getString("nagMinutes", "60"))*60*1000);
+                    +Long.valueOf(prefs.getString("nagMinutes", "60"))*60*1000);
     }
     /** schedules a nag at <code>now+millisWhen</code> */
     public void scheduleNag(long millisWhen) {
