@@ -13,7 +13,6 @@ import onion.logplusbmixd5zjl.util.Notify;
 import onion.logplusbmixd5zjl.util.State;
 import onion.logplusbmixd5zjl.util.WakeLocker;
 
-
 /**
  * Class that handles the broadcast that is set when the timer is paused.
  */
