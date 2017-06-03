@@ -16,7 +16,7 @@
       android:key="reminder"
       android:title="Reminder of goals"
       android:defaultValue="False"/>
-  <EditTextPreference
+  <onion.logplusbmixd5zjl.MyETP
       android:key="reminderExtraSeconds"
       android:title="Extra time between reminders"
       android:defaultValue="60"

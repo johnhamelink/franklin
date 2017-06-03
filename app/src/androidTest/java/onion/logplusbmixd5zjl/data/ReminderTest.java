@@ -20,11 +20,15 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 public class ReminderTest extends InstrumentationTestCase {
-
+    long extra;
+    
     @Before
     public void setUp() throws Exception {
         super.setUp();
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
+        long extra = Long
+            .valueOf(PreferenceManager.getDefaultSharedPreferences(context)
+                     .getString("reminderExtraSeconds", "60")) * 1000;
     }
     
 
@@ -88,7 +92,7 @@ public class ReminderTest extends InstrumentationTestCase {
     @Test
     public void test_nextDeadline_1() throws Exception {
         Reminder r = new Reminder(1, 40, 3, new TimerEntry("test_nextDeadline_1", 0, 0));
-        Calendar c = Reminder.nextDeadline(Stats.get(getContext()), r);
+        Calendar c = Reminder.nextDeadline(getContext(), r).first;
         assertEquals(1, c.get(Calendar.HOUR_OF_DAY));
         assertEquals(37, c.get(Calendar.MINUTE));
     }
@@ -96,7 +100,7 @@ public class ReminderTest extends InstrumentationTestCase {
     @Test
     public void test_nextDeadline_2() throws Exception {
         Reminder r = new Reminder(1, 40, 1, new TimerEntry("test_nextDeadline_2", 60*1000, 0));
-        Calendar c = Reminder.nextDeadline(Stats.get(getContext()), r);
+        Calendar c = Reminder.nextDeadline(getContext(), r).first;
         assertEquals(1, c.get(Calendar.HOUR_OF_DAY));
         assertEquals(38, c.get(Calendar.MINUTE));
     }
@@ -104,7 +108,7 @@ public class ReminderTest extends InstrumentationTestCase {
     @Test
     public void test_nextDeadline_3() throws Exception {
         Reminder r = new Reminder(1, 40, 5, new TimerEntry("test_nextDeadline_3", 60*1000, 0));
-        Calendar c = Reminder.nextDeadline(Stats.get(getContext()), r);
+        Calendar c = Reminder.nextDeadline(getContext(), r).first;
         assertEquals(1, c.get(Calendar.HOUR_OF_DAY));
         assertEquals(30, c.get(Calendar.MINUTE));
     }
@@ -117,7 +121,7 @@ public class ReminderTest extends InstrumentationTestCase {
         }
         TimerEntry te = new TimerEntry("test_nextDeadline_0", 60 * 1000, 0);
         Reminder r = new Reminder(now.get(Calendar.HOUR_OF_DAY) + 1, 40, 1, te);
-        Calendar c = Reminder.nextDeadline(Stats.get(getContext()), r);
+        Calendar c = Reminder.nextDeadline(getContext(), r).first;
         assertEquals(now.get(Calendar.DAY_OF_YEAR),
                      c.get(Calendar.DAY_OF_YEAR));
         assertEquals(now.get(Calendar.HOUR_OF_DAY) + 1, c.get(Calendar.HOUR_OF_DAY));
@@ -129,7 +133,7 @@ public class ReminderTest extends InstrumentationTestCase {
         Reminder r = new Reminder(1, 2, 1,
                                   new TimerEntry("test_nextDeadline_hour",
                                                  60*1000, 0));
-        Calendar c = Reminder.nextDeadline(Stats.get(getContext()), r);
+        Calendar c = Reminder.nextDeadline(getContext(), r).first;
         assertEquals(1, c.get(Calendar.HOUR_OF_DAY));
         assertEquals(0, c.get(Calendar.MINUTE));
         assertEquals(0, c.get(Calendar.SECOND));
@@ -140,7 +144,7 @@ public class ReminderTest extends InstrumentationTestCase {
         Reminder r = new Reminder(0, 3, 1,
                                   new TimerEntry("test_nextDeadline_minute",
                                                  60*1000, 0));
-        Calendar c = Reminder.nextDeadline(Stats.get(getContext()), r);
+        Calendar c = Reminder.nextDeadline(getContext(), r).first;
         assertEquals(0, c.get(Calendar.HOUR_OF_DAY));
         assertEquals(1, c.get(Calendar.MINUTE));
         assertEquals(0, c.get(Calendar.SECOND));
@@ -151,7 +155,7 @@ public class ReminderTest extends InstrumentationTestCase {
         Reminder r = new Reminder(0, 0, 1,
                                   new TimerEntry("test_nextDeadline_minute",
                                                  1000, 0));
-        Calendar c = Reminder.nextDeadline(Stats.get(getContext()), r);
+        Calendar c = Reminder.nextDeadline(getContext(), r).first;
         assertEquals(23, c.get(Calendar.HOUR_OF_DAY));
         assertEquals(58, c.get(Calendar.MINUTE));
         assertEquals(59, c.get(Calendar.SECOND));
@@ -162,7 +166,7 @@ public class ReminderTest extends InstrumentationTestCase {
         TimerEntry t = new TimerEntry("test_nextDeadline", 300 * 1000, 1);
         Reminder r = new Reminder(1, 40, 3, t);
         Reminder r2 = new Reminder(1, 40, 3, t);
-        Calendar c = Reminder.nextDeadline(Stats.get(getContext()), r, r2);
+        Calendar c = Reminder.nextDeadline(getContext(), r, r2).first;
         assertEquals(1, c.get(Calendar.HOUR_OF_DAY));
         assertEquals(4, c.get(Calendar.MINUTE));
     }

@@ -3,6 +3,7 @@ package onion.logplusbmixd5zjl.data;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.support.v4.util.Pair;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -19,7 +20,6 @@ public class Reminder {
     private static final String TAG = Reminder.class.getName();
     private static final int SWITCH_MILLIS = 60*1000;
 
-    //    long ID = -1; // tmp
     public final int hour;
     public final int minute;
     public final int limit;
@@ -32,12 +32,7 @@ public class Reminder {
         this.task = task;
     }
 
-    // /** @return dummy reminder */
-    // public static Reminder dummy() {
-    //     return new Reminder(3, 9, 27, null);
-    // }
-    
-    // td: ref: ? public attributes ?
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Reminder)) {
@@ -52,35 +47,32 @@ public class Reminder {
     }
 
 
-    // public final long getID() { return ID; }
-
-    // // should have ID >= 0 only when saved
-    // public final Reminder setID(long ID) {
-    //     this.ID = ID;
-    //     return this;
-    // }
     @Override public int hashCode() {
         throw new UnsupportedOperationException();
     }
     
 
-    public static Calendar nextDeadline(Context context, Reminder ... all) {
-        return nextDeadline(Stats.get(context), all);
-    }
-
     /** @return next deadline computed from reminders */
-    public static Calendar nextDeadline(Stats stats, Reminder ... all) {
-        long extra = Long.valueOf(prefs.getString("reminderExtraSeconds",
-                                                  "60")*1000);
+    public static Pair<Calendar, Map<Calendar, Vector<Reminder>>>
+        nextDeadline(Context context, Reminder ... all) {
+        long extra = Long
+            .valueOf(PreferenceManager.getDefaultSharedPreferences(context)
+                     .getString("reminderExtraSeconds", "60")) * 1000;
+        Stats stats = Stats.get(context);
+        Map<Calendar, Vector<Reminder>> remindersPerDate = new HashMap<>();
         Map<Calendar, Long> durationPerDate = new HashMap<>();
         for (Reminder r: all) {
             if ( durationPerDate.containsKey(r.time()) ) {
                 mapIncrement(durationPerDate, r.time(),
                              r.millisRequired(stats) + extra);
+                remindersPerDate.get(r.time()).add(r);
             } else {
                 durationPerDate.put(r.time(),
                                     Long.valueOf(r.millisRequired(stats))
                                     + extra);
+                Vector<Reminder> tmp = new Vector<>();
+                tmp.add(r);
+                remindersPerDate.put(r.time(), tmp);
             }
         }
         Map<Calendar, Long> durationCumulative = new HashMap<>();
@@ -104,7 +96,7 @@ public class Reminder {
             }
         }
 
-        return next;
+        return new Pair(next, remindersPerDate);
     }
 
     /** helper to call {@see schedule(Context, Scheduler)} */
@@ -122,7 +114,9 @@ public class Reminder {
             reminders.add(e.getReminder());
         }
         Reminder[] a = new Reminder[reminders.size()];
-        Calendar c = nextDeadline(context, reminders.toArray(a));
+        Pair<Calendar, Map<Calendar, Vector<Reminder>>> p =
+            nextDeadline(context, reminders.toArray(a));
+        Calendar c = p.first;
         scheduler.scheduleAlarm(c.getTime().getTime(), new Intent("my.minder"));
         Log.d(TAG, String.format("scheduled next alert at %s", c.getTime().toLocaleString()));
     }
