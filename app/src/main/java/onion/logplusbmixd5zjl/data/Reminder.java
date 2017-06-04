@@ -123,6 +123,9 @@ public class Reminder {
     }
 
     public static String remindersToString(Vector<Reminder> reminders) {
+        if ( reminders == null ) {
+            return "no reminders, should only happen when testing";
+        }
         StringBuilder sb = new StringBuilder();
         for ( Reminder r: reminders ) {
             sb.append(r.time());
