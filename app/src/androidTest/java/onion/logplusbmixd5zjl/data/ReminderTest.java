@@ -1,6 +1,7 @@
 package onion.logplusbmixd5zjl.data;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.InstrumentationTestCase;
@@ -14,34 +15,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the Reminder class.
  */
 @RunWith(AndroidJUnit4.class)
 public class ReminderTest extends InstrumentationTestCase {
-    long extra;
+    long extra; // TODO: use this instead of hardcoded values
     
     @Before
     public void setUp() throws Exception {
         super.setUp();
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         long extra = Long
-            .valueOf(PreferenceManager.getDefaultSharedPreferences(context)
-                     .getString("reminderExtraSeconds", "60")) * 1000;
+            .valueOf(PreferenceManager.getDefaultSharedPreferences(getContext())
+                     .getString("reminderExtraSeconds", "60")) /60;
     }
     
 
     @Test
     public void test_millisRequired() throws Exception {
         Reminder r = new Reminder(23, 59, 1, new TimerEntry("test_millisRequired", 1000, 1));
-        assertEquals(r.millisRequired(Stats.get(getContext())), 1000 + 60000);
+        assertEquals(r.millisRequired(getContext()), 1000 + 60000);
     }
 
     @Test
     public void test_millisRequired_multi() throws Exception {
         Reminder r = new Reminder(23, 59, 3, new TimerEntry("test_millisRequired_multi", 1000, 1));
-        assertEquals(r.millisRequired(Stats.get(getContext())), 3000 + 180000);
+        assertEquals(r.millisRequired(getContext()), 3000 + 180000);
     }
 
     @Test
@@ -51,7 +53,7 @@ public class ReminderTest extends InstrumentationTestCase {
         TimerStore.get(getContext()).save(t);
         Reminder r = t.getReminder();
         t.log();
-        assertEquals(0, r.millisRequired(Stats.get(getContext())));
+        assertEquals(0, r.millisRequired(getContext()));
         TimerStore.get(getContext()).remove(t);
     }
 
@@ -63,9 +65,10 @@ public class ReminderTest extends InstrumentationTestCase {
         Reminder r = t.getReminder();
         t.log();
         t.log();
-        assertEquals(0, r.millisRequired(Stats.get(getContext())));
+        assertEquals(0, r.millisRequired(getContext()));
         TimerStore.get(getContext()).remove(t);
     }
+
 
     @Test
     public void test_timeToday() throws Exception {
@@ -77,6 +80,7 @@ public class ReminderTest extends InstrumentationTestCase {
         shouldBe.set(Calendar.MILLISECOND, 0);
         assertEquals(r.time(), shouldBe);
     }
+
     @Test
     public void test_timeTomorrow() throws Exception {
         Reminder r = new Reminder(0, 1, 0, new TimerEntry("test_timeTomorrow", 1000, 1));
@@ -87,6 +91,14 @@ public class ReminderTest extends InstrumentationTestCase {
         shouldBe.set(Calendar.MILLISECOND, 0);
         shouldBe.add(Calendar.DAY_OF_MONTH, 1);
         assertEquals(r.time(), shouldBe);
+    }
+
+
+    @Test
+    public void test_nextDeadline_0() throws Exception {
+        Reminder r = new Reminder(1, 40, 0, new TimerEntry("test_nextDeadline_1", 0, 0));
+        Calendar c = Reminder.nextDeadline(getContext()).first;
+        assertTrue(2030 < c.get(Calendar.YEAR));
     }
 
     @Test

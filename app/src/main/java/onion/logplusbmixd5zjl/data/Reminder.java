@@ -18,7 +18,6 @@ import onion.logplusbmixd5zjl.util.Scheduler;
  */
 public class Reminder {
     private static final String TAG = Reminder.class.getName();
-    private static final int SWITCH_MILLIS = 60*1000;
 
     public final int hour;
     public final int minute;
@@ -55,21 +54,16 @@ public class Reminder {
     /** @return next deadline computed from reminders */
     public static Pair<Calendar, Map<Calendar, Vector<Reminder>>>
         nextDeadline(Context context, Reminder ... all) {
-        long extra = Long
-            .valueOf(PreferenceManager.getDefaultSharedPreferences(context)
-                     .getString("reminderExtraSeconds", "60")) * 1000;
-        Stats stats = Stats.get(context);
         Map<Calendar, Vector<Reminder>> remindersPerDate = new HashMap<>();
         Map<Calendar, Long> durationPerDate = new HashMap<>();
         for (Reminder r: all) {
             if ( durationPerDate.containsKey(r.time()) ) {
                 mapIncrement(durationPerDate, r.time(),
-                             r.millisRequired(stats) + extra);
+                             r.millisRequired(context));
                 remindersPerDate.get(r.time()).add(r);
             } else {
                 durationPerDate.put(r.time(),
-                                    Long.valueOf(r.millisRequired(stats))
-                                    + extra);
+                                    Long.valueOf(r.millisRequired(context)));
                 Vector<Reminder> tmp = new Vector<>();
                 tmp.add(r);
                 remindersPerDate.put(r.time(), tmp);
@@ -122,9 +116,12 @@ public class Reminder {
     }
 
     /** @return how much left to do for this reminder */
-    public long millisRequired(Stats stats) {
-        return Math.max(0, limit - stats.getCount(task))
-            * (task.getDuration() + SWITCH_MILLIS);
+    public long millisRequired(Context context) {
+        return Math.max(0, limit - Stats.get(context).getCount(task))
+            * (task.getDuration() + Long
+               .valueOf(PreferenceManager.getDefaultSharedPreferences(context)
+                        .getString("reminderExtraSeconds", "60")) * 1000);
+
     }
 
     @Override
