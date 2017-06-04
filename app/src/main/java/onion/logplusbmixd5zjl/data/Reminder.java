@@ -51,46 +51,51 @@ public class Reminder {
     }
     
 
-    /** @return next deadline computed from reminders */
-    public static Pair<Calendar, Map<Calendar, Vector<Reminder>>>
-        nextDeadline(Context context, Reminder ... all) {
+    /** @return Pair(next deadline computed from reminders,
+                     list of reminders for all dates)*/
+    public static Pair<Calendar, Vector<Reminder>> nextDeadline(
+            Context context, Reminder ... all) {
         Map<Calendar, Vector<Reminder>> remindersPerDate = new HashMap<>();
-        Map<Calendar, Long> durationPerDate = new HashMap<>();
+        Map<Calendar, Long> neededBeforeDate = new HashMap<>();
         for (Reminder r: all) {
-            if ( durationPerDate.containsKey(r.time()) ) {
-                mapIncrement(durationPerDate, r.time(),
-                             r.millisRequired(context));
+            if ( neededBeforeDate.containsKey(r.time()) ) {
+                mapIncrement(neededBeforeDate, r.time(),
+                             r.millisNeeded(context));
                 remindersPerDate.get(r.time()).add(r);
             } else {
-                durationPerDate.put(r.time(),
-                                    Long.valueOf(r.millisRequired(context)));
+                neededBeforeDate.put(r.time(),
+                                     Long.valueOf(r.millisNeeded(context)));
                 Vector<Reminder> tmp = new Vector<>();
                 tmp.add(r);
                 remindersPerDate.put(r.time(), tmp);
             }
         }
-        Map<Calendar, Long> durationCumulative = new HashMap<>();
-        for (Map.Entry<Calendar, Long> base: durationPerDate.entrySet()) {
-            Calendar baseTime = base.getKey();
-            durationCumulative.put(baseTime, base.getValue());
-            for (Map.Entry<Calendar, Long> increment: durationPerDate.entrySet()) {
-                if ( baseTime.before(increment.getKey()) ) {
-                    mapIncrement(durationCumulative, baseTime,
-                                 increment.getValue());
+        Map<Calendar, Long> neededCumulative = new HashMap<>();
+        for (Map.Entry<Calendar, Long> entry: neededBeforeDate.entrySet()) {
+            Calendar baseTime = entry.getKey();
+            neededCumulative.put(baseTime, entry.getValue());
+            for (Map.Entry<Calendar, Long> other: neededBeforeDate.entrySet()) {
+                if ( baseTime.before(other.getKey()) ) {
+                    mapIncrement(neededCumulative, baseTime,
+                                 other.getValue());
+                    remindersPerDate.get(baseTime)
+                    .addAll(remindersPerDate.get(other.getKey()));
                 }
             }
         }
 
         Calendar next = Calendar.getInstance(); next.add(Calendar.YEAR, 100);
-        for (Map.Entry<Calendar, Long> el: durationCumulative.entrySet()) {
-            Calendar itsTime = el.getKey();
-            itsTime.add(Calendar.SECOND, -el.getValue().intValue()/1000);
+        Vector<Reminder> nextReminders = new Vector<Reminder>();
+        for (Map.Entry<Calendar, Long> entry: neededCumulative.entrySet()) {
+            Calendar itsTime = entry.getKey();
+            itsTime.add(Calendar.SECOND, -entry.getValue().intValue()/1000);
             if ( itsTime.before(next) ) {
                 next = itsTime;
+                nextReminders = remindersPerDate.get(entry.getKey());
             }
         }
 
-        return new Pair(next, remindersPerDate);
+        return new Pair(next, nextReminders);
     }
 
     /** helper to call {@see schedule(Context, Scheduler)} */
@@ -108,15 +113,29 @@ public class Reminder {
             reminders.add(e.getReminder());
         }
         Reminder[] a = new Reminder[reminders.size()];
-        Pair<Calendar, Map<Calendar, Vector<Reminder>>> p =
+        Pair<Calendar, Vector<Reminder>> p =
             nextDeadline(context, reminders.toArray(a));
         Calendar c = p.first;
-        scheduler.scheduleAlarm(c.getTime().getTime(), new Intent("my.minder"));
+        Intent i = new Intent("my.minder")
+            .putExtra("remind", remindersToString(p.second));
+        scheduler.scheduleAlarm(c.getTime().getTime(), i);
         Log.d(TAG, String.format("scheduled next alert at %s", c.getTime().toLocaleString()));
     }
 
+    public static String remindersToString(Vector<Reminder> reminders) {
+        StringBuilder sb = new StringBuilder();
+        for ( Reminder r: reminders ) {
+            sb.append(r.time());
+            sb.append(" ");
+            sb.append(r.task.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+
     /** @return how much left to do for this reminder */
-    public long millisRequired(Context context) {
+    public long millisNeeded(Context context) {
         return Math.max(0, limit - Stats.get(context).getCount(task))
             * (task.getDuration() + Long
                .valueOf(PreferenceManager.getDefaultSharedPreferences(context)

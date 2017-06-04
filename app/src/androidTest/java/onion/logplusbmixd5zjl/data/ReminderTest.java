@@ -35,37 +35,37 @@ public class ReminderTest extends InstrumentationTestCase {
     
 
     @Test
-    public void test_millisRequired() throws Exception {
-        Reminder r = new Reminder(23, 59, 1, new TimerEntry("test_millisRequired", 1000, 1));
-        assertEquals(r.millisRequired(getContext()), 1000 + 60000);
+    public void test_millisNeeded() throws Exception {
+        Reminder r = new Reminder(23, 59, 1, new TimerEntry("test_millisNeeded", 1000, 1));
+        assertEquals(r.millisNeeded(getContext()), 1000 + 60000);
     }
 
     @Test
-    public void test_millisRequired_multi() throws Exception {
-        Reminder r = new Reminder(23, 59, 3, new TimerEntry("test_millisRequired_multi", 1000, 1));
-        assertEquals(r.millisRequired(getContext()), 3000 + 180000);
+    public void test_millisNeeded_multi() throws Exception {
+        Reminder r = new Reminder(23, 59, 3, new TimerEntry("test_millisNeeded_multi", 1000, 1));
+        assertEquals(r.millisNeeded(getContext()), 3000 + 180000);
     }
 
     @Test
-    public void test_millisRequired_after_all_done() throws Exception {
-        TimerEntry t = new TimerEntry("test_millisRequired_after_all_done",
+    public void test_millisNeeded_after_all_done() throws Exception {
+        TimerEntry t = new TimerEntry("test_millisNeeded_after_all_done",
                                       1000, 1, 10, 10, 1);
         TimerStore.get(getContext()).save(t);
         Reminder r = t.getReminder();
         t.log();
-        assertEquals(0, r.millisRequired(getContext()));
+        assertEquals(0, r.millisNeeded(getContext()));
         TimerStore.get(getContext()).remove(t);
     }
 
     @Test
-    public void test_millisRequired_after_extra_done() throws Exception {
-        TimerEntry t = new TimerEntry("test_millisRequired_after_extra_done",
+    public void test_millisNeeded_after_extra_done() throws Exception {
+        TimerEntry t = new TimerEntry("test_millisNeeded_after_extra_done",
                                       1000, 1, 10, 10, 1);
         TimerStore.get(getContext()).save(t);
         Reminder r = t.getReminder();
         t.log();
         t.log();
-        assertEquals(0, r.millisRequired(getContext()));
+        assertEquals(0, r.millisNeeded(getContext()));
         TimerStore.get(getContext()).remove(t);
     }
 

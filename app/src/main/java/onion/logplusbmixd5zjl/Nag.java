@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log; // debug: all calls of Log.d
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
@@ -35,7 +36,8 @@ public class Nag extends Activity {
 
     private MediaPlayer mediaPlayer;
 
-    @InjectView(R.id.n_remind) TextView remind;
+    @InjectView(R.id.n_remind) LinearLayout remind;
+    @InjectView(R.id.n_remindtext) TextView remindtext;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class Nag extends Activity {
         Bundle extras = getIntent().getExtras();
         if ( extras != null ) {
             remind.setVisibility(View.VISIBLE);
-            remind.setText(extras.getString("remind"));
+            remindtext.setText(extras.getString("remind"));
         }
     }
     // (is not done by default?) td: test this

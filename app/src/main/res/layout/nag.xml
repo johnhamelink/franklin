@@ -5,15 +5,27 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-  <Button
+  <LinearLayout
       android:id="@+id/n_remind"
-      android:layout_width="fill_parent" 
-      android:layout_height="wrap_content" 
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
       android:layout_weight="1"
-      android:onClick="pressGoCheck"
-      android:text="@string/e_a_label"
       android:visibility="gone"
-      />
+      >
+    <TextView
+        android:id="@+id/n_remindtext"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="pressGoCheck"
+        android:text="@string/e_a_label"
+        android:visibility="gone"
+        />
+  </LinearLayout>
   <Button
       android:id="@+id/n_snooze"
       android:layout_width="fill_parent" 
