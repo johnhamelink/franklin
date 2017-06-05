@@ -64,7 +64,7 @@ public class Alarm extends BroadcastReceiver {
 	    .setContentText("has ended with state: " 
 			    + Stats.readableSumToday(context))
 	    .setContentTitle("Timer")
-	    .setSmallIcon(R.drawable.franklin) // td: smaller size mb (@design)
+	    .setSmallIcon(R.drawable.logo)
 	    .setTicker("Timer has ended"); 
 
 	NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
