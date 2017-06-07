@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -67,6 +68,24 @@ public class ReminderTest extends InstrumentationTestCase {
         t.log();
         assertEquals(0, r.millisNeeded(getContext()));
         TimerStore.get(getContext()).remove(t);
+    }
+
+
+    @Test
+    public void test_remindersToStringEmpty() throws Exception {
+        assertEquals("no reminders, should only happen when testing",
+                     Reminder.remindersToString(new Vector()));
+    }
+
+
+    @Test
+    public void test_remindersToString() throws Exception {
+        Reminder r = new Reminder(12, 0, 0,
+                                  new TimerEntry("test_timeToday", 1000, 1));
+        Vector<Reminder> v = new Vector<>();
+        v.add(r);
+        assertEquals("12:00:00 test_timeToday(1)\n",
+                     Reminder.remindersToString(v));
     }
 
 

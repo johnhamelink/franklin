@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -123,12 +124,13 @@ public class Reminder {
     }
 
     public static String remindersToString(Vector<Reminder> reminders) {
-        if ( reminders == null ) {
+        if ( reminders == null || reminders.size() == 0 ) {
             return "no reminders, should only happen when testing";
         }
         StringBuilder sb = new StringBuilder();
+        DateFormat df = DateFormat.getTimeInstance();
         for ( Reminder r: reminders ) {
-            sb.append(r.time());
+            sb.append(df.format(r.time().getTime()));
             sb.append(" ");
             sb.append(r.task.toString());
             sb.append("\n");

@@ -147,7 +147,7 @@ public class TimerEntry extends TaskEntry {
     }
 
     @Override public String toString() {
-        return name + " (" + durationMillis / 1000 + ") ";
+        return name + "(" + durationMillis / 1000 + ")";
     }
     /** update this task's name etc */
     public void update(String name, long durationMillis, int repetitions) {
