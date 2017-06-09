@@ -119,7 +119,7 @@ public class Reminder {
         Calendar c = p.first;
         Intent i = new Intent("my.minder")
             .putExtra("remind", remindersToString(p.second));
-        scheduler.scheduleAlarm(c.getTime().getTime(), i);
+        scheduler.scheduleAlarm(c.getTime().getTime() * 1000, i);
         Log.d(TAG, String.format("scheduled next alert at %s", c.getTime().toLocaleString()));
     }
 
@@ -128,7 +128,7 @@ public class Reminder {
             return "no reminders, should only happen when testing";
         }
         StringBuilder sb = new StringBuilder();
-        DateFormat df = DateFormat.getTimeInstance();
+        DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
         for ( Reminder r: reminders ) {
             sb.append(df.format(r.time().getTime()));
             sb.append(" ");

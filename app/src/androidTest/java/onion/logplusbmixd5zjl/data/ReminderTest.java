@@ -84,7 +84,7 @@ public class ReminderTest extends InstrumentationTestCase {
                                   new TimerEntry("test_timeToday", 1000, 1));
         Vector<Reminder> v = new Vector<>();
         v.add(r);
-        assertEquals("12:00:00 test_timeToday(1)\n",
+        assertEquals("12:00 test_timeToday(1)\n",
                      Reminder.remindersToString(v));
     }
 
