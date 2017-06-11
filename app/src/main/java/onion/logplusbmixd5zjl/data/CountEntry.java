@@ -11,8 +11,7 @@ import java.util.Vector;
 
 /** a single countable */
 public class CountEntry extends TaskEntry {
-    public static final String TAG 
-	= new Object() { }.getClass().getEnclosingClass().getName();
+    public static final String TAG = CountEntry.class.getName();
     public static final int hours = 18;
     public static final int minutes = 0;
     public static final int remindRepetitions = 1;
