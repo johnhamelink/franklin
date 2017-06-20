@@ -22,13 +22,12 @@ import static org.junit.Assert.assertTrue;
  * Tests the Reminder class.
  */
 @RunWith(AndroidJUnit4.class)
-public class ReminderTest extends InstrumentationTestCase {
+public class ReminderTest extends MetaTest {
     long extra; // TODO: use this instead of hardcoded values
     
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         long extra = Long
             .valueOf(PreferenceManager.getDefaultSharedPreferences(getContext())
                      .getString("reminderExtraSeconds", "60")) /60;
@@ -209,10 +208,5 @@ public class ReminderTest extends InstrumentationTestCase {
         m.put(c, Long.valueOf(300));
         Reminder.mapIncrement(m, c, Long.valueOf(1000));
         assertEquals(m.get(c), Long.valueOf(1300));
-    }
-
-    // td: refactor (multiples)
-    private Context getContext() {
-        return InstrumentationRegistry.getTargetContext();
     }
 }

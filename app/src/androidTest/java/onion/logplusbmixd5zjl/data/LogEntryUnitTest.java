@@ -3,9 +3,7 @@ package onion.logplusbmixd5zjl.data;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.InstrumentationTestCase;
 
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,19 +28,12 @@ import static org.junit.Assert.assertTrue;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
-public class LogEntryUnitTest extends InstrumentationTestCase {
+public class LogEntryUnitTest extends MetaTest {
     private long date = 1234;
     private String name = "test";
     private long duration = 300;
     private String comment = "real comment";
     private String comment2 = "real comment, with comma";
-
-    
-    @Before
-    public void setUp() throws Exception {
-        super.setUp();
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
-    }
 
     
     @Test
@@ -110,7 +101,7 @@ public class LogEntryUnitTest extends InstrumentationTestCase {
     @Test
     public void test1stressCreation() {
         String name = this.name + "testStressCreation";
-        ArrayList<LogEntry> all = new ArrayList(100);
+        ArrayList<LogEntry> all = new ArrayList<>(100);
         for ( int i = 0; i < 100; i++ ) {
             LogEntry le = new LogEntry(getContext(), name, i, i);
             all.add(le);
@@ -322,10 +313,6 @@ public class LogEntryUnitTest extends InstrumentationTestCase {
     // }
 
     
-    private Context getContext() {
-        return InstrumentationRegistry.getTargetContext();
-    }
-
     private long newDate() {
         return new Date().getTime();
     }

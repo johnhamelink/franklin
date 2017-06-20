@@ -13,14 +13,13 @@ import org.junit.runner.RunWith;
  * Tests Stats utility methods.
  */
 @RunWith(AndroidJUnit4.class)
-public class StatsTest extends InstrumentationTestCase {
+public class StatsTest extends MetaTest {
     private Stats stats;
     private TimerStore ts;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         stats = Stats.get(getContext());
         ts = TimerStore.get(getContext());
     }
@@ -43,9 +42,5 @@ public class StatsTest extends InstrumentationTestCase {
         e.log();
         assertEquals(old + 300*1000, stats.getMillis(e));
         ts.remove(e);
-    }
-
-    private Context getContext() {
-        return InstrumentationRegistry.getTargetContext();
     }
 }

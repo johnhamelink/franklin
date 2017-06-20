@@ -13,16 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 @RunWith(AndroidJUnit4.class)
-public class TimerEntryTest extends InstrumentationTestCase {
-
-
-    @Before
-    public void setUp() throws Exception {
-        super.setUp();
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
-    }
-    
-
+public class TimerEntryTest extends MetaTest {
     @Test
     public void test_done() throws Exception {
         TimerEntry e = new TimerEntry("test_done", 100, 1);
@@ -77,11 +68,5 @@ public class TimerEntryTest extends InstrumentationTestCase {
         assertEquals(r.hour, 3);
         assertEquals(r.minute, 4);
         assertEquals(r.limit, 5);
-    }
-
-    
-    // td: refactor (multiples)
-    private Context getContext() {
-        return InstrumentationRegistry.getTargetContext();
     }
 }

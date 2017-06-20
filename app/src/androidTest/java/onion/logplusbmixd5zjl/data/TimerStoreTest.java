@@ -16,13 +16,12 @@ import static org.junit.Assert.*;
  * Tests the TimerStore class.
  */
 @RunWith(AndroidJUnit4.class)
-public class TimerStoreTest extends InstrumentationTestCase {
+public class TimerStoreTest extends MetaTest {
     private TimerStore ts;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         ts = TimerStore.get(getContext());
     }
 
@@ -186,8 +185,4 @@ public class TimerStoreTest extends InstrumentationTestCase {
     // public void test_fail() throws Exception {
     //     assertTrue(false);
     // }
-
-    private Context getContext() {
-        return InstrumentationRegistry.getTargetContext();
-    }
 }
