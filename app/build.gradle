@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
 
 android {
   compileSdkVersion 25
@@ -11,7 +10,7 @@ android {
     targetSdkVersion 25
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     versionCode 1
-    versionName "0.0.2"
+    versionName "0.1." + getDate()
   }
 
   buildTypes {
@@ -39,4 +38,8 @@ android {
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.android.support:appcompat-v7:25.3.1'
   }
+}
+
+def getDate() {
+    new Date().format('yyyyMMdd')
 }
