@@ -26,6 +26,7 @@ import butterknife.InjectView;
 import onion.logplusbmixd5zjl.data.Stats;
 import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
+import onion.logplusbmixd5zjl.util.FormatMillis;
 import onion.logplusbmixd5zjl.util.Notify;
 import onion.logplusbmixd5zjl.util.State;
 
@@ -208,7 +209,7 @@ public class Timer extends AppCompatActivity implements AdapterView.OnItemSelect
 
     /** displays the time on the display */
     private void displayTime(long displayTimeMillis) {
-        displayTime.setText(String.format("%.1f", displayTimeMillis/1000.0));
+        displayTime.setText(FormatMillis.format(displayTimeMillis));
     }
 
     private void editCurrentTask() {
