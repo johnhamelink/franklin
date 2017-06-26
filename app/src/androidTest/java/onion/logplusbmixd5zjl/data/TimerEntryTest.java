@@ -1,11 +1,7 @@
 package onion.logplusbmixd5zjl.data;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.InstrumentationTestCase;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -50,13 +46,13 @@ public class TimerEntryTest extends MetaTest {
         TimerEntry e4 = new TimerEntry("test_equals_reminder", -1,2,3,4,5);
         assertNotEquals(e, e4);
         TimerEntry e5 = new TimerEntry("test_equals_reminder", 1,-2,3,4,5);
-        assertNotEquals(e, e4);
+        assertNotEquals(e, e5);
         TimerEntry e6 = new TimerEntry("test_equals_reminder", 1,2,-3,4,5);
-        assertNotEquals(e, e4);
+        assertNotEquals(e, e6);
         TimerEntry e7 = new TimerEntry("test_equals_reminder", 1,2,3,-4,5);
-        assertNotEquals(e, e4);
+        assertNotEquals(e, e7);
         TimerEntry e8 = new TimerEntry("test_equals_reminder", 1,2,3,4,-5);
-        assertNotEquals(e, e4);
+        assertNotEquals(e, e8);
     }
 
     

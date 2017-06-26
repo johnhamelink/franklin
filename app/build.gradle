@@ -39,6 +39,7 @@ android {
     compile group: 'com.jakewharton', name: 'butterknife', version: '6.1.0'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.github.rehactive:waspdb:1.1.1'
   }
 }
 

@@ -1,7 +1,9 @@
 package onion.logplusbmixd5zjl.util;
 
 import java.util.concurrent.TimeUnit;
-
+/**
+ * formats milliseconds as [[HM:]MM:]SS:m, omitting leading zeros
+ */
 public class FormatMillis {
     public static String format(long millis) {
         StringBuilder out = new StringBuilder();
