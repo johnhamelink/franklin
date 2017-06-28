@@ -31,7 +31,7 @@ public abstract class TaskEntry extends Entry {
         for ( TimerEntry e: TimerStore.get(context).getAll() ) {
             out.add((TaskEntry) e);
         }
-        for ( CountEntry e: CountEntry.getAll() ) {
+        for ( CountEntry e: CountStore.getAll() ) {
             out.add((TaskEntry) e);
         }
         return out;

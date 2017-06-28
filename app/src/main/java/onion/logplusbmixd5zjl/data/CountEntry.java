@@ -5,6 +5,7 @@ import android.util.Log;
 
 import onion.logplusbmixd5zjl.Common;
 import onion.logplusbmixd5zjl.Count;
+import onion.logplusbmixd5zjl.MyApplication;
 import onion.logplusbmixd5zjl.util.Scheduler;
 
 import java.util.Vector;
@@ -18,19 +19,21 @@ public class CountEntry extends TaskEntry {
 
     private static Vector<CountEntry> all = new Vector<CountEntry>();
 
-    private final long target;
+    private long target;
     private LogEntry count;
+    private String name;
 
     // td: separate repetitions from count (f.ex. l.2 zu l.1.2)
 
-    public CountEntry(Context context, String name, long target) {
-	super(context, name);
-	this.target = target;
-	count = LogEntry.getByName(context, name, Common.getStartOfToday(context).getTime());//td: move to own date class
-	all.add(this); // this is the culprit, arrrgh
+    public CountEntry() {
+        super( MyApplication.context, null );
+        count = LogEntry.getByName(context, name, Common.getStartOfToday(context).getTime());//td: move to own date class
     }
-
-    public static Vector<CountEntry> getAll() { return all; }
+    public CountEntry(Context context, String name, long target) {
+        super(context, name);
+        this.target = target;
+        count = LogEntry.getByName(context, name, Common.getStartOfToday(context).getTime());//td: move to own date class
+    }
 
     @Override public Class getActivity() { return Count.class; }
     public long getCount() { return ( count == null )? 0 : count.getDuration(); }
@@ -41,13 +44,13 @@ public class CountEntry extends TaskEntry {
     }
 
     public void incrementCount(long increment) {
-	Log.d(TAG, "increment(" + increment + ") from " + getCount());
-	// td: refactor: unify this nag with timerentry.nag?
-	Scheduler.get(context).scheduleNag();
-	if ( count == null ) {
-	    count = new LogEntry(context, name, 0, System.currentTimeMillis());
-	}
-	count.saveDuration(count.getDuration() + increment, true);
+        Log.d(TAG, "increment(" + increment + ") from " + getCount());
+        // td: refactor: unify this nag with timerentry.nag?
+        Scheduler.get(context).scheduleNag();
+        if ( count == null ) {
+            count = new LogEntry(context, name, 0, System.currentTimeMillis());
+        }
+        count.saveDuration(count.getDuration() + increment, true);
     }
     // this writes to sp twice, td: rework (?name as put/commit?)
 
@@ -60,22 +63,22 @@ public class CountEntry extends TaskEntry {
     // }
     /** clears the counter for this task */
     public void resetCount() {
-	if ( count != null ) {
-	    count.remove();
-	    count = null;
-	}
+        if ( count != null ) {
+            count.remove();
+            count = null;
+        }
     }
 
     @Override public String toString() {
-	return name + " (" + getCount() + "/" + target + ") ";
+        return name + " (" + getCount() + "/" + target + ") ";
     }
 
     // @Override public String verboseString() {
-    // 	return getClass().getName() + "[" +
-    // 	    "name=" + name + ", " +
-    // 	    "durationMillis=" + durationMillis + ", " +
-    // 	    "ID=" + ID  + ", " +
-    // 	    "repetitions=" + repetitions
-    // 	    + "]";
+    //  return getClass().getName() + "[" +
+    //      "name=" + name + ", " +
+    //      "durationMillis=" + durationMillis + ", " +
+    //      "ID=" + ID  + ", " +
+    //      "repetitions=" + repetitions
+    //      + "]";
     // }
 }

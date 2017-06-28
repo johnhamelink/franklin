@@ -26,3 +26,7 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+# paper db
+-keep class onion.logplusbmixd5zjl.data.model.** { * ; }
+-keep class onion.logplusbmixd5zjl.data.data.model.** { * ; }
+-keep class onion.logplusbmixd5zjl.util.data.model.** { * ; }
