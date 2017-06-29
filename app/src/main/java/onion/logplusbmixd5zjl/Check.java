@@ -17,6 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import onion.logplusbmixd5zjl.data.CountEntry;
+import onion.logplusbmixd5zjl.data.CountStore;
 import onion.logplusbmixd5zjl.data.Stats;
 import onion.logplusbmixd5zjl.data.TaskEntry;
 import onion.logplusbmixd5zjl.data.TimerEntry;
@@ -117,7 +118,7 @@ public class Check extends Activity {
                 addToTable(entry, printValue);
             }
         }
-        for ( CountEntry entry: CountEntry.getAll() ) {//codup
+        for ( CountEntry entry: CountStore.getAll() ) {//codup
             Long val = todayMap.get(entry.getName());
             String printValue = ((val == null) ? "0" : val)
                 + "/" + entry.getTarget();

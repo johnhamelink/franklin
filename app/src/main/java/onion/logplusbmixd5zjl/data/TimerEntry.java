@@ -140,11 +140,6 @@ public class TimerEntry extends TaskEntry {
         }
     }
 
-    public void setReminder(int hours, int minutes, int remindRepetitions) {
-        this.hours = hours;
-        this.minutes = minutes;
-        this.remindRepetitions = remindRepetitions;
-    }
 
     @Override public String toString() {
         return name + "(" + durationMillis / 1000 + ")";

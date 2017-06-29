@@ -13,9 +13,6 @@ import java.util.Vector;
 /** a single countable */
 public class CountEntry extends TaskEntry {
     public static final String TAG = CountEntry.class.getName();
-    public static final int hours = 18;
-    public static final int minutes = 0;
-    public static final int remindRepetitions = 1;
 
     private static Vector<CountEntry> all = new Vector<CountEntry>();
 
@@ -24,24 +21,26 @@ public class CountEntry extends TaskEntry {
     private String name;
 
     // td: separate repetitions from count (f.ex. l.2 zu l.1.2)
-
+    private void initCount() {
+        count = LogEntry.getByName(context, name, Common.getStartOfToday(context).getTime());//td: move to own date class
+    }
     public CountEntry() {
         super( MyApplication.context, null );
-        count = LogEntry.getByName(context, name, Common.getStartOfToday(context).getTime());//td: move to own date class
     }
     public CountEntry(Context context, String name, long target) {
         super(context, name);
         this.target = target;
-        count = LogEntry.getByName(context, name, Common.getStartOfToday(context).getTime());//td: move to own date class
+        initCount();
+    }
+    public void update(String name, long target) {
+        this.name = name;
+        this.target = target;
+        initCount();
     }
 
     @Override public Class getActivity() { return Count.class; }
     public long getCount() { return ( count == null )? 0 : count.getDuration(); }
     public long getTarget() { return target; }
-
-    public Reminder getReminder() {
-        return new Reminder(hours, minutes, remindRepetitions, this);
-    }
 
     public void incrementCount(long increment) {
         Log.d(TAG, "increment(" + increment + ") from " + getCount());

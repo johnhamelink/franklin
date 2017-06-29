@@ -8,6 +8,9 @@ import java.util.Vector;
  * unifies TimerEntry and CountEntry
  */
 public abstract class TaskEntry extends Entry {
+    public int hours = 18;
+    public int minutes = 0;
+    public int remindRepetitions = 1;
 
     // todo: way to skip these, and copy them from entry?
     /** no-meta-operation constructor */
@@ -24,9 +27,19 @@ public abstract class TaskEntry extends Entry {
         super(context, name);
     }
 
-    public abstract Reminder getReminder();
+
+    public Reminder getReminder() {
+        return new Reminder(hours, minutes, remindRepetitions, this);
+    }
+    public void setReminder(int hours, int minutes, int remindRepetitions) {
+        this.hours = hours;
+        this.minutes = minutes;
+        this.remindRepetitions = remindRepetitions;
+    }
+
+
     /** @return all timer and count entries */
-    public static Vector<TaskEntry> getAllChilds(Context context) {
+    public static Vector<TaskEntry> getAllSiblings(Context context) {
         Vector<TaskEntry> out = new Vector<>();
         for ( TimerEntry e: TimerStore.get(context).getAll() ) {
             out.add((TaskEntry) e);

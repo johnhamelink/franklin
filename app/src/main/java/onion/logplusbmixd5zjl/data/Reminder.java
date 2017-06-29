@@ -110,7 +110,7 @@ public class Reminder {
             return;
         }
         Vector<Reminder> reminders = new Vector<Reminder>();
-        for ( TaskEntry e: TaskEntry.getAllChilds(context) ) {
+        for ( TaskEntry e: TaskEntry.getAllSiblings(context) ) {
             reminders.add(e.getReminder());
         }
         Reminder[] a = new Reminder[reminders.size()];
