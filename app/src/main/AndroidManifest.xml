@@ -27,6 +27,9 @@
     <activity android:name="Count"
               android:label="@string/app_name">
     </activity>
+    <activity android:name="EditCount"
+              android:label="@string/app_name">
+    </activity>
     <activity android:name="EditLog"
               android:label="@string/app_name">
     </activity>

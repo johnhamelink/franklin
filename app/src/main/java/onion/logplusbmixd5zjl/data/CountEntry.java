@@ -6,8 +6,10 @@ import android.util.Log;
 import onion.logplusbmixd5zjl.Common;
 import onion.logplusbmixd5zjl.Count;
 import onion.logplusbmixd5zjl.MyApplication;
+import onion.logplusbmixd5zjl.R;
 import onion.logplusbmixd5zjl.util.Scheduler;
 
+import java.util.Locale;
 import java.util.Vector;
 
 /** a single countable */
@@ -65,6 +67,14 @@ public class CountEntry extends TaskEntry {
         if ( count != null ) {
             count.remove();
             count = null;
+        }
+    }
+
+    public String getTimeButtonText() {
+        if ( hours != -1 ) {
+            return String.format( Locale.US, "%d:%02d", hours, minutes);
+        } else {
+            return context.getResources().getString(R.string.e_a_t_start);
         }
     }
 

@@ -8,6 +8,22 @@ import java.util.Vector;
  * unifies TimerEntry and CountEntry
  */
 public abstract class TaskEntry extends Entry {
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
     public int hours = 18;
     public int minutes = 0;
     public int remindRepetitions = 1;

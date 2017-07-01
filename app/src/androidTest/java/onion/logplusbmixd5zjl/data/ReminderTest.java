@@ -83,7 +83,7 @@ public class ReminderTest extends MetaTest {
                                   new TimerEntry("test_timeToday", 1000, 1));
         Vector<Reminder> v = new Vector<>();
         v.add(r);
-        assertEquals("12:00 test_timeToday(1)\n",
+        assertEquals("12:00 PM test_timeToday(1)\n",
                      Reminder.remindersToString(v));
     }
 

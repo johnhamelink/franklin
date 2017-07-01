@@ -56,6 +56,9 @@ public class Check extends Activity {
         case R.id.check_m_add:
             startActivity(new Intent(this, EditTask.class));
             return true;
+        case R.id.check_m_add_count:
+            startActivity(new Intent(this, EditCount.class));
+            return true;
         case R.id.check_m_test:
             startActivity(new Intent(this, Test.class));
             return true;

@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent">
-<TableRow>
-  <TextView
-      android:layout_height="wrap_content" 
-      android:text="@string/e_n_label"
-      />
-  <!-- td: better specific inputType? -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+  <data>
+    <variable name="count" type="onion.logplusbmixd5zjl.data.CountEntry"/>
+  </data>
+
+  <TableLayout
+      android:layout_height="match_parent"
+      android:layout_width="match_parent">
+    <TableRow>
+      <TextView
+          android:layout_height="wrap_content" 
+          android:text="@string/e_n_label"
+          />
+      <!-- td: better specific inputType? -->
       <!-- android:hint="@string/e_n_hint" -->
-  <EditText
-      android:id="@+id/e_c_name"
-      android:inputType="text" 
-      />
-</TableRow>
-<TableRow>
-  <TextView
-      android:text="@string/e_c_label"
-      />
-  <EditText
-      android:id="@+id/e_c_target"
-      android:inputType="number"
-      />
-</TableRow>
-<TableRow>
-  <TextView
-      android:text="@string/e_a_label"
-      android:layout_gravity="center_vertical"
-      />
-  <LinearLayout>
-    <Button
-        android:id="@+id/e_a_time"
-        android:onClick="pressEditAlarmTime"
-        android:text="@string/e_a_t_start"
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        />
-    <EditText
-	android:id="@+id/e_a_number"
-	android:hint="@string/e_a_n_hint"
-	android:inputType="number"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-	/>
-  </LinearLayout>
-</TableRow>
-</TableLayout>
+      <EditText
+          android:id="@+id/e_c_name"
+          android:inputType="text"
+          android:text="@{count.name}"
+          />
+    </TableRow>
+    <TableRow>
+      <TextView
+          android:text="@string/e_c_label"
+          />
+      <EditText
+          android:id="@+id/e_c_target"
+          android:inputType="number"
+          android:text="@{`` + count.target}"
+          />
+    </TableRow>
+    <TableRow>
+      <TextView
+          android:text="@string/e_a_label"
+          />
+      <LinearLayout>
+        <Button
+            android:text="@{count.getTimeButtonText}"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/e_a_time"
+            android:onClick="pressEditAlarmTime"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            />
+        <EditText
+	    android:id="@+id/e_a_number"
+	    android:hint="@string/e_a_n_hint"
+	    android:inputType="number"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:text="@{`` + count.remindRepetitions}"
+	    />
+      </LinearLayout>
+    </TableRow>
+  </TableLayout>
+</layout>

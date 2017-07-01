@@ -71,7 +71,8 @@ public class EditTask extends FragmentActivity {
             duration *= 1000;
             repetitions = Integer.parseInt(textDayRepeat.getText().toString());
             if ( hours >= 0 ) {
-                remindRepetitions = Integer.parseInt(textRemindRepeat.getText().toString());
+                remindRepetitions = Integer.parseInt(textRemindRepeat
+                                                     .getText().toString());
             }
             if ( ( duration <= 0 || repetitions <= 0 || name.trim().equals("")
                  || TimerStore.get(this).getEntry(name.trim()) != null )
