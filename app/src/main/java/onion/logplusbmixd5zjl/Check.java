@@ -121,7 +121,7 @@ public class Check extends Activity {
                 addToTable(entry, printValue);
             }
         }
-        for ( CountEntry entry: CountStore.getAll() ) {//codup
+        for ( CountEntry entry: CountStore.get(this).getAll() ) {//codup
             Long val = todayMap.get(entry.getName());
             String printValue = ((val == null) ? "0" : val)
                 + "/" + entry.getTarget();

@@ -34,11 +34,17 @@ public class CountEntry extends TaskEntry {
         this.target = target;
         initCount();
     }
+    public CountEntry(Context context, String name, long target,
+                      int hours, int minutes, int remindRepetitions) {
+        this(context, name, target);
+        setReminder(hours, minutes, remindRepetitions);
+    }
     public void update(String name, long target) {
         this.name = name;
         this.target = target;
         initCount();
     }
+
 
     @Override public Class getActivity() { return Count.class; }
     public long getCount() { return ( count == null )? 0 : count.getDuration(); }
