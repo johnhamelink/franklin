@@ -72,5 +72,28 @@ public abstract class TaskEntry extends Entry {
     }
     
     public abstract Class getActivity();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals( o )) return false;
+
+        TaskEntry taskEntry = (TaskEntry) o;
+
+        if (hours != taskEntry.hours) return false;
+        if (minutes != taskEntry.minutes) return false;
+        return remindRepetitions == taskEntry.remindRepetitions;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + hours;
+        result = 31 * result + minutes;
+        result = 31 * result + remindRepetitions;
+        return result;
+    }
     // td: getAll combines both
 }

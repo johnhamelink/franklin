@@ -25,7 +25,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:onClick="pressGoCheck"
-        android:text="@string/e_a_label"
+        android:text="@string/reminder_label"
         />
   </LinearLayout>
   <Button

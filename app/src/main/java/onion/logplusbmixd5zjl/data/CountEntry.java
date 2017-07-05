@@ -20,7 +20,6 @@ public class CountEntry extends TaskEntry {
 
     private long target;
     private LogEntry count;
-    private String name;
 
     // td: separate repetitions from count (f.ex. l.2 zu l.1.2)
     private void initCount() {
@@ -86,6 +85,25 @@ public class CountEntry extends TaskEntry {
 
     @Override public String toString() {
         return name + " (" + getCount() + "/" + target + ") ";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals( o )) return false;
+
+        CountEntry that = (CountEntry) o;
+
+        return target == that.target;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (int) (target ^ (target >>> 32));
+        return result;
     }
 
     // @Override public String verboseString() {

@@ -7,7 +7,7 @@
   <TableRow>
       <TextView
 	  android:layout_height="wrap_content" 
-	  android:text="@string/e_n_label"
+	  android:text="@string/name_label"
 	  />
       <!-- td: better specific inputType? -->
       <EditText
@@ -18,7 +18,7 @@
     </TableRow>
     <TableRow>
       <TextView
-	android:text="@string/e_d_label"
+	android:text="@string/duration_label"
 	/>
       <EditText
 	  android:id="@+id/e_duration"
@@ -28,7 +28,7 @@
     </TableRow>
     <TableRow>
       <TextView
-	  android:text="@string/e_r_label"
+	  android:text="@string/repetitions_label"
 	  />
       <EditText
 	  android:id="@+id/e_repeat"
@@ -38,7 +38,7 @@
     </TableRow>
     <TableRow>
       <TextView
-	  android:text="@string/e_a_label"
+	  android:text="@string/reminder_label"
           android:layout_gravity="center_vertical"
 	  />
       <LinearLayout>

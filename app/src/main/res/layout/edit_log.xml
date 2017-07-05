@@ -10,7 +10,7 @@
       >
     <TableRow>
       <TextView
-	  android:text="@string/e_n_label"
+	  android:text="@string/name_label"
 	  />
       <EditText
 	  android:id="@+id/editlog_name"
@@ -22,7 +22,7 @@
     </TableRow>
     <TableRow>
       <TextView
-	  android:text="@string/e_d_label"
+	  android:text="@string/duration_label"
 	  />
       <EditText
 	  android:id="@+id/editlog_duration"
@@ -34,7 +34,7 @@
     </TableRow>
     <TableRow>
       <TextView
-	  android:text="@string/e_c_label"
+	  android:text="@string/comment_label"
 	  />
       <EditText
 	  android:id="@+id/editlog_comment"
