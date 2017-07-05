@@ -116,28 +116,14 @@ public class Count extends Activity implements OnItemSelectedListener {
         //adapter.notifyDataSetChanged();
         updateCountView();
     }
-    public void pressNext(View view) {
-        nextEntry();
-    }
-    public void pressPrevious(View view) {
-        previousEntry();
-    }
+    public void pressNext(View view) { nextEntry(); }
+    public void pressPrevious(View view) { previousEntry(); }
 
     private void nextEntry() {
-        int position = spinner.getSelectedItemPosition();
-        if ( position == entries.size() -1 ) {
-            spinner.setSelection(0, true);
-        } else {
-            spinner.setSelection(position + 1, true);
-        }
+        spinner.setSelection(CountStore.getNext(this), true);
     }
     private void previousEntry() {
-        int position = spinner.getSelectedItemPosition();
-        if ( position == 0 ) {
-            spinner.setSelection(entries.size() -1, true);
-        } else {
-            spinner.setSelection(position - 1, true);
-        }
+        spinner.setSelection(CountStore.getPrevious(this), true);
     }
 
     private CountEntry getSelected() {
