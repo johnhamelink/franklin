@@ -123,7 +123,7 @@ public final class Storage {
     
     // td: rename to sth else
     /** saves scheduled data */
-    public void save() {
+    public void save() { 
         // td: move here, adapt for multiple short-term saves
         editor.apply();
         editor = null;

@@ -175,7 +175,7 @@ public class TimerStoreTest extends MetaTest {
         e.setReminder(10, 10, 11);
         assertTrue(ts.save(e));
         TimerEntry e2 = ts.getEntry(e.ID);
-        assertEquals(e.verboseString() + " vs " + e2.verboseString(),
+        assertEquals(//e.verboseString() + " vs " + e2.verboseString(),
                      11, e2.remindRepetitions);
         ts.remove(e);
     }

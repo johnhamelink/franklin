@@ -78,8 +78,8 @@ public class Stats {
     /** @see #getMillis */
     public static Map<String, Long> getSumToday(Context context) {
         return getMillis(context,
-                      Common.getStartOfToday(context).getTime(),
-                      new Date());
+                         Common.getStartOfToday(context).getTime(),
+                         new Date());
     }
     /** @see #getMillis */
     public static Map<String, Long> getSumYesterday(Context context) {

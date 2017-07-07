@@ -33,9 +33,6 @@ public class TimerEntry extends TaskEntry {
 
     // todo: make private? / protected?
     long durationMillis;
-    public int hours = -1;
-    public int minutes = -1;
-    public int remindRepetitions = -1;
     int repetitions;
 
     // later: class (for stats)
