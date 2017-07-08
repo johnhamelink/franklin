@@ -17,7 +17,7 @@ import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
 import onion.logplusbmixd5zjl.util.TextValidator;
 
-public class EditTask extends FragmentActivity {
+public class EditTask extends FragmentActivity implements EditSth {
     private static final String TAG = EditTask.class.getName();
 
     private Button howmanyButton;

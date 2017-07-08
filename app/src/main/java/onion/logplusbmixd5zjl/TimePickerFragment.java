@@ -27,7 +27,7 @@ public class TimePickerFragment extends DialogFragment
 
     // if used in more than one activity, could create interface w/ dosettime
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        ((EditTask)getActivity()).doSetTime(hourOfDay, minute);
+        ((EditSth)getActivity()).doSetTime(hourOfDay, minute);
         // need to dismiss?
     }
 }
