@@ -2,7 +2,6 @@ package onion.logplusbmixd5zjl;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,7 +15,6 @@ import java.util.Locale;
 
 import onion.logplusbmixd5zjl.data.CountEntry;
 import onion.logplusbmixd5zjl.data.CountStore;
-import onion.logplusbmixd5zjl.databinding.EditCountBinding;
 import onion.logplusbmixd5zjl.util.TextValidator;
 
 public class EditCount extends FragmentActivity implements EditSth {
@@ -30,8 +28,6 @@ public class EditCount extends FragmentActivity implements EditSth {
     private int hours = -1;
     private int minutes = -1;
 
-    private EditCountBinding binding;
-
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,18 +35,18 @@ public class EditCount extends FragmentActivity implements EditSth {
 
         Common.init(this);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.edit_count);
 
-        timeButton = (Button) findViewById(R.id.e_a_time);
+        timeButton = (Button) findViewById(R.id.e_c_time);
         textName = (EditText) findViewById(R.id.e_c_name);
         textTarget = (EditText) findViewById(R.id.e_c_target);
-        textRemindRepeat = (EditText) findViewById(R.id.e_a_number);
+        textRemindRepeat = (EditText) findViewById(R.id.e_c_number);
+
+        // next: addlisteners
     }
 
     @Override public void onResume() {
         super.onResume();
         fillCount();
-        binding.setCount(task);
     }
 
     // - save()-method

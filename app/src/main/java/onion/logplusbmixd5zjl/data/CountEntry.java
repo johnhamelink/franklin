@@ -75,6 +75,10 @@ public class CountEntry extends TaskEntry {
         }
     }
 
+    public void setTarget(long target) {
+        this.target = target;
+    }
+
     public String getTimeButtonText() {
         if ( hours != -1 ) {
             return String.format( Locale.US, "%d:%02d", hours, minutes);

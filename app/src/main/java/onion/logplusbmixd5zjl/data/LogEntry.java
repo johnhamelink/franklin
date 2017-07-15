@@ -205,7 +205,7 @@ public class LogEntry extends Entry {
     /** @return true if some value changed from last save */
     public final boolean save(String name, long durationMillis, String comment) {
         boolean changed = false;
-        changed |= setName(name);
+        setName(name); // todo: remove all feedback ;-) (or reenable for all names and return true)
         changed |= setDuration(durationMillis, false);
         changed |= setComment(comment);
         if ( changed ) {
@@ -268,15 +268,11 @@ public class LogEntry extends Entry {
         }
     }
 
-    /** @return True if value changed */
-    public boolean setName(String name) {
-        if ( name.equals(this.name) ) {
-            return false;
-        } else {
+    public void setName(String name) {
+        if ( ! name.equals(this.name) ) {
             this.name = name;
 
             storage.putString(storagePart("name"), name);
-            return true;
         }
     }
 

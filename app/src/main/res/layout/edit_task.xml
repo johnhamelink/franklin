@@ -22,7 +22,6 @@
 	/>
       <EditText
 	  android:id="@+id/e_duration"
-	  android:hint="@string/e_d_hint"
 	  android:inputType="number"
 	  />
     </TableRow>

@@ -13,7 +13,12 @@ public abstract class Entry implements Comparable<Entry> {
     // td: really package access?
     // td: refactor to protected
     int ID = -1;
-    String name;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    protected String name;
 
     /** no-meta-operation constructor */
     protected Entry(String name) {

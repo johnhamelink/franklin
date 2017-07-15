@@ -20,11 +20,11 @@ import onion.logplusbmixd5zjl.util.TextValidator;
 public class EditTask extends FragmentActivity implements EditSth {
     private static final String TAG = EditTask.class.getName();
 
-    private Button howmanyButton;
+    private Button timeButton;
     private TimerEntry task;
-    private EditText textDayRepeat;
-    private EditText textDurationSeconds;
     private EditText textName;
+    private EditText textDurationSeconds;
+    private EditText textDayRepeat;
     private EditText textRemindRepeat;
     // later: solartime
     private int hours = -1;
@@ -39,7 +39,7 @@ public class EditTask extends FragmentActivity implements EditSth {
 
         setContentView(R.layout.edit_task);
 
-        howmanyButton = (Button) findViewById(R.id.e_a_time);
+        timeButton = (Button) findViewById(R.id.e_a_time);
         textDurationSeconds = (EditText) findViewById(R.id.e_duration);
         textName = (EditText) findViewById(R.id.e_name);
         textDayRepeat = (EditText) findViewById(R.id.e_repeat);
@@ -105,7 +105,7 @@ public class EditTask extends FragmentActivity implements EditSth {
 
     /** sets reminder time */
     public void doSetTime(int hourOfDay, int minute) {
-        howmanyButton.setText(String.format(Locale.US, "%d:%02d",
+        timeButton.setText(String.format(Locale.US, "%d:%02d",
                                             hourOfDay, minute));
         hours = hourOfDay;
         minutes = minute;
@@ -174,7 +174,7 @@ public class EditTask extends FragmentActivity implements EditSth {
     }
 
     private void setTimeButtonText(int hourOfDay, int minute) {
-        howmanyButton.setText(String.format(Locale.US, "%d:%02d",
+        timeButton.setText(String.format(Locale.US, "%d:%02d",
                                             hourOfDay, minute));
     }
 }

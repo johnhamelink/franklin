@@ -2,6 +2,7 @@ package onion.logplusbmixd5zjl.data;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.FlakyTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.InstrumentationTestCase;
 
@@ -25,6 +26,7 @@ public class StatsTest extends MetaTest {
     }
 
     @Test
+    @FlakyTest
     public void testGetCount() throws Exception {
         TimerEntry e = new TimerEntry("testGetCount", 300*1000, 1);
         ts.save(e);
