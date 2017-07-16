@@ -154,21 +154,17 @@ public class EditTask extends FragmentActivity implements EditSth {
             TimerStore.getCount(this) == 0) {
             Log.v(TAG, "creating new task");
         } else {
-            if ( TimerStore.getCount(this) > 0 ) {
-                task = TimerStore.getCurrentEntry(this); // td: by id?
-                Log.v(TAG, "editing existing task: " + task);
-                textName.setText(task.getName());
-                textDurationSeconds.setText(String.valueOf(task.getDuration()/1000));
-                textDayRepeat.setText(String.valueOf(task.getRepetitions()));
-                // should be somewhere else
-                hours = task.hours;
-                minutes = task.minutes;
-                if ( task.hours != -1 ) {
-                    setTimeButtonText(task.hours, task.minutes);
-                    textRemindRepeat.setText(String.valueOf(task.remindRepetitions));
-                }
-            } else { // td: remove when code coverage close to 100% (?)
-                throw new RuntimeException("should not happen");
+            task = TimerStore.getCurrentEntry(this); // td: by id?
+            Log.v(TAG, "editing existing task: " + task);
+            textName.setText(task.getName());
+            textDurationSeconds.setText(String.valueOf(task.getDuration()/1000));
+            textDayRepeat.setText(String.valueOf(task.getRepetitions()));
+            // should be somewhere else
+            hours = task.hours;
+            minutes = task.minutes;
+            if ( task.hours != -1 ) {
+                setTimeButtonText(task.hours, task.minutes);
+                textRemindRepeat.setText(String.valueOf(task.remindRepetitions));
             }
         }
     }

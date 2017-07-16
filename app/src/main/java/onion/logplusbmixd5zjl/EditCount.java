@@ -35,13 +35,14 @@ public class EditCount extends FragmentActivity implements EditSth {
 
         Common.init(this);
 
+        setContentView(R.layout.edit_count);
 
         timeButton = (Button) findViewById(R.id.e_c_time);
         textName = (EditText) findViewById(R.id.e_c_name);
         textTarget = (EditText) findViewById(R.id.e_c_target);
         textRemindRepeat = (EditText) findViewById(R.id.e_c_number);
 
-        // next: addlisteners
+        // some day maybe: addlisteners, see edittask
     }
 
     @Override public void onResume() {
@@ -52,6 +53,8 @@ public class EditCount extends FragmentActivity implements EditSth {
     // - save()-method
     @Override public void onPause() {
         Log.d(TAG, "onPause()");
+        
+
         boolean changed = CountStore.get(this).save(task);
 
         setResult(Activity.RESULT_OK, new Intent());
@@ -75,6 +78,7 @@ public class EditCount extends FragmentActivity implements EditSth {
         frag.show(getSupportFragmentManager(), "dialog");
     }
 
+    // todo: codup edittask
     private void fillCount() {
         Bundle extras = getIntent().getExtras();
         if (extras == null ||
@@ -84,16 +88,13 @@ public class EditCount extends FragmentActivity implements EditSth {
             // todo: strings.xml
             task = new CountEntry(this, "TD: new count", 0);
         } else {
-            if ( CountStore.get(this).getCount() > 0 ) {
-                task = CountStore.getCurrentEntry(this); // td: by id?
-                Log.v(TAG, "editing existing task: " + task);
-                hours = task.hours;
-                minutes = task.minutes;
-                if ( task.hours != -1 ) {
-                    setTimeButtonText(task.hours, task.minutes);
-                }
-            } else { // td: remove when code coverage close to 100% (?)
-                throw new RuntimeException("should not happen");
+            task = CountStore.getCurrentEntry(this); // td: by id?
+            Log.v(TAG, "editing existing task: " + task);
+            hours = task.hours;
+            minutes = task.minutes;
+            // todo: real separate reminder object (with store?)
+            if ( task.hours != -1 ) {
+                setTimeButtonText(task.hours, task.minutes);
             }
         }
     }

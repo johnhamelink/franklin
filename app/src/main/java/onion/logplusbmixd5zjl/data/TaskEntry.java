@@ -24,9 +24,9 @@ public abstract class TaskEntry extends Entry {
         this.hours = hours;
     }
 
-    public int hours = 18;
-    public int minutes = 0;
-    public int remindRepetitions = 1;
+    public int hours = -1;
+    public int minutes = -1;
+    public int remindRepetitions = -1;
 
     // todo: way to skip these, and copy them from entry?
     /** no-meta-operation constructor */
