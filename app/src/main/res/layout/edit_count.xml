@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="TD: Save"/>
-        <!-- your buttons go here -->
+    <!-- your buttons go here -->
   </RelativeLayout>
 
   <TableLayout
@@ -22,47 +22,47 @@
       android:layout_width="match_parent"
       android:layout_above="@id/buttons"
       >
-  <TableRow>
-    <TextView
-        android:layout_height="wrap_content"
-        android:text="@string/name_label"
-        />
-    <!-- td: better specific inputType? -->
-    <!-- android:hint="@string/e_n_hint" -->
-    <EditText
-        android:id="@+id/e_c_name"
-        android:inputType="text"
-        />
-  </TableRow>
-  <TableRow>
-    <TextView
-        android:text="@string/target_label"
-        />
-    <EditText
-        android:id="@+id/e_c_target"
-        android:inputType="number"
-        />
-  </TableRow>
-  <TableRow>
-    <TextView
-        android:text="@string/reminder_label"
-        android:layout_gravity="center_vertical"
-        />
-    <LinearLayout>
-      <Button
-          android:id="@+id/e_c_time"
-          android:onClick="pressEditAlarmTime"
-          android:layout_height="match_parent"
-          android:layout_width="wrap_content"
+    <TableRow>
+      <TextView
+          android:layout_height="wrap_content"
+          android:text="@string/name_label"
+          />
+      <!-- td: better specific inputType? -->
+      <!-- android:hint="@string/e_n_hint" -->
+      <EditText
+          android:id="@+id/e_c_name"
+          android:inputType="text"
+          />
+    </TableRow>
+    <TableRow>
+      <TextView
+          android:text="@string/target_label"
           />
       <EditText
-	  android:id="@+id/e_c_number"
-	  android:hint="@string/e_a_n_hint"
-	  android:inputType="number"
-          android:layout_height="match_parent"
-          android:layout_width="match_parent"
-	  />
-    </LinearLayout>
-  </TableRow>
-</TableLayout>
+          android:id="@+id/e_c_target"
+          android:inputType="number"
+          />
+    </TableRow>
+    <TableRow>
+      <TextView
+          android:text="@string/reminder_label"
+          android:layout_gravity="center_vertical"
+          />
+      <LinearLayout>
+        <Button
+            android:id="@+id/e_c_time"
+            android:onClick="pressEditAlarmTime"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            />
+        <EditText
+	    android:id="@+id/e_c_number"
+	    android:hint="@string/e_a_n_hint"
+	    android:inputType="number"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+	    />
+      </LinearLayout>
+    </TableRow>
+  </TableLayout>
 </RelativeLayout>

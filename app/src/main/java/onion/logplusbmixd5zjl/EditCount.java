@@ -78,6 +78,22 @@ public class EditCount extends FragmentActivity implements EditSth {
         frag.show(getSupportFragmentManager(), "dialog");
     }
 
+
+    public void pressSave(View view) {
+        try {
+            task = getValues();
+            CountStore.get(this).save(task);
+            finish();
+        } catch ( IllegalArgumentException e ) {
+            Common.showToast(this, "Error saving: " + e.getMessage());
+        }
+    }
+// could be combined with timerentry
+    private CountEntry getValues() {
+        throw new UnsupportedOperationException("TODOTODO: not implemented");
+    }
+
+
     // todo: codup edittask
     private void fillCount() {
         Bundle extras = getIntent().getExtras();
@@ -93,7 +109,7 @@ public class EditCount extends FragmentActivity implements EditSth {
             hours = task.hours;
             minutes = task.minutes;
             // todo: real separate reminder object (with store?)
-            if ( task.hours != -1 ) {
+            if ( task.remindRepetitions != 0 ) {
                 setTimeButtonText(task.hours, task.minutes);
             }
         }

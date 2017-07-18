@@ -26,7 +26,7 @@ public abstract class TaskEntry extends Entry {
 
     public int hours = -1;
     public int minutes = -1;
-    public int remindRepetitions = -1;
+    public int remindRepetitions = 0; // this indicates empty reminders
 
     // todo: way to skip these, and copy them from entry?
     /** no-meta-operation constructor */
