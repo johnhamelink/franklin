@@ -90,6 +90,8 @@ public class EditCount extends FragmentActivity implements EditSth {
     }
 // could be combined with timerentry
     private CountEntry getValues() {
+        String name = textName.getText().toString();
+
         throw new UnsupportedOperationException("TODOTODO: not implemented");
     }
 
