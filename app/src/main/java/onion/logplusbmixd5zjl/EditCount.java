@@ -20,13 +20,12 @@ import onion.logplusbmixd5zjl.util.TextValidator;
 public class EditCount extends FragmentActivity implements EditSth {
     private static final String TAG = EditCount.class.getName();
 
-    private Button timeButton;
     private CountEntry task;
+
     private EditText textName;
     private EditText textTarget;
+    private Button timeButton;
     private EditText textRemindRepeat;
-    private int hours = -1;
-    private int minutes = -1;
 
     /** Called when the activity is first created. */
     @Override
@@ -37,9 +36,9 @@ public class EditCount extends FragmentActivity implements EditSth {
 
         setContentView(R.layout.edit_count);
 
-        timeButton = (Button) findViewById(R.id.e_c_time);
         textName = (EditText) findViewById(R.id.e_c_name);
         textTarget = (EditText) findViewById(R.id.e_c_target);
+        timeButton = (Button) findViewById(R.id.e_c_time);
         textRemindRepeat = (EditText) findViewById(R.id.e_c_number);
 
         // some day maybe: addlisteners, see edittask
@@ -91,7 +90,6 @@ public class EditCount extends FragmentActivity implements EditSth {
 // could be combined with timerentry
     private CountEntry getValues() {
         String name = textName.getText().toString();
-
         throw new UnsupportedOperationException("TODOTODO: not implemented");
     }
 
@@ -108,13 +106,15 @@ public class EditCount extends FragmentActivity implements EditSth {
         } else {
             task = CountStore.getCurrentEntry(this); // td: by id?
             Log.v(TAG, "editing existing task: " + task);
-            hours = task.hours;
-            minutes = task.minutes;
             // todo: real separate reminder object (with store?)
             if ( task.remindRepetitions != 0 ) {
                 setTimeButtonText(task.hours, task.minutes);
             }
         }
+        // set name, target, remindrepetitions
+        textName.setText(task.getName());
+        textTarget.setText(String.valueOf(task.getTarget()));
+        textRemindRepeat.setText(String.valueOf(task.remindRepetitions));
     }
 
     private void setTimeButtonText(int hourOfDay, int minute) {
