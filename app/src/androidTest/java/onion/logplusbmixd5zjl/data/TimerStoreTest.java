@@ -27,6 +27,17 @@ public class TimerStoreTest extends MetaTest {
 
 
     @Test
+    public void testGetAll() {
+        int i = ts.getAll().size();
+        TimerEntry e = new TimerEntry("hi", 123, 1);
+        ts.save(e);
+        assertEquals(i +1, ts.getAll().size());
+        ts.remove(e);
+        assertEquals(i, ts.getAll().size());
+    }
+    
+    
+    @Test
     public void testRestore() {
         TimerEntry e = new TimerEntry("hi", 123, 1);
         ts.save(e);
@@ -35,7 +46,7 @@ public class TimerStoreTest extends MetaTest {
         ts.remove(e);
     }
 
-    
+
     @Test
     public void testRestoreWithReminder() {
         TimerEntry e = new TimerEntry("hi", 123, 1, 2, 3, 4);

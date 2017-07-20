@@ -61,7 +61,7 @@ public class EditTask extends FragmentActivity implements EditSth {
         long duration;
         String name;
         int repetitions;
-        int remindRepetitions = -1; // otherwise java complains
+        int remindRepetitions = 0; // otherwise java complains
         // td: check why this, or write tests
         // later: hours, minutes, remindRepetitions into map<solartime, integer>
 
@@ -70,10 +70,8 @@ public class EditTask extends FragmentActivity implements EditSth {
             duration = Long.parseLong(textDurationSeconds.getText().toString());
             duration *= 1000;
             repetitions = Integer.parseInt(textDayRepeat.getText().toString());
-            if ( hours >= 0 ) {
-                remindRepetitions = Integer.parseInt(textRemindRepeat
-                                                     .getText().toString());
-            }
+            remindRepetitions = Integer.parseInt(textRemindRepeat
+                                                 .getText().toString());
             if ( ( duration <= 0 || repetitions <= 0 || name.trim().equals("")
                  || TimerStore.get(this).getEntry(name.trim()) != null )
                    && task == null ) {
@@ -149,12 +147,10 @@ public class EditTask extends FragmentActivity implements EditSth {
 
     private void fillTask() {
         Bundle extras = getIntent().getExtras();
-        if (extras == null ||
-            !extras.containsKey("edit") ||
-            TimerStore.getCount(this) == 0) {
+        if (extras == null || !extras.containsKey("edit")) {
             Log.v(TAG, "creating new task");
         } else {
-            task = TimerStore.getCurrentEntry(this); // td: by id?
+            task = TimerStore.get(this).getEntry(extras.getInt("edit"));
             Log.v(TAG, "editing existing task: " + task);
             textName.setText(task.getName());
             textDurationSeconds.setText(String.valueOf(task.getDuration()/1000));

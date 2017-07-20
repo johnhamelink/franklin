@@ -64,12 +64,14 @@ public class EditCount extends FragmentActivity implements EditSth {
         super.onPause();
     }
 
+
     /** sets reminder time */
     public void doSetTime(int hourOfDay, int minute) {
         timeButton.setText(task.getTimeButtonText());
         task.setHours(hourOfDay);
         task.setMinutes(minute);
     }
+
 
     public void pressEditAlarmTime(View view) {
         // td: start alarm edit dialog
@@ -97,14 +99,12 @@ public class EditCount extends FragmentActivity implements EditSth {
     // todo: codup edittask
     private void fillCount() {
         Bundle extras = getIntent().getExtras();
-        if (extras == null ||
-            !extras.containsKey("edit") ||
-            CountStore.get(this).getCount() == 0) {
+        if ( extras == null || !extras.containsKey("edit") ) {
             Log.v(TAG, "creating new task");
             // todo: strings.xml
             task = new CountEntry(this, "TD: new count", 0);
         } else {
-            task = CountStore.getCurrentEntry(this); // td: by id?
+            task = CountStore.get(this).getEntry(extras.getInt("edit"));
             Log.v(TAG, "editing existing task: " + task);
             // todo: real separate reminder object (with store?)
             if ( task.remindRepetitions != 0 ) {

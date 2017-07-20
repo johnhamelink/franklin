@@ -33,6 +33,7 @@ public class Check extends Activity {
     private HashMap<String, Button> valueButtons;
     private TextView yesterday;
 
+
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate()");
@@ -45,12 +46,15 @@ public class Check extends Activity {
         yesterday = (TextView) findViewById(R.id.check_yesterday);
     }
 
+
     @Override public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.check, menu);
         inflater.inflate(R.menu.settings, menu);
         return true;
     }
+
+
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.check_m_add:
@@ -71,6 +75,7 @@ public class Check extends Activity {
         }
     }
 
+
     @Override public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume()");
@@ -80,6 +85,7 @@ public class Check extends Activity {
         populateTable();
     }
 
+
     @Override public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart()");
@@ -87,6 +93,7 @@ public class Check extends Activity {
         setTitle(getResources().getString(R.string.app_name)
                  + " " + Stats.readableSumToday(this));
     }
+
 
     private void addToTable(final TaskEntry entry, String value) {
         TableRow row = new TableRow(this);
@@ -100,12 +107,13 @@ public class Check extends Activity {
         valueButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, Common.ROW_SIZE);
         valueButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View view) {
-                    TimerStore.setCurrent(Check.this, entry.getID());
-                    startActivity(new Intent(Check.this, entry.getActivity()));
+                    startActivity(new Intent(Check.this, entry.getActivity())
+                                  .putExtra("edit", entry.getID()));
                 }});
         row.addView(valueButton);
         table.addView(row);
     }
+
 
     private void populateTable() {
         table.setColumnStretchable(0, true);
