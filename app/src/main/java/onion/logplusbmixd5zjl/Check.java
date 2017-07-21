@@ -108,7 +108,7 @@ public class Check extends Activity {
         valueButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View view) {
                     startActivity(new Intent(Check.this, entry.getActivity())
-                                  .putExtra("edit", entry.getID()));
+                                  .putExtra("current", entry.getID()));
                 }});
         row.addView(valueButton);
         table.addView(row);

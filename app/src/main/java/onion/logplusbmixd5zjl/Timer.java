@@ -30,7 +30,9 @@ import onion.logplusbmixd5zjl.util.FormatMillis;
 import onion.logplusbmixd5zjl.util.Notify;
 import onion.logplusbmixd5zjl.util.State;
 
-public class Timer extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+public class Timer extends AppCompatActivity
+    implements AdapterView.OnItemSelectedListener {
     private static final String TAG = Timer.class.getName();
 
     private AlarmManager alarmManager; //tdm
@@ -43,6 +45,7 @@ public class Timer extends AppCompatActivity implements AdapterView.OnItemSelect
     @InjectView(R.id.t_current) TextView displayTime;
     @InjectView(R.id.t_start) Button startButton;
     @InjectView(R.id.t_name) Spinner timerSpinner;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -219,12 +222,19 @@ public class Timer extends AppCompatActivity implements AdapterView.OnItemSelect
         ((ArrayAdapter)timerSpinner.getAdapter()).notifyDataSetChanged();
     }
 
+
     private static TimerEntry getTask(Context context) {
         return TimerStore.getCurrentEntry(context);
     }
     private TimerEntry getTask() {
+        Bundle extras = getIntent().getExtras();
+        if ( extras != null && extras.containsKey("current") ) {
+            TimerStore.setCurrent(this, extras.getInt("current"));
+            getIntent().removeExtra("current");
+        }    
         return getTask(this);
     }
+
 
     /** initializes the background alarm part */
     private void initializeAlarm(long countdownEnd) {//tdm to alarm(?)

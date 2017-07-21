@@ -28,37 +28,16 @@ import onion.logplusbmixd5zjl.util.OnSwipeTouchListener;
 public class Count extends Activity implements OnItemSelectedListener {
     private static final String TAG = Count.class.getName();
 
-    //    private ArrayAdapter adapter;
-    //    private Vector<CountEntry> entries;
-
     @InjectView(R.id.c_all) LinearLayout all;
     @InjectView(R.id.c_countView) TextView countView;
     @InjectView(R.id.c_next) ImageButton next;
     @InjectView(R.id.c_previous) ImageButton previous;
     @InjectView(R.id.c_title) Spinner spinner;
 
-    /** Called when the activity is first created. */
+
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onResume()");
-
-        // entries = new Vector<CountEntry>();
-        // entries.add(new CountEntry(this, "au", 1));
-        // entries.add(new CountEntry(this, "du", 1));
-        // entries.add(new CountEntry(this, "gf.m", 1));
-        // entries.add(new CountEntry(this, "gf.a", 1));
-        // entries.add(new CountEntry(this, "gy", 1));
-        // entries.add(new CountEntry(this, "gv.m", 1));
-        // entries.add(new CountEntry(this, "gv.a", 1));
-        // entries.add(new CountEntry(this, "l.m", 1));
-        // entries.add(new CountEntry(this, "l.a", 1));
-        // entries.add(new CountEntry(this, "r", 1));
-        // entries.add(new CountEntry(this, "wdh.m + pol", 1000));
-        // entries.add(new CountEntry(this, "wdh.t", 1000));
-        // entries.add(new CountEntry(this, "wdh.t2", 1000));
-        // entries.add(new CountEntry(this, "wdh.a", 1000));
-        // entries.add(new CountEntry(this, "wdh.g", 1));
-        // // end tmp
 
         setContentView(R.layout.count);
         ButterKnife.inject(this);
@@ -74,8 +53,8 @@ public class Count extends Activity implements OnItemSelectedListener {
                     simulateClick(previous, 250);
                 }
             });
-
     }
+
 
     @Override public void onResume() {
         super.onResume();
@@ -84,6 +63,13 @@ public class Count extends Activity implements OnItemSelectedListener {
         spinner.setAdapter(new ArrayAdapter<CountEntry>(this,
             android.R.layout.simple_spinner_item,
             CountStore.get(this).getAll()));
+        // set selected item
+        Bundle extras = getIntent().getExtras();
+        if ( extras != null && extras.containsKey("current") ) {
+            CountStore.setCurrent(this, extras.getInt("current"));
+            getIntent().removeExtra("current");
+        }
+        spinner.setSelection(CountStore.getCurrent(this));
         spinner.setOnItemSelectedListener(this);
         updateCountView();
     }
