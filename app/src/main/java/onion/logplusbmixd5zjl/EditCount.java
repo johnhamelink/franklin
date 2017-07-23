@@ -50,19 +50,17 @@ public class EditCount extends FragmentActivity implements EditSth {
     }
 
     // - save()-method
-    @Override public void onPause() {
-        Log.d(TAG, "onPause()");
+    // @Override public void onPause() {
+    //     Log.d(TAG, "onPause()");
         
+    //     boolean changed = CountStore.get(this).save(task);
 
-        boolean changed = CountStore.get(this).save(task);
-
-        setResult(Activity.RESULT_OK, new Intent());
-        // todo: add save button, back button cancels
-        if ( changed ) {
-            Common.showToast(this, getResources().getString(R.string.saved));
-        }
-        super.onPause();
-    }
+    //     setResult(Activity.RESULT_OK, new Intent());
+    //     if ( changed ) {
+    //         Common.showToast(this, getResources().getString(R.string.saved));
+    //     }
+    //     super.onPause();
+    // }
 
 
     /** sets reminder time */
@@ -74,7 +72,6 @@ public class EditCount extends FragmentActivity implements EditSth {
 
 
     public void pressEditAlarmTime(View view) {
-        // td: start alarm edit dialog
         DialogFragment frag = new TimePickerFragment();
         frag.show(getSupportFragmentManager(), "dialog");
     }
@@ -89,7 +86,9 @@ public class EditCount extends FragmentActivity implements EditSth {
             Common.showToast(this, "Error saving: " + e.getMessage());
         }
     }
-// could be combined with timerentry
+
+
+    // could be combined with timerentry
     private CountEntry getValues() {
         String name = textName.getText().toString();
         throw new UnsupportedOperationException("TODOTODO: not implemented");

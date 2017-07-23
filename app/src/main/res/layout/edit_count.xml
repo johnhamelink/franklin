@@ -11,9 +11,11 @@
       android:layout_width="match_parent"
       >
     <Button
+        android:onClick="pressSave"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="TD: Save"/>
+        android:text="TD: Save"
+        />
     <!-- your buttons go here -->
   </RelativeLayout>
 
