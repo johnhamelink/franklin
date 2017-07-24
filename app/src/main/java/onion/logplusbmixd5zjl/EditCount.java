@@ -49,25 +49,12 @@ public class EditCount extends FragmentActivity implements EditSth {
         fillCount();
     }
 
-    // - save()-method
-    // @Override public void onPause() {
-    //     Log.d(TAG, "onPause()");
-        
-    //     boolean changed = CountStore.get(this).save(task);
-
-    //     setResult(Activity.RESULT_OK, new Intent());
-    //     if ( changed ) {
-    //         Common.showToast(this, getResources().getString(R.string.saved));
-    //     }
-    //     super.onPause();
-    // }
-
 
     /** sets reminder time */
     public void doSetTime(int hourOfDay, int minute) {
-        timeButton.setText(task.getTimeButtonText());
         task.setHours(hourOfDay);
         task.setMinutes(minute);
+        setTimeButtonText();
     }
 
 
@@ -79,7 +66,7 @@ public class EditCount extends FragmentActivity implements EditSth {
 
     public void pressSave(View view) {
         try {
-            task = getValues();
+            setTaskValues();
             CountStore.get(this).save(task);
             finish();
         } catch ( IllegalArgumentException e ) {
@@ -88,10 +75,11 @@ public class EditCount extends FragmentActivity implements EditSth {
     }
 
 
-    // could be combined with timerentry
-    private CountEntry getValues() {
-        String name = textName.getText().toString();
-        throw new UnsupportedOperationException("TODOTODO: not implemented");
+    private void setTaskValues() {
+        task.setName(textName.getText().toString());
+        task.setTarget(Long.parseLong(textTarget.getText().toString()));
+        task.remindRepetitions = Integer.parseInt(textRemindRepeat.getText()
+                                                  .toString());
     }
 
 
@@ -107,7 +95,7 @@ public class EditCount extends FragmentActivity implements EditSth {
             Log.v(TAG, "editing existing task: " + task);
             // todo: real separate reminder object (with store?)
             if ( task.remindRepetitions != 0 ) {
-                setTimeButtonText(task.hours, task.minutes);
+                setTimeButtonText();
             }
         }
         // set name, target, remindrepetitions
@@ -116,8 +104,7 @@ public class EditCount extends FragmentActivity implements EditSth {
         textRemindRepeat.setText(String.valueOf(task.remindRepetitions));
     }
 
-    private void setTimeButtonText(int hourOfDay, int minute) {
+    private void setTimeButtonText() {
         timeButton.setText(task.getTimeButtonText());
     }
-
 }

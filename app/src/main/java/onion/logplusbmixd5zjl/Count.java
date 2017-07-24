@@ -84,22 +84,20 @@ public class Count extends Activity implements OnItemSelectedListener {
         // do nothing
     }
 
+    // todo: codup
     public void press1(View view) {
         getSelected().incrementCount(1);
         ((ArrayAdapter)spinner.getAdapter()).notifyDataSetChanged();
-//adapter.notifyDataSetChanged();
         updateCountView();
     }
     public void press10(View view) {
         getSelected().incrementCount(10);
         ((ArrayAdapter)spinner.getAdapter()).notifyDataSetChanged();
-        //adapter.notifyDataSetChanged();
         updateCountView();
     }
     public void press100(View view) {
         getSelected().incrementCount(100);
         ((ArrayAdapter)spinner.getAdapter()).notifyDataSetChanged();
-        //adapter.notifyDataSetChanged();
         updateCountView();
     }
     public void pressNext(View view) { nextEntry(); }
