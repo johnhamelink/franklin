@@ -1,8 +1,13 @@
 package onion.logplusbmixd5zjl;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -25,7 +30,7 @@ import onion.logplusbmixd5zjl.util.OnSwipeTouchListener;
 /**
  * Count stuff.
  */
-public class Count extends Activity implements OnItemSelectedListener {
+public class Count extends AppCompatActivity implements OnItemSelectedListener {
     private static final String TAG = Count.class.getName();
 
     @InjectView(R.id.c_all) LinearLayout all;
@@ -53,6 +58,40 @@ public class Count extends Activity implements OnItemSelectedListener {
                     simulateClick(previous, 250);
                 }
             });
+    }
+
+
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.count, menu);
+        inflater.inflate(R.menu.settings, menu);
+        return true;
+    }
+
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.count_m_add:
+            startActivity(new Intent(this, EditCount.class));
+            return true;
+        case R.id.count_m_edit:
+            Intent i = new Intent(this, EditTask.class);
+            i.putExtra("edit", true);
+            startActivity(i);
+            ((ArrayAdapter)spinner.getAdapter()).notifyDataSetChanged();
+            startActivity(new Intent(this, EditCount.class));
+            return true;
+            // todo: codup timer
+        case R.id.count_m_showlog:
+            startActivity(new Intent(this, Logs.class));
+            return true;
+            // todo: codup
+        case R.id.settings:
+            startActivity(new Intent(this, Settings.class));
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 
 

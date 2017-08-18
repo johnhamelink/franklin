@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '26.0.0'
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         applicationId "onion.logplusbmixd5zjl"
@@ -11,6 +11,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         versionCode 1
         versionName "0.1." + getDate()
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -39,11 +40,6 @@ android {
         compile group: 'com.jakewharton', name: 'butterknife', version: '6.1.0'
         compile 'org.apache.commons:commons-lang3:3.4'
         compile 'com.android.support:appcompat-v7:25.3.1'
-        compile 'io.paperdb:paperdb:2.1'
-    }
-
-    dataBinding {
-        enabled = true
     }
 }
 

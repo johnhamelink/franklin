@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/check_m_add_count"
-          android:icon="@drawable/addtimer"
+          android:icon="@drawable/ic_add_count"
           android:title="new count"/>
     <item android:id="@+id/check_m_add"
           android:icon="@drawable/addtimer"

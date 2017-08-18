@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log; // debug: all calls of Log.d
 import android.util.TypedValue;
 import android.view.Menu;
@@ -26,7 +27,7 @@ import onion.logplusbmixd5zjl.data.TimerStore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Check extends Activity {
+public class Check extends AppCompatActivity {
     private static final String TAG = Check.class.getName();
 
     private TableLayout table;
