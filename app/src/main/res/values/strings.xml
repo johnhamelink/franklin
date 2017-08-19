@@ -7,10 +7,10 @@
     <string name="count_m_edit">edit count</string>
     <string name="duration_label">Duration:</string>
     <string name="e_a_n_hint">target before time</string>
-    <string name="e_a_t_start">set time</string>
     <string name="e_d_hint">duration in seconds</string>
     <string name="e_n_hint">task name</string>
     <string name="e_r_hint">repeats per time frame</string>
+    <string name="e_t_start">set time</string>
     <string name="error_init">Error in initializing data</string>
     <string name="justlog">new log entry</string><!--justlog to newlog, edit to edittask, new to newtimer? -->
     <string name="log_added">log</string>

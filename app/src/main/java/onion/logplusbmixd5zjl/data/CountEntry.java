@@ -83,7 +83,7 @@ public class CountEntry extends TaskEntry {
         if ( hours != -1 ) {
             return String.format( Locale.US, "%d:%02d", hours, minutes);
         } else {
-            return context.getResources().getString(R.string.e_a_t_start);
+            return context.getResources().getString(R.string.e_t_start);
         }
     }
 
