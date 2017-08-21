@@ -91,7 +91,7 @@ public class EditCount extends FragmentActivity implements EditSth {
             // todo: strings.xml
             task = new CountEntry(this, "TD: new count", 0);
         } else {
-            task = CountStore.get(this).getEntry(extras.getInt("edit"));
+            task = CountStore.getCurrentEntry(this);
             Log.v(TAG, "editing existing task: " + task);
             // todo: real separate reminder object (with store?)
             if ( task.remindRepetitions != 0 ) {

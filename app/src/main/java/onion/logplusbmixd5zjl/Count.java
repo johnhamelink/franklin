@@ -75,11 +75,10 @@ public class Count extends AppCompatActivity implements OnItemSelectedListener {
             startActivity(new Intent(this, EditCount.class));
             return true;
         case R.id.count_m_edit:
-            Intent i = new Intent(this, EditTask.class);
+            Intent i = new Intent(this, EditCount.class);
             i.putExtra("edit", true);
             startActivity(i);
             ((ArrayAdapter)spinner.getAdapter()).notifyDataSetChanged();
-            startActivity(new Intent(this, EditCount.class));
             return true;
             // todo: codup timer
         case R.id.count_m_showlog:

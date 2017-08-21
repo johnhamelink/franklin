@@ -103,6 +103,13 @@ public final class CountStore {
 	}
 	return current;
     }
+    public static void setCurrent(Context context, int id) {
+        CountStore.get(context).setCurrent(id);
+    }
+    public void setCurrent(int id) {
+	storage.putInt(".counts.current", id).save();
+	current = id;
+    }
 
     // td: change name, not only accessor
     /** increments current to next, 
@@ -175,13 +182,6 @@ public final class CountStore {
         return true;
     }
         
-    public static void setCurrent(Context context, int id) {
-        CountStore.get(context).setCurrent(id);
-    }
-    public void setCurrent(int id) {
-	storage.putInt("counts.current", id).save();
-	current = id;
-    }
     /** schedules count save to storage */
     private Storage setCount(Storage storage, int count) {
         this.count = count;
