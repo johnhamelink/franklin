@@ -27,5 +27,11 @@ public class CountStoreTest extends MetaTest {
         assertEquals(10, cs.getCurrent());
     }
 
-    
+    @Test
+    public void test_save() throws Exception {
+        CountEntry e = new CountEntry(getContext(), "test_save", 11);
+        cs.save(e);
+        assertEquals(cs.getEntry(e.getID()), e);
+        cs.remove(e);
+    }
 }

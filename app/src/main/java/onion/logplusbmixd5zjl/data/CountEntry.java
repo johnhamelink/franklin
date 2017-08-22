@@ -60,13 +60,6 @@ public class CountEntry extends TaskEntry {
     }
     // this writes to sp twice, td: rework (?name as put/commit?)
 
-    // @Override public void save() {
-    //     throw new UnsupportedOperationException("not implemented");
-    // }
-
-    // @Override public void remove() {
-    //     throw new UnsupportedOperationException("not (yet) implemented");
-    // }
     /** clears the counter for this task */
     public void resetCount() {
         if ( count != null ) {

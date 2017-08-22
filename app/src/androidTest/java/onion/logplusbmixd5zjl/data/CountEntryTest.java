@@ -12,16 +12,16 @@ import static org.junit.Assert.assertNotEquals;
 public class CountEntryTest extends MetaTest {
     @Test
     public void test_creation() throws Exception {
-        CountEntry e = new CountEntry(getContext(), "testc_creation", 23);
+        CountEntry e = new CountEntry(getContext(), "testc_creation", 12);
         assertEquals("testc_creation", e.getName());
-        assertEquals(23, e.getTarget());
+        assertEquals(12, e.getTarget());
     }
 
 
     @Test
     public void test_equals_basic() throws Exception {
-        CountEntry e = new CountEntry(getContext(), "testcEquals", 23);
-        CountEntry e2 = new CountEntry(getContext(), "testcEquals", 23);
+        CountEntry e = new CountEntry(getContext(), "testcEquals", 12);
+        CountEntry e2 = new CountEntry(getContext(), "testcEquals", 12);
         assertEquals(e, e2);
         CountEntry e3 = new CountEntry(getContext(), "testcEquals_not", 123);
         assertNotEquals(e, e3);

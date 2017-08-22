@@ -171,7 +171,7 @@ public final class CountStore {
         }
         // todo: kinda unify this with taskentry?
         // TODO?: extra object timerEntryStorage, saves e.getID, offers put...
-        storage.putLong(storagePart(e.getID(), "target"), e.getDuration())
+        storage.putLong(storagePart(e.getID(), "target"), e.getTarget())
             .putString(storagePart(e.getID(), "name"), e.getName())
             .putInt(storagePart(e.getID(), "hours"), e.hours)
             .putInt(storagePart(e.getID(), "minutes"), e.minutes)
