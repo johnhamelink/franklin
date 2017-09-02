@@ -11,6 +11,8 @@ import java.util.Vector;
 import org.apache.commons.lang3.StringEscapeUtils; //td later: proguard
 import org.apache.commons.lang3.text.StrTokenizer; // same here
 
+import onion.logplusbmixd5zjl.Common;
+
 /** Contains a single entry into the log */
 public class LogEntry extends Entry {
     private static final String TAG = LogEntry.class.getName();
@@ -55,6 +57,9 @@ public class LogEntry extends Entry {
         this.comment = comment;
         this.date = new Date(endTime);
         this.durationMillis = duration;
+    }
+    public LogEntry(String name, long duration, long endTime, String comment) {
+        this( Common.ERROR_NUMBER, name, duration, endTime, comment);
     }
 
     public LogEntry(Context context, String name, long duration, long endTime) {
