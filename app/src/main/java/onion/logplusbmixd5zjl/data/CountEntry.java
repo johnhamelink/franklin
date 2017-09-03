@@ -56,14 +56,14 @@ public class CountEntry extends TaskEntry {
         if ( count == null ) {
             count = new LogEntry(context, name, 0, System.currentTimeMillis());
         }
-        count.saveDuration(count.getDuration() + increment, true);
+        count.saveDuration(context, count.getDuration() + increment);
     }
     // this writes to sp twice, td: rework (?name as put/commit?)
 
     /** clears the counter for this task */
     public void resetCount() {
         if ( count != null ) {
-            count.remove();
+            count.remove(context);
             count = null;
         }
     }

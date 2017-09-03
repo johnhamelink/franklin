@@ -8,18 +8,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class DbHelper extends SQLiteOpenHelper {
     public static final int VERSION = 4;
     public static final String NAME = "MyDb";
 
     private static final String TABLE_ENTRY = "MyTable";
-    private static final String KEY_ENTRY_TIME = "dateMillis";
-    private static final String KEY_ENTRY_NAME = "name";
-    private static final String KEY_ENTRY_COMMENT = "comment";
-    private static final String KEY_ENTRY_DURATION = "durationMillis";
+    static final String KEY_ENTRY_TIME = "dateMillis";
+    static final String KEY_ENTRY_NAME = "name";
+    static final String KEY_ENTRY_COMMENT = "comment";
+    static final String KEY_ENTRY_DURATION = "durationMillis";
 
-    private static final String SQL_CREATE_ENTRY_TABLE = "CREATE TABLE "+ TABLE_ENTRY + "(" +
+    private static final String SQL_CREATE_ENTRY_TABLE
+        = "CREATE TABLE "+ TABLE_ENTRY + "(" +
             KEY_ENTRY_TIME + " INTEGER PRIMARY KEY, " +
             KEY_ENTRY_NAME + " TEXT, " +
             KEY_ENTRY_COMMENT + " TEXT, " +
@@ -41,17 +43,23 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public List<LogEntry> selectAll(){
+    public Vector<LogEntry> selectAll() {
+        return selectByQuery("SELECT * FROM " + TABLE_ENTRY
+                             + " ORDER BY " + KEY_ENTRY_TIME + " ASC");
+    }
+
+    public Vector<LogEntry> selectReversed() {
+        return selectByQuery("SELECT * FROM " + TABLE_ENTRY
+                             + " ORDER BY " + KEY_ENTRY_TIME + " DESC");
+    }
+
+    public Vector<LogEntry> selectByQuery(String query){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ENTRY, null);
-        List<LogEntry> output = new ArrayList<>();
+        Cursor cursor = db.rawQuery(query, null);
+        Vector<LogEntry> output = new Vector<>();
         if(cursor.moveToFirst()){
             while(!cursor.isAfterLast()){
-                LogEntry e = new LogEntry(
-                    cursor.getString(cursor.getColumnIndex(KEY_ENTRY_NAME)),
-                    cursor.getLong(cursor.getColumnIndex(KEY_ENTRY_DURATION)),
-                    cursor.getLong(cursor.getColumnIndex(KEY_ENTRY_TIME)),
-                    cursor.getString(cursor.getColumnIndex(KEY_ENTRY_COMMENT)));
+                LogEntry e = new LogEntry(cursor);
                 output.add(e);
 
                 cursor.moveToNext();
@@ -59,6 +67,12 @@ public class DbHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return output;
+    }
+
+    public int count() {
+        SQLiteDatabase db = getReadableDatabase();
+        return (int) db.compileStatement("SELECT COUNT(*) FROM " + TABLE_ENTRY)
+            .simpleQueryForLong();
     }
 
     public long createEntry(LogEntry entry){
@@ -70,6 +84,20 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(KEY_ENTRY_DURATION, entry.getDuration());
 
         return db.insert(TABLE_ENTRY, null, values);
+    }
+
+    /** @return whether it was changed */
+    public boolean updateEntry(LogEntry entry) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_ENTRY_TIME, entry.getDate().getTime());
+        values.put(KEY_ENTRY_NAME, entry.getName());
+        values.put(KEY_ENTRY_COMMENT, entry.getComment());
+        values.put(KEY_ENTRY_DURATION, entry.getDuration());
+
+        db.update(TABLE_ENTRY, values, 
+                  KEY_ENTRY_TIME + "=" + entry.getDate().getTime(), null);
+        return db.compileStatement("SELECT changes()").simpleQueryForLong() > 0;
     }
 
     public boolean removeEntry(LogEntry entry) {

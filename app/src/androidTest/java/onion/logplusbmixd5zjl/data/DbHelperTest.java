@@ -31,6 +31,9 @@ public class DbHelperTest extends MetaTest {
 
     @Test
     public void test_selectAll() throws Exception {
+        for ( LogEntry e: h.selectAll() ) {
+            h.removeEntry(e);
+        }
         assertEquals(0, h.selectAll().size());
     }
 
@@ -42,5 +45,10 @@ public class DbHelperTest extends MetaTest {
         assertEquals(e, h.selectAll().get(0));
         assertTrue(h.removeEntry(e));
         assertEquals(0, h.selectAll().size());
+    }
+
+    @Test
+    public void test_update() throws Exception {
+
     }
 }

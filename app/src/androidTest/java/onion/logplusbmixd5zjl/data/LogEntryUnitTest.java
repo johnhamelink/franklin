@@ -42,8 +42,8 @@ public class LogEntryUnitTest extends MetaTest {
         LogEntry le2 = new LogEntry(getContext(), "le2", 2, 2);
         assertTrue(le2 + ".after(" + le1 + ") failed", 
                    le2.after(le1));
-        le1.remove();
-        le2.remove();
+        le1.remove(getContext());
+        le2.remove(getContext());
     }
 
 
@@ -53,8 +53,8 @@ public class LogEntryUnitTest extends MetaTest {
         LogEntry le2 = new LogEntry(getContext(), "le2", 2, 2);
         assertTrue(le1 + ".before(" + le2 + ") failed", 
                    le1.before(le2));
-        le1.remove();
-        le2.remove();
+        le1.remove(getContext());
+        le2.remove(getContext());
     }
 
 
@@ -64,8 +64,8 @@ public class LogEntryUnitTest extends MetaTest {
         LogEntry le2 = new LogEntry(getContext(), "le2", 2, 2);
         assertTrue(le1 + ".compareTo(" + le2 + ") failed", 
                    le1.compareTo(le2) < 0);
-        le1.remove();
-        le2.remove();
+        le1.remove(getContext());
+        le2.remove(getContext());
     }
 
 
@@ -75,11 +75,11 @@ public class LogEntryUnitTest extends MetaTest {
         LogEntry le1 = new LogEntry(getContext(), "removeTest", 23, 1000);
         LogEntry le2 = new LogEntry(getContext(), "removeTest2", 24, 2000);
         int size = LogEntry.getAll(getContext()).size();
-        le1.remove();
+        le1.remove(getContext());
         //log.trace( Arrays.toString(LogEntry.getReversed(getContext()).toArray()));
         assertEquals("getReversed().size() afterwards not size-1: " + (size-1),
                      size-1, LogEntry.getReversed(getContext()).size());
-        le2.remove();
+        le2.remove(getContext());
         assertEquals("getReversed().size() afterwards not size-2: " + (size-2),
                      size-2, LogEntry.getReversed(getContext()).size());
     }
@@ -89,13 +89,13 @@ public class LogEntryUnitTest extends MetaTest {
     public void testCSVFromLogEntry() {
         String name = this.name + "CSVFromLogEntry";
         LogEntry le = new LogEntry(getContext(), name, duration, date);
-        le.setComment(comment);
-        le.save().save(); // todo: api is ugly
+        //        le.setComment(comment);
+        // le.save().save(); // todo: api is ugly
         String csv = le.toCSV();
         assertEquals("failed csv export", 
                      csv, 
-                     date + "," + name + "," + duration + "," + comment);
-        le.remove();
+                     date + "," + name + "," + duration);// + "," + comment);
+        le.remove(getContext());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class LogEntryUnitTest extends MetaTest {
             all.add(le);
         }
         for ( LogEntry e: all ) {
-            e.remove();
+            e.remove(getContext());
         }
     }
 
@@ -115,17 +115,17 @@ public class LogEntryUnitTest extends MetaTest {
     public void testCSVFromLogEntry2() {
         String name = this.name + "CSVFromLogEntry2";
         LogEntry le = new LogEntry(getContext(), name, duration, date);
-        le.setComment("from: " + comment2);
-        le.save().save(); // todo: api is ugly
+        //        le.setComment("from: " + comment2);
+        // le.save().save(); // todo: api is ugly
         //      log.trace(le.verboseString());
         LogEntry le2 = new LogEntry(getContext(), le.toCSV());
         //      log.trace(le2.verboseString());
         assertEquals("failed date", le.getDate(), le2.getDate());
         assertEquals("failed name", le.getName(), le2.getName());
         assertEquals("failed duration", le.getDuration(), le2.getDuration());
-        assertEquals("failed comment", le.getComment(), le2.getComment());
-        le.remove();
-        le2.remove();
+        //assertEquals("failed comment", le.getComment(), le2.getComment());
+        le.remove(getContext());
+        le2.remove(getContext());
     }
 
 
@@ -139,7 +139,7 @@ public class LogEntryUnitTest extends MetaTest {
         assertEquals("wrong name", le.getName(), name);
         assertEquals("wrong duration", le.getDuration(), duration);
         assertEquals("wrong comment", le.getComment(), comment);
-        le.remove();
+        le.remove(getContext());
     }
 
     @Test
@@ -152,7 +152,7 @@ public class LogEntryUnitTest extends MetaTest {
         assertEquals("wrong name", le.getName(), name);
         assertEquals("wrong duration", le.getDuration(), duration);
         assertEquals("wrong comment", le.getComment(), "to: " + comment2);
-        le.remove();
+        le.remove(getContext());
     }
 
     @Test
@@ -161,10 +161,11 @@ public class LogEntryUnitTest extends MetaTest {
                                     "getTest", 300, new Date().getTime());
         LogEntry le2 = new LogEntry(getContext(),
                                     "getTest2", 300, new Date().getTime());
-        LogEntry leGot = LogEntry.get(getContext(), le1.getID());
+        LogEntry leGot = LogEntry.get(getContext(),
+                                      LogEntry.getCount(getContext()) -2);
         assertTrue("not equals: " + le1 + " vs " + leGot, leGot.equals(le1));
-        le1.remove();
-        le2.remove();
+        le1.remove(getContext());
+        le2.remove(getContext());
     }
 
     @Test
@@ -191,7 +192,7 @@ public class LogEntryUnitTest extends MetaTest {
                      + ")\n not equal to LogEntry.get ("
                      + LogEntry.get(getContext(), position) + ")\n",
                      le, LogEntry.get(getContext(), position));
-        le.remove();
+        le.remove(getContext());
     }
 
     @Test
@@ -200,7 +201,7 @@ public class LogEntryUnitTest extends MetaTest {
                                    "testGetByName", 1, new Date().getTime());
         LogEntry leGot = LogEntry.getByName(getContext(), "testGetByName", Common.getStartOfToday(getContext()).getTime());
         assertEquals(le, leGot);
-        le.remove();
+        le.remove(getContext());
     }
 
 
@@ -229,32 +230,38 @@ public class LogEntryUnitTest extends MetaTest {
 
     @Test
     public void testSetDateIsSorted() {
-        LogEntry le = new LogEntry(getContext(), "testSetDateIsSorted", 0, 1000);
-        LogEntry lf = new LogEntry(getContext(), "testSetDateIsSorted", 0, 1010);
+        LogEntry le = new LogEntry(getContext(), "testSetDateIsSorted", 0, 2000);
+        LogEntry lf = new LogEntry(getContext(), "testSetDateIsSorted", 0, 3000);
         assertTrue(le.getDate().before(lf.getDate()));
-        assertTrue(le.getID() < lf.getID());
-        lf.saveDate(new Date(990));
+        //        assertTrue(le.getID() < lf.getID());
+        lf.saveDate(getContext(), new Date(1000));
         assertTrue(le.getDate().after(lf.getDate()));
-        assertTrue(le.getID() > lf.getID());
-        le.remove();
-        lf.remove();
+        //        assertTrue(le.getID() > lf.getID());
+        le.remove(getContext());
+        lf.remove(getContext());
     }
 
     @Test
     public void testSetDateReverseIsSorted() {
         LogEntry le = new LogEntry(getContext(),
-                                   "testSetDateReverseIsSorted", 0, 1000);
+                                   "testSetDateReverseIsSorted-1", 0, 2000);
         LogEntry lf = new LogEntry(getContext(),
-                                   "testSetDateReverseIsSorted", 0, 1010);
+                                   "testSetDateReverseIsSorted-2", 0, 3000);
         assertTrue("failed before saveDate()",
                    LogEntry.getReversed(getContext()).indexOf(le)
                    > LogEntry.getReversed(getContext()).indexOf(lf));
-        lf.saveDate(new Date(990));
-        assertTrue("failed after saveDate()",
+        lf.saveDate(getContext(), new Date(1000));
+        assertTrue("failed after saveDate()."
+                   + "\nle's index: "
+                   + LogEntry.getReversed(getContext()).indexOf(le)
+                   + "\nlf's index: "
+                   + LogEntry.getReversed(getContext()).indexOf(lf)
+                   + "\nreversed:\n"
+                   + LogEntry.getReversed(getContext()),
                    LogEntry.getReversed(getContext()).indexOf(le)
                    < LogEntry.getReversed(getContext()).indexOf(lf));
-        le.remove();
-        lf.remove();
+        le.remove(getContext());
+        lf.remove(getContext());
     }
 
 
@@ -263,7 +270,7 @@ public class LogEntryUnitTest extends MetaTest {
         LogEntry le = new LogEntry(getContext(),
                                    "removeTest", 23, newDate());
         int id = le.getID();
-        le.remove();
+        le.remove(getContext());
         Storage storage = Storage.get(getContext());
         assertFalse("contained logentry " + id + " in db after remove: "
                     + Storage.debugPrint(getContext()),
@@ -275,8 +282,8 @@ public class LogEntryUnitTest extends MetaTest {
         LogEntry le2 = new LogEntry(getContext(), "removeTest2", 24, newDate());
         int id = le.getID();
         int id2 = le2.getID();
-        le.remove();
-        le2.remove();
+        le.remove(getContext());
+        le2.remove(getContext());
         Storage storage = Storage.get(getContext());
         assertFalse("contained first logentry in db after double remove: "
                     + Storage.debugPrint(getContext()),
@@ -291,8 +298,8 @@ public class LogEntryUnitTest extends MetaTest {
         LogEntry le2 = new LogEntry(getContext(), "removeTest2", 24, newDate());
         int id = le.getID();
         int id2 = le2.getID();
-        le2.remove();
-        le.remove();
+        le2.remove(getContext());
+        le.remove(getContext());
         Storage storage = Storage.get(getContext());
         assertFalse("contained first logentry in db after double remove: "
                     + Storage.debugPrint(getContext()),
@@ -309,7 +316,7 @@ public class LogEntryUnitTest extends MetaTest {
     //                                cal.getTime().getTime());
     //     assertEquals("failed to string: \"" + le + "\"",
     //                  "testToString(1): 1/1/15 8:30:00 AM", le.toString());
-    //     le.remove();
+    //     le.remove(getContext());
     // }
 
     
