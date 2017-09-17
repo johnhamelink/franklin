@@ -45,10 +45,16 @@ public class DbHelperTest extends MetaTest {
         assertEquals(e, h.selectAll().get(0));
         assertTrue(h.removeEntry(e));
         assertEquals(0, h.selectAll().size());
+        h.removeEntry(e);
     }
 
     @Test
     public void test_update() throws Exception {
-
+        LogEntry e = new LogEntry(-1, "createEntryTest", 1, 2, "3");
+        h.createEntry(e);
+        e.setName("updateEntryTest");
+        h.updateEntry(e);
+        assertEquals("updateEntryTest", e.getName());
+        h.removeEntry(e);
     }
 }
