@@ -26,8 +26,8 @@ public class LogEntry extends Entry {
         return h;
     }
     
-    private static Vector<LogEntry> all = null;
-    private static Vector<LogEntry> reversed = null;
+    //    private static Vector<LogEntry> all = null;
+    //    private static Vector<LogEntry> reversed = null;
 
     // TODO: maybe just seconds since epoch? (less conversion)
     private Date date;//TODO: changeable in logedit
@@ -194,8 +194,9 @@ public class LogEntry extends Entry {
     }
 
     public final void saveDate(Context context, final Date newDate ) {
-        this.date = newDate;
-        getHelper(context).updateEntry(this);
+        Date olddate = date;
+        date = newDate;
+        getHelper(context).updateEntry(this, olddate);
     }
 
     public boolean saveDuration(Context context, long durationMillis) {

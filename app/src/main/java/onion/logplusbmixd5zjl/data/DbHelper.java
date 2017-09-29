@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -41,6 +42,12 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ENTRY);
         onCreate(db);
+    }
+
+    /** clears database */
+    public void reset() {
+        SQLiteDatabase db = getWritableDatabase();
+        onUpgrade(db, -1, 0);
     }
 
     public Vector<LogEntry> selectAll() {
@@ -86,8 +93,11 @@ public class DbHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_ENTRY, null, values);
     }
 
-    /** @return whether it was changed */
     public boolean updateEntry(LogEntry entry) {
+        return updateEntry(entry, entry.getDate());
+    }
+    /** @return whether it was changed */
+    public boolean updateEntry(LogEntry entry, Date oldDate) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_ENTRY_TIME, entry.getDate().getTime());
@@ -96,7 +106,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(KEY_ENTRY_DURATION, entry.getDuration());
 
         db.update(TABLE_ENTRY, values, 
-                  KEY_ENTRY_TIME + "=" + entry.getDate().getTime(), null);
+                  KEY_ENTRY_TIME + "=" + oldDate.getTime(), null);
         return db.compileStatement("SELECT changes()").simpleQueryForLong() > 0;
     }
 

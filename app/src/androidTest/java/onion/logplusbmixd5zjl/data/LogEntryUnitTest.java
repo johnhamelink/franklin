@@ -1,9 +1,9 @@
 package onion.logplusbmixd5zjl.data;
 
-import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,11 +11,8 @@ import org.junit.runners.MethodSorters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
 import java.util.Vector;
 
 import onion.logplusbmixd5zjl.Common;
@@ -34,6 +31,11 @@ public class LogEntryUnitTest extends MetaTest {
     private long duration = 300;
     private String comment = "real comment";
     private String comment2 = "real comment, with comma";
+
+    @Before
+    public void setUp() throws Exception {
+        new DbHelper(getContext()).reset();
+    }
 
     
     @Test
@@ -226,6 +228,17 @@ public class LogEntryUnitTest extends MetaTest {
         Vector<LogEntry> sorted = (Vector<LogEntry>) all.clone();
         Collections.sort(sorted);
         assertTrue(Arrays.equals(all.toArray(), sorted.toArray()));
+    }
+
+    @Test
+    public void testSaveDate() throws Exception {
+        LogEntry le = new LogEntry(getContext(), "testSaveDate", 0, 2000);
+        assertTrue(LogEntry.getAll(getContext()).indexOf(le) >= 0);
+        le.saveDate(getContext(), new Date(1000));
+        assertTrue("all: " + LogEntry.getAll(getContext())
+            +"\nfirst: " + LogEntry.get(getContext(), 0).getDate().getTime(),
+                   LogEntry.getAll(getContext()).indexOf(le) >= 0);
+        assertEquals(le.getDate(), new Date(1000));
     }
 
     @Test

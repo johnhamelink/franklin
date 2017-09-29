@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Date;
+
 import onion.logplusbmixd5zjl.Common;
 
 import static org.junit.Assert.assertEquals;
@@ -50,11 +52,18 @@ public class DbHelperTest extends MetaTest {
 
     @Test
     public void test_update() throws Exception {
-        LogEntry e = new LogEntry(-1, "createEntryTest", 1, 2, "3");
-        h.createEntry(e);
-        e.setName("updateEntryTest");
-        h.updateEntry(e);
-        assertEquals("updateEntryTest", e.getName());
-        h.removeEntry(e);
+        LogEntry le = new LogEntry(getContext(), "test_update", 0, 2000);
+        le.setName("updateEntryTest");
+        h.updateEntry(le);
+        assertEquals("updateEntryTest", le.getName());
+        h.removeEntry(le);
+    }
+
+    @Test
+    public void test_update_date() throws Exception {
+        LogEntry le = new LogEntry(getContext(), "test_update_date", 0, 2000);
+        le.saveDate(getContext(), new Date(1000));
+        assertEquals(1000, le.getDate().getTime());
+        h.removeEntry(le);
     }
 }
