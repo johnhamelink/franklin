@@ -36,7 +36,7 @@ public final class Common {
 
     private static boolean inited = false;
 
-    private Common() {};
+    private Common() {}
 
     static { // this.getClass() for static functions
         Class itsClass = new Object() { }.getClass().getEnclosingClass();

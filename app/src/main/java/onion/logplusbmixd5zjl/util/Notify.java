@@ -22,8 +22,8 @@ public final class Notify {
 
     private static MediaPlayer mediaPlayer;
 
-    private Notify() {};
-    
+    private Notify() {}
+
     // td: refactor duplicate of nag.java
     public static void user(Context context) {
 	AudioManager audioManager

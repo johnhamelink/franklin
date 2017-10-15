@@ -16,7 +16,7 @@ public final class WakeLocker {
     private static final String TAG
 	= new Object() { }.getClass().getEnclosingClass().getName();
 
-    private WakeLocker() {};
+    private WakeLocker() {}
 
     @SuppressLint("Wakelock")
     public static void acquire(Context ctx, long timeout) {

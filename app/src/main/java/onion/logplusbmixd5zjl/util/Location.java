@@ -33,7 +33,7 @@ public final class Location {
 	this.context = context.getApplicationContext();
 	nf = NumberFormat.getInstance(LOCALE);
 	if (nf instanceof DecimalFormat) {
-	    ((DecimalFormat)nf).setMaximumFractionDigits(4);
+	    nf.setMaximumFractionDigits(4);
 	}
 
 	//td: init on new install

@@ -58,10 +58,10 @@ public abstract class TaskEntry extends Entry {
     public static Vector<TaskEntry> getAllSiblings(Context context) {
         Vector<TaskEntry> out = new Vector<>();
         for ( TimerEntry e: TimerStore.get(context).getAll() ) {
-            out.add((TaskEntry) e);
+            out.add( e );
         }
         for ( CountEntry e: CountStore.get(context).getAll() ) {
-            out.add((TaskEntry) e);
+            out.add( e );
         }
         return out;
     }

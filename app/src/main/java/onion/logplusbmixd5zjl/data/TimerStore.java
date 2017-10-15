@@ -184,7 +184,7 @@ public final class TimerStore {
     }
     /** schedules count save to storage */
     private Storage setCount(Storage storage, int count) {
-        this.count = count;
+        TimerStore.count = count;
         return storage.putInt(".tasks.count", count);
     }
 }
