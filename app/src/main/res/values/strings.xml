@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">LogPlus</string>
     <string name="c_yesterday">Yesterday: </string>
-    <string name="check_m_new_task">new task</string>
+    <string name="check_m_new_task">new timer</string>
     <string name="comment_label">Comment:</string>
     <string name="count_m_new">new count</string>
     <string name="count_m_edit">edit count</string>
     <string name="duration_label">Duration:</string>
     <string name="e_a_n_hint">target before time</string>
     <string name="e_d_hint">duration in seconds</string>
-    <string name="e_n_hint">task name</string>
+    <string name="e_n_hint">timer name</string>
     <string name="e_r_hint">repeats per time frame</string>
     <string name="e_t_start">set time</string>
     <string name="error_init">Error in initializing data</string>
@@ -39,7 +39,7 @@
     <string name="t_reset">RESET</string>
     <string name="t_start">START</string>
     <string name="target_label">Target:</string>
-    <string name="te_name">default task</string>
+    <string name="te_name">default timer</string>
     <string name="test">test</string>
     <string name="timer_m_edit">edit timer</string>
     <string name="timer_m_new">new timer</string><!-- td: merge w/ new task-->
