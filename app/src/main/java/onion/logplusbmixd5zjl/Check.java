@@ -59,7 +59,7 @@ public class Check extends AppCompatActivity {
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.check_m_add:
-            startActivity(new Intent(this, EditTask.class));
+            startActivity(new Intent(this, EditTimer.class));
             return true;
         case R.id.check_m_add_count:
             startActivity(new Intent(this, EditCount.class));

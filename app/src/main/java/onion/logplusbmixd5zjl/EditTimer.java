@@ -17,8 +17,8 @@ import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
 import onion.logplusbmixd5zjl.util.TextValidator;
 
-public class EditTask extends FragmentActivity implements EditSth {
-    private static final String TAG = EditTask.class.getName();
+public class EditTimer extends FragmentActivity implements EditSth {
+    private static final String TAG = EditTimer.class.getName();
 
     private Button timeButton;
     private TimerEntry task;
@@ -37,7 +37,7 @@ public class EditTask extends FragmentActivity implements EditSth {
 
         Common.init(this);
 
-        setContentView(R.layout.edit_task);
+        setContentView(R.layout.edit_timer);
 
         timeButton = (Button) findViewById(R.id.e_a_time);
         textDurationSeconds = (EditText) findViewById(R.id.e_duration);
@@ -122,13 +122,13 @@ public class EditTask extends FragmentActivity implements EditSth {
         // codup, but mostly boilerplate (?)
         textDurationSeconds.addTextChangedListener(new TextValidator(textDurationSeconds) {
                 @Override public void validate(TextView textView, String text) {
-                    TextValidator.validatePositiveNumber(EditTask.this,
+                    TextValidator.validatePositiveNumber(EditTimer.this,
                                                          textView, text);
                 }
             });
         textDayRepeat.addTextChangedListener(new TextValidator(textDayRepeat) {
                 @Override public void validate(TextView textView, String text) {
-                    TextValidator.validatePositiveNumber(EditTask.this,
+                    TextValidator.validatePositiveNumber(EditTimer.this,
                                                          textView, text);
                 }
             });
@@ -137,7 +137,7 @@ public class EditTask extends FragmentActivity implements EditSth {
                     if ( text.trim().equals("") ) {
                         textView.setError(getResources().getString(R.string.name_longer));
                     } else if ( task == null
-                                && TimerStore.get(EditTask.this).getEntry(text.trim()) != null) {
+                                && TimerStore.get(EditTimer.this).getEntry(text.trim()) != null) {
                         textView.setError(getResources().getString(R.string.name_exists));
                     }
                 }

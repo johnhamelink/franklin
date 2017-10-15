@@ -12,7 +12,7 @@
     <string name="e_r_hint">repeats per time frame</string>
     <string name="e_t_start">set time</string>
     <string name="error_init">Error in initializing data</string>
-    <string name="justlog">new log entry</string><!--justlog to newlog, edit to edittask, new to newtimer? -->
+    <string name="justlog">new log entry</string><!--justlog to newlog, edit to edittimer, new to newtimer? -->
     <string name="log_added">log</string>
     <string name="logs_export">export logs to file</string>
     <string name="n_snooze">SNOOZE</string>

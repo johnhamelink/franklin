@@ -9,7 +9,7 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-/** dialog fragment to pick time, calls back to EditTask */
+/** dialog fragment to pick time, calls back to EditTimer */
 public class TimePickerFragment extends DialogFragment
     implements TimePickerDialog.OnTimeSetListener {
 

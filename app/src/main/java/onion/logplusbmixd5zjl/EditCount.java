@@ -41,7 +41,7 @@ public class EditCount extends FragmentActivity implements EditSth {
         timeButton = (Button) findViewById(R.id.e_c_time);
         textRemindRepeat = (EditText) findViewById(R.id.e_c_number);
 
-        // some day maybe: addlisteners, see edittask
+        // some day maybe: addlisteners, see edittimer
     }
 
     @Override public void onResume() {
@@ -83,7 +83,7 @@ public class EditCount extends FragmentActivity implements EditSth {
     }
 
 
-    // todo: codup edittask
+    // todo: codup edittimer
     private void fillCount() {
         Bundle extras = getIntent().getExtras();
         if ( extras == null || !extras.containsKey("edit") ) {

@@ -108,7 +108,7 @@ public class Timer extends AppCompatActivity
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.timer_m_add:
-                startActivity(new Intent(this, EditTask.class));
+                startActivity(new Intent(this, EditTimer.class));
                 return true;
             case R.id.timer_m_edit:
                 editCurrentTask();
@@ -216,7 +216,7 @@ public class Timer extends AppCompatActivity
     }
 
     private void editCurrentTask() {
-        Intent i = new Intent(this, EditTask.class);
+        Intent i = new Intent(this, EditTimer.class);
         i.putExtra("edit", true);
         startActivity(i);
         ((ArrayAdapter)timerSpinner.getAdapter()).notifyDataSetChanged();
