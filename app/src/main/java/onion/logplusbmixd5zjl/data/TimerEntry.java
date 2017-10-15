@@ -19,18 +19,6 @@ import onion.logplusbmixd5zjl.util.Scheduler;
 public class TimerEntry extends TaskEntry {
     private static final String TAG = TaskEntry.class.getName();
 
-    // todo: refactor (and move below if afterwards necessary)
-    /** @return tagpart to access property at TaskEntry of ID ..., uses */
-    private String storagePart(String last) {
-        return storagePart(this.ID, last);
-    }
-    private static String storagePart(int ID, String last) {
-        return ".tasks." + ID + "." + last;
-    }
-
-    // TODO: move to ...store
-    //private static Vector<TimerEntry> all = null;
-
     // todo: make private? / protected?
     long durationMillis;
     int repetitions;
@@ -82,15 +70,6 @@ public class TimerEntry extends TaskEntry {
         return TimerStore.getCurrentEntry(context);
     }
 
-    // todo: replace by stats class
-    /** how many units of this done today? */
-    public long done() {
-        Long durationTotalMillis = Stats.getSumToday(context).get(this.name);
-        if ( durationTotalMillis == null ) {
-            return 0;
-        }
-        return durationTotalMillis / durationMillis;
-    }
 
     @Override public final long getDuration()   { return durationMillis; }
     public Reminder getReminder() {
@@ -125,18 +104,6 @@ public class TimerEntry extends TaskEntry {
         }
     }
 
-    /** @return True if value changed */
-    public boolean setDuration(long durationMillis) {
-        if ( durationMillis == this.durationMillis ) {
-            return false;
-        } else {
-            this.durationMillis = durationMillis;
-
-            storage.putLong(storagePart("duration"), durationMillis);
-            return true;
-        }
-    }
-
 
     @Override public String toString() {
         return name + "(" + durationMillis / 1000 + ")";
@@ -160,10 +127,9 @@ public class TimerEntry extends TaskEntry {
             "]";
     }
 
-    // // todo: log should *only* log, not also schedule nag, 1: remane
-
-    // change in timer or state or alarm (maybe best, most direct,
-    // least surprise)
+    // // todo: log should *only* log, not also schedule nag, 1: rename logEtc
+    // 2. change this in timer or state or alarm (maybe best, most direct,
+    // least surprise),
     private final void logMeta(String logName) {
         logMeta(logName, System.currentTimeMillis());
     }

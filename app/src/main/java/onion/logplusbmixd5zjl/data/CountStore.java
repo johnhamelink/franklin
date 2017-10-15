@@ -184,7 +184,7 @@ public final class CountStore {
         
     /** schedules count save to storage */
     private Storage setCount(Storage storage, int count) {
-        this.count = count;
+        CountStore.count = count;
         return storage.putInt(".counts.count", count);
     }
 }

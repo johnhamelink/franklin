@@ -53,8 +53,7 @@ public class EditTask extends FragmentActivity implements EditSth {
         fillTask();
     }
 
-    // td: refactor, too long
-      // - save()-method
+    // todo: save button etc, copy/merge from editcount
     @Override public void onPause() {
         Log.d(TAG, "onPause()");
 

@@ -11,18 +11,6 @@ import static org.junit.Assert.assertNotEquals;
 @RunWith(AndroidJUnit4.class)
 public class TimerEntryTest extends MetaTest {
     @Test
-    public void test_done() throws Exception {
-        TimerEntry e = new TimerEntry("test_done", 100, 1);
-        TimerStore ts = TimerStore.get(getContext());
-        ts.save(e);
-        long i = e.done();
-        e.log();
-        assertEquals(i+1, e.done());
-        ts.remove(e);
-    }
-
-
-    @Test
     public void test_equals_basic() throws Exception {
         TimerEntry e = new TimerEntry("testEquals", 123, 23);
         TimerEntry e2 = new TimerEntry("testEquals", 123, 23);
