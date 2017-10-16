@@ -30,7 +30,7 @@ public class EditTimer extends FragmentActivity implements EditSth {
     private int hours = -1;
     private int minutes = -1;
 
-    /** Called when the activity is first created. */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +46,6 @@ public class EditTimer extends FragmentActivity implements EditSth {
         textRemindRepeat = (EditText) findViewById(R.id.e_a_number);
 
         addListeners();
-    }
-
-    @Override public void onResume() {
-        super.onResume();
-        fillTask();
     }
 
     // todo: save button etc, copy/merge from editcount
@@ -69,8 +64,6 @@ public class EditTimer extends FragmentActivity implements EditSth {
             duration = Long.parseLong(textDurationSeconds.getText().toString());
             duration *= 1000;
             repetitions = Integer.parseInt(textDayRepeat.getText().toString());
-            remindRepetitions = Integer.parseInt(textRemindRepeat
-                                                 .getText().toString());
             if ( ( duration <= 0 || repetitions <= 0 || name.trim().equals("")
                  || TimerStore.get(this).getEntry(name.trim()) != null )
                    && task == null ) {
@@ -88,7 +81,13 @@ public class EditTimer extends FragmentActivity implements EditSth {
         } else {
             task.update(name, duration, repetitions);
         }
-        if ( hours >= 0 ) {
+        try {
+            remindRepetitions = Integer.parseInt(textRemindRepeat
+                                                 .getText().toString());
+        } catch ( NumberFormatException e ) {
+            // all's well: user did not use reminder values
+        }
+        if ( hours >= 0 && remindRepetitions > 0 ) {
             task.setReminder(hours, minutes, remindRepetitions);
         }
         boolean changed = TimerStore.get(this).save(task);
@@ -100,10 +99,17 @@ public class EditTimer extends FragmentActivity implements EditSth {
         super.onPause();
     }
 
-    /** sets reminder time */
+
+    @Override public void onResume() {
+        super.onResume();
+        fillTask();
+    }
+
+
+    /** sets reminder time, called from pressEditAlarmTime dialog */
     public void doSetTime(int hourOfDay, int minute) {
-        timeButton.setText(String.format(Locale.US, "%d:%02d",
-                                            hourOfDay, minute));
+        setTimeButtonText(hourOfDay, minute);
+
         hours = hourOfDay;
         minutes = minute;
         Common.showToast(this,
@@ -111,11 +117,13 @@ public class EditTimer extends FragmentActivity implements EditSth {
                                        hourOfDay, minute));
     }
 
+
     public void pressEditAlarmTime(View view) {
         // td: start alarm edit dialog
         DialogFragment frag = new TimePickerFragment();
         frag.show(getSupportFragmentManager(), "dialog");
     }
+
 
     /** adds a text validator to each field */
     private void addListeners() {
@@ -144,6 +152,7 @@ public class EditTimer extends FragmentActivity implements EditSth {
             });
     }
 
+
     private void fillTask() {
         Bundle extras = getIntent().getExtras();
         if (extras == null || !extras.containsKey("edit")) {
@@ -163,6 +172,7 @@ public class EditTimer extends FragmentActivity implements EditSth {
             }
         }
     }
+
 
     private void setTimeButtonText(int hourOfDay, int minute) {
         timeButton.setText(String.format(Locale.US, "%d:%02d",
