@@ -73,7 +73,7 @@ public final class CountStore {
                       storage.getLong(storagePart(ID, "target"), 1000),
                       storage.getInt(storagePart(ID, "hours"), -1),
                       storage.getInt(storagePart(ID, "minutes"), -1),
-                      storage.getInt(storagePart(ID, "remindRepetitions"), -1));
+                      storage.getInt(storagePart(ID, "repetitions"), -1));
         out.setID(ID, context);
         return out;
     }
@@ -142,7 +142,7 @@ public final class CountStore {
             .remove(storagePart(e.getID(), "name"))
             .remove(storagePart(e.getID(), "hours"))
             .remove(storagePart(e.getID(), "minutes"))
-            .remove(storagePart(e.getID(), "remindRepetitions"))
+            .remove(storagePart(e.getID(), "repetitions"))
             .save();
         for ( int id = 0; id < getCount(); id++ ) {
             if ( ! storage.contains(storagePart(id, "name")) ) {
@@ -175,8 +175,8 @@ public final class CountStore {
             .putString(storagePart(e.getID(), "name"), e.getName())
             .putInt(storagePart(e.getID(), "hours"), e.hours)
             .putInt(storagePart(e.getID(), "minutes"), e.minutes)
-            .putInt(storagePart(e.getID(), "remindRepetitions"),
-                    e.remindRepetitions)
+            .putInt(storagePart(e.getID(), "repetitions"),
+                    e.repetitions)
             .save();
         e.getReminder().schedule(context);
         return true;

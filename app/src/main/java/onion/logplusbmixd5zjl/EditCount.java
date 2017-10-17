@@ -78,7 +78,7 @@ public class EditCount extends FragmentActivity implements EditSth {
     private void setTaskValues() {
         task.setName(textName.getText().toString());
         task.setTarget(Long.parseLong(textTarget.getText().toString()));
-        task.remindRepetitions = Integer.parseInt(textRemindRepeat.getText()
+        task.repetitions = Integer.parseInt(textRemindRepeat.getText()
                                                   .toString());
     }
 
@@ -94,14 +94,14 @@ public class EditCount extends FragmentActivity implements EditSth {
             task = CountStore.getCurrentEntry(this);
             Log.v(TAG, "editing existing task: " + task);
             // todo: real separate reminder object (with store?)
-            if ( task.remindRepetitions != 0 ) {
+            if ( task.repetitions != 0 ) {
                 setTimeButtonText();
             }
         }
         // set name, target, remindrepetitions
         textName.setText(task.getName());
         textTarget.setText(String.valueOf(task.getTarget()));
-        textRemindRepeat.setText(String.valueOf(task.remindRepetitions));
+        textRemindRepeat.setText(String.valueOf(task.repetitions));
     }
 
     private void setTimeButtonText() {

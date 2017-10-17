@@ -21,7 +21,6 @@ public class TimerEntry extends TaskEntry {
 
     // todo: make private? / protected?
     long durationMillis;
-    int repetitions;
 
     // later: class (for stats)
     // later4: comment, instructions, cycle
@@ -33,11 +32,10 @@ public class TimerEntry extends TaskEntry {
         this.repetitions = repetitions;
     }
     public TimerEntry(String name, long durationMillis, int repetitions,
-                      int hours, int minutes, int remindRepetitions) {
+                      int hours, int minutes) {
         this(name, durationMillis, repetitions);
         this.hours = hours;
         this.minutes = minutes;
-        this.remindRepetitions = remindRepetitions;
     }
 
     @Override public boolean equals (Object other) {
@@ -73,7 +71,7 @@ public class TimerEntry extends TaskEntry {
 
     @Override public final long getDuration()   { return durationMillis; }
     public Reminder getReminder() {
-        return new Reminder(hours, minutes, remindRepetitions, this);
+        return new Reminder(hours, minutes, repetitions, this);
     }
     public final int getRepetitions() { return repetitions; }
 
@@ -116,15 +114,14 @@ public class TimerEntry extends TaskEntry {
     }
     // codup logentry
     @Override public String verboseString() {
-        return getClass().getName() + "[" +
-            "name=" + name + ", " +
-            "durationMillis=" + durationMillis + ", " +
-            "ID=" + ID  + ", " +
-            "repetitions=" + repetitions + ", " +
-            "hours=" + hours + ", " +
-            "minutes=" + minutes + ", " +
-            "remindRepetitions=" + remindRepetitions +
-            "]";
+        return getClass().getName() + "["
+            + "name=" + name
+            + ", " + "durationMillis=" + durationMillis
+            + ", " + "ID=" + ID
+            + ", " + "repetitions=" + repetitions
+            + ", " + "hours=" + hours
+            + ", " + "minutes=" + minutes
+            + "]";
     }
 
     // // todo: log should *only* log, not also schedule nag, 1: rename logEtc

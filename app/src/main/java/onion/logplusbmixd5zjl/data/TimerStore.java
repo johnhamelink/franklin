@@ -63,7 +63,7 @@ public final class TimerStore {
     public TimerEntry getEntry(int ID) {
         if ( ID < 0 || ID >= getCount() ) {
             return new TimerEntry(context.getResources().getString(R.string.te_name),
-                                  300000, 1, -1, -1, -1);
+                                  300000, 1, -1, -1);
         }
 
         TimerEntry out
@@ -71,8 +71,7 @@ public final class TimerStore {
                       storage.getLong(storagePart(ID, "duration"), 300000),
                       storage.getInt(storagePart(ID, "repetitions"), 1),
                       storage.getInt(storagePart(ID, "hours"), -1),
-                      storage.getInt(storagePart(ID, "minutes"), -1),
-                      storage.getInt(storagePart(ID, "remindRepetitions"), -1));
+                      storage.getInt(storagePart(ID, "minutes"), -1));
         out.setID(ID, context);
         return out;
     }
@@ -135,7 +134,6 @@ public final class TimerStore {
             .remove(storagePart(e.getID(), "repetitions"))
             .remove(storagePart(e.getID(), "hours"))
             .remove(storagePart(e.getID(), "minutes"))
-            .remove(storagePart(e.getID(), "remindRepetitions"))
             .save();
         for ( int id = 0; id < getCount(); id++ ) {
             if ( ! storage.contains(storagePart(id, "name")) ) {
@@ -168,8 +166,6 @@ public final class TimerStore {
             .putInt(storagePart(e.getID(), "repetitions"), e.getRepetitions())
             .putInt(storagePart(e.getID(), "hours"), e.hours)
             .putInt(storagePart(e.getID(), "minutes"), e.minutes)
-            .putInt(storagePart(e.getID(), "remindRepetitions"),
-                    e.remindRepetitions)
             .save();
         e.getReminder().schedule(context);
         return true;

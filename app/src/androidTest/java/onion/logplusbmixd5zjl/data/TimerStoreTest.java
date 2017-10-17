@@ -49,7 +49,7 @@ public class TimerStoreTest extends MetaTest {
 
     @Test
     public void testRestoreWithReminder() {
-        TimerEntry e = new TimerEntry("hi", 123, 1, 2, 3, 4);
+        TimerEntry e = new TimerEntry("hi", 123, 1, 2, 3);
         ts.save(e);
         TimerEntry e2 = ts.getEntry(e.ID);
         assertEquals(e, e2);
@@ -136,9 +136,9 @@ public class TimerStoreTest extends MetaTest {
 
     @Test
     public void test_save_two() throws Exception {
-        TimerEntry t1 = new TimerEntry("save_reminder", 123, 45, 1, 2, 3);
+        TimerEntry t1 = new TimerEntry("save_reminder", 123, 45, 1, 2);
         assertTrue(ts.save(t1));
-        TimerEntry t2 = new TimerEntry("save_reminder", 23, 4, 5, 6, 7);
+        TimerEntry t2 = new TimerEntry("save_reminder", 23, 4, 5, 6);
         assertTrue(ts.save(t2));
         TimerEntry t1store = ts.getEntry(t1.getID());
         TimerEntry t2store = ts.getEntry(t2.getID());
@@ -150,7 +150,7 @@ public class TimerStoreTest extends MetaTest {
 
     @Test
     public void test_save_with_reminder() throws Exception {
-        TimerEntry e = new TimerEntry("save_reminder", 123, 45, 1, 2, 3);
+        TimerEntry e = new TimerEntry("save_reminder", 123, 45, 1, 2);
         assertTrue(ts.save(e));
         TimerEntry e2 = ts.getEntry(e.ID);
         assertEquals(e.verboseString() + " vs " + e2.verboseString(), e, e2);
@@ -159,7 +159,7 @@ public class TimerStoreTest extends MetaTest {
 
     @Test
     public void test_change_reminder_hours() throws Exception {
-        TimerEntry e = new TimerEntry("hi ChangeReminderHours", 123, 1, 10, 10, 10);
+        TimerEntry e = new TimerEntry("hi ChangeReminderHours", 123, 1, 10, 10);
         assertTrue(ts.save(e));
         e.setReminder(11, 10, 10);
         assertTrue(ts.save(e));
@@ -170,7 +170,7 @@ public class TimerStoreTest extends MetaTest {
 
     @Test
     public void test_change_reminder_minutes() throws Exception {
-        TimerEntry e = new TimerEntry("hi ChangeReminderMinutes", 123, 1, 10, 10, 10);
+        TimerEntry e = new TimerEntry("hi ChangeReminderMinutes", 123, 1, 10, 10);
         assertTrue(ts.save(e));
         e.setReminder(10, 11, 10);
         assertTrue(ts.save(e));
@@ -181,13 +181,13 @@ public class TimerStoreTest extends MetaTest {
 
     @Test
     public void test_change_reminder_repetitions() throws Exception {
-        TimerEntry e = new TimerEntry("hi ChangeReminderRepetitions", 123, 1, 10, 10, 10);
+        TimerEntry e = new TimerEntry("hi ChangeReminderRepetitions", 123, 1, 10, 10);
         assertTrue(ts.save(e));
         e.setReminder(10, 10, 11);
         assertTrue(ts.save(e));
         TimerEntry e2 = ts.getEntry(e.ID);
         assertEquals(//e.verboseString() + " vs " + e2.verboseString(),
-                     11, e2.remindRepetitions);
+                     11, e2.repetitions);
         ts.remove(e);
     }
 

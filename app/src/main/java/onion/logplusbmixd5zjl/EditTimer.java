@@ -25,7 +25,6 @@ public class EditTimer extends FragmentActivity implements EditSth {
     private EditText textName;
     private EditText textDurationSeconds;
     private EditText textDayRepeat;
-    private EditText textRemindRepeat;
     // later: solartime
     private int hours = -1;
     private int minutes = -1;
@@ -43,7 +42,6 @@ public class EditTimer extends FragmentActivity implements EditSth {
         textDurationSeconds = (EditText) findViewById(R.id.e_duration);
         textName = (EditText) findViewById(R.id.e_name);
         textDayRepeat = (EditText) findViewById(R.id.e_repeat);
-        textRemindRepeat = (EditText) findViewById(R.id.e_a_number);
 
         addListeners();
     }
@@ -55,9 +53,8 @@ public class EditTimer extends FragmentActivity implements EditSth {
         long duration;
         String name;
         int repetitions;
-        int remindRepetitions = 0; // otherwise java complains
         // td: check why this, or write tests
-        // later: hours, minutes, remindRepetitions into map<solartime, integer>
+        // later: hours, minutes into map<solartime, integer>
 
         name = textName.getText().toString();
         try {
@@ -81,14 +78,8 @@ public class EditTimer extends FragmentActivity implements EditSth {
         } else {
             task.update(name, duration, repetitions);
         }
-        try {
-            remindRepetitions = Integer.parseInt(textRemindRepeat
-                                                 .getText().toString());
-        } catch ( NumberFormatException e ) {
-            // all's well: user did not use reminder values
-        }
-        if ( hours >= 0 && remindRepetitions > 0 ) {
-            task.setReminder(hours, minutes, remindRepetitions);
+        if ( hours >= 0 ) {
+            task.setReminder(hours, minutes, repetitions);
         }
         boolean changed = TimerStore.get(this).save(task);
 
@@ -168,7 +159,6 @@ public class EditTimer extends FragmentActivity implements EditSth {
             minutes = task.minutes;
             if ( task.hours != -1 ) {
                 setTimeButtonText(task.hours, task.minutes);
-                textRemindRepeat.setText(String.valueOf(task.remindRepetitions));
             }
         }
     }

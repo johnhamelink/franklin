@@ -26,7 +26,7 @@ public abstract class TaskEntry extends Entry {
 
     public int hours = -1;
     public int minutes = -1;
-    public int remindRepetitions = 0; // this indicates empty reminders
+    public int repetitions = 1;
 
     // todo: way to skip these, and copy them from entry?
     /** no-meta-operation constructor */
@@ -45,12 +45,12 @@ public abstract class TaskEntry extends Entry {
 
 
     public Reminder getReminder() {
-        return new Reminder(hours, minutes, remindRepetitions, this);
+        return new Reminder(hours, minutes, repetitions, this);
     }
-    public void setReminder(int hours, int minutes, int remindRepetitions) {
+    public void setReminder(int hours, int minutes, int repetitions) {
         this.hours = hours;
         this.minutes = minutes;
-        this.remindRepetitions = remindRepetitions;
+        this.repetitions = repetitions;
     }
 
 
@@ -83,7 +83,7 @@ public abstract class TaskEntry extends Entry {
 
         if (hours != taskEntry.hours) return false;
         if (minutes != taskEntry.minutes) return false;
-        return remindRepetitions == taskEntry.remindRepetitions;
+        return repetitions == taskEntry.repetitions;
 
     }
 
@@ -92,7 +92,7 @@ public abstract class TaskEntry extends Entry {
         int result = super.hashCode();
         result = 31 * result + hours;
         result = 31 * result + minutes;
-        result = 31 * result + remindRepetitions;
+        result = 31 * result + repetitions;
         return result;
     }
     // td: getAll combines both

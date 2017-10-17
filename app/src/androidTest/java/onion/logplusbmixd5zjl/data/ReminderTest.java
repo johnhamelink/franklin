@@ -49,7 +49,7 @@ public class ReminderTest extends MetaTest {
     @Test
     public void test_millisNeeded_after_all_done() throws Exception {
         TimerEntry t = new TimerEntry("test_millisNeeded_after_all_done",
-                                      1000, 1, 10, 10, 1);
+                                      1000, 1, 10, 10);
         TimerStore.get(getContext()).save(t);
         Reminder r = t.getReminder();
         t.log();
@@ -60,7 +60,7 @@ public class ReminderTest extends MetaTest {
     @Test
     public void test_millisNeeded_after_extra_done() throws Exception {
         TimerEntry t = new TimerEntry("test_millisNeeded_after_extra_done",
-                                      1000, 1, 10, 10, 1);
+                                      1000, 1, 10, 10);
         TimerStore.get(getContext()).save(t);
         Reminder r = t.getReminder();
         t.log();
