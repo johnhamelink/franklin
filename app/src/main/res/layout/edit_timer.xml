@@ -35,26 +35,19 @@
 	  android:inputType="number"
 	  />
     </TableRow>
-    <TableRow>
+    <TableRow
+        android:id="@+id/e_t_reminder"
+        >
       <TextView
 	  android:text="@string/reminder_label"
           android:layout_gravity="center_vertical"
 	  />
-      <LinearLayout>
-          <Button
-              android:id="@+id/e_a_time"
-              android:onClick="pressEditAlarmTime"
-              android:text="@string/e_t_start"
-              android:layout_height="match_parent"
-              android:layout_width="wrap_content"
-              />
-          <EditText
-	      android:id="@+id/e_a_number"
-	      android:hint="@string/e_a_n_hint"
-	      android:inputType="number"
-              android:layout_height="match_parent"
-              android:layout_width="match_parent"
-	      />
-      </LinearLayout>
+      <Button
+          android:id="@+id/e_a_time"
+          android:onClick="pressEditAlarmTime"
+          android:text="@string/e_t_start"
+          android:layout_height="wrap_content"
+          android:layout_width="wrap_content"
+          />
     </TableRow>
   </TableLayout>

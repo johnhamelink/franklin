@@ -3,6 +3,7 @@ package onion.logplusbmixd5zjl;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -22,10 +23,10 @@ public class EditCount extends FragmentActivity implements EditSth {
 
     private CountEntry task;
 
+    private View timeView;
     private EditText textName;
     private EditText textTarget;
     private Button timeButton;
-    private EditText textRemindRepeat;
 
     /** Called when the activity is first created. */
     @Override
@@ -39,14 +40,20 @@ public class EditCount extends FragmentActivity implements EditSth {
         textName = (EditText) findViewById(R.id.e_c_name);
         textTarget = (EditText) findViewById(R.id.e_c_target);
         timeButton = (Button) findViewById(R.id.e_c_time);
-        textRemindRepeat = (EditText) findViewById(R.id.e_c_number);
-
+        timeView = findViewById(R.id.e_c_reminder);
         // some day maybe: addlisteners, see edittimer
     }
 
     @Override public void onResume() {
         super.onResume();
         fillCount();
+
+        if ( PreferenceManager.getDefaultSharedPreferences(this)
+             .getBoolean("reminder", true) ) {
+            timeView.setVisibility(View.VISIBLE);
+        } else {
+            timeView.setVisibility(View.GONE);
+        }
     }
 
 
@@ -78,8 +85,6 @@ public class EditCount extends FragmentActivity implements EditSth {
     private void setTaskValues() {
         task.setName(textName.getText().toString());
         task.setTarget(Long.parseLong(textTarget.getText().toString()));
-        task.repetitions = Integer.parseInt(textRemindRepeat.getText()
-                                                  .toString());
     }
 
 
@@ -89,7 +94,7 @@ public class EditCount extends FragmentActivity implements EditSth {
         if ( extras == null || !extras.containsKey("edit") ) {
             Log.v(TAG, "creating new task");
             // todo: strings.xml
-            task = new CountEntry(this, "TD: new count", 0);
+            task = new CountEntry(this, "", 0);
         } else {
             task = CountStore.getCurrentEntry(this);
             Log.v(TAG, "editing existing task: " + task);
@@ -101,7 +106,6 @@ public class EditCount extends FragmentActivity implements EditSth {
         // set name, target, remindrepetitions
         textName.setText(task.getName());
         textTarget.setText(String.valueOf(task.getTarget()));
-        textRemindRepeat.setText(String.valueOf(task.repetitions));
     }
 
     private void setTimeButtonText() {

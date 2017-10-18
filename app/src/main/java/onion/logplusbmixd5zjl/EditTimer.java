@@ -3,6 +3,7 @@ package onion.logplusbmixd5zjl;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -21,13 +22,14 @@ public class EditTimer extends FragmentActivity implements EditSth {
     private static final String TAG = EditTimer.class.getName();
 
     private Button timeButton;
-    private TimerEntry task;
+    private View timeView;
     private EditText textName;
     private EditText textDurationSeconds;
     private EditText textDayRepeat;
-    // later: solartime
-    private int hours = -1;
-    private int minutes = -1;
+
+    private TimerEntry task;
+    private int tmphours = -1;
+    private int tmpminutes = -1;
 
 
     @Override
@@ -38,10 +40,11 @@ public class EditTimer extends FragmentActivity implements EditSth {
 
         setContentView(R.layout.edit_timer);
 
-        timeButton = (Button) findViewById(R.id.e_a_time);
-        textDurationSeconds = (EditText) findViewById(R.id.e_duration);
         textName = (EditText) findViewById(R.id.e_name);
+        textDurationSeconds = (EditText) findViewById(R.id.e_duration);
         textDayRepeat = (EditText) findViewById(R.id.e_repeat);
+        timeButton = (Button) findViewById(R.id.e_a_time);
+        timeView = findViewById(R.id.e_t_reminder);
 
         addListeners();
     }
@@ -78,8 +81,8 @@ public class EditTimer extends FragmentActivity implements EditSth {
         } else {
             task.update(name, duration, repetitions);
         }
-        if ( hours >= 0 ) {
-            task.setReminder(hours, minutes, repetitions);
+        if ( tmphours >= 0 ) {
+            task.setReminder(tmphours, tmpminutes, repetitions);
         }
         boolean changed = TimerStore.get(this).save(task);
 
@@ -94,6 +97,12 @@ public class EditTimer extends FragmentActivity implements EditSth {
     @Override public void onResume() {
         super.onResume();
         fillTask();
+        if ( PreferenceManager.getDefaultSharedPreferences(this)
+             .getBoolean("reminder", true) ) {
+            timeView.setVisibility(View.VISIBLE);
+        } else {
+            timeView.setVisibility(View.GONE);
+        }
     }
 
 
@@ -101,8 +110,8 @@ public class EditTimer extends FragmentActivity implements EditSth {
     public void doSetTime(int hourOfDay, int minute) {
         setTimeButtonText(hourOfDay, minute);
 
-        hours = hourOfDay;
-        minutes = minute;
+        tmphours = hourOfDay;
+        tmpminutes = minute;
         Common.showToast(this,
                          String.format(Locale.US, "set time: %d:%02d",
                                        hourOfDay, minute));
@@ -149,14 +158,11 @@ public class EditTimer extends FragmentActivity implements EditSth {
         if (extras == null || !extras.containsKey("edit")) {
             Log.v(TAG, "creating new task");
         } else {
-            task = TimerStore.get(this).getEntry(extras.getInt("edit"));
+            task = TimerStore.getCurrentEntry(this);
             Log.v(TAG, "editing existing task: " + task);
             textName.setText(task.getName());
             textDurationSeconds.setText(String.valueOf(task.getDuration()/1000));
             textDayRepeat.setText(String.valueOf(task.getRepetitions()));
-            // should be somewhere else
-            hours = task.hours;
-            minutes = task.minutes;
             if ( task.hours != -1 ) {
                 setTimeButtonText(task.hours, task.minutes);
             }
@@ -166,6 +172,6 @@ public class EditTimer extends FragmentActivity implements EditSth {
 
     private void setTimeButtonText(int hourOfDay, int minute) {
         timeButton.setText(String.format(Locale.US, "%d:%02d",
-                                            hourOfDay, minute));
+                                         hourOfDay, minute));
     }
 }

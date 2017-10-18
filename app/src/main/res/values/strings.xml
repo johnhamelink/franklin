@@ -23,7 +23,7 @@
     <string name="nextEntry">Next entry</string>
     <string name="positive_number">positive number</string>
     <string name="previousEntry">Previous Entry</string>
-    <string name="reminder_label">Reminder:</string>
+    <string name="reminder_label">Target Time:</string>
     <string name="repetitions_label">Repetitions:</string>
     <string name="s_name">State</string>
     <string name="saved">saved</string>
