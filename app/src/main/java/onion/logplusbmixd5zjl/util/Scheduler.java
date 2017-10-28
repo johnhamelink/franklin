@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.preference.PreferenceManager;
 
+import java.util.Date;
+
 import onion.logplusbmixd5zjl.Common;
 
 @SuppressWarnings("StaticFieldLeak")
@@ -19,6 +21,7 @@ public class Scheduler {
     private AlarmManager alarmManager;
     private Context context;
     private SharedPreferences prefs;
+    private long alarmTime;
     
     protected Scheduler() {
         // pass
@@ -37,6 +40,9 @@ public class Scheduler {
         return instance;
     }
 
+
+    public Date getAlarmTime() { return new Date(alarmTime); }
+
     // "If there is already an alarm scheduled for the same
     // IntentSender, it will first be canceled." (@see #AlarmManager.set())
     public void scheduleAlarm(long millisWhen, Intent intent) {
@@ -47,7 +53,9 @@ public class Scheduler {
      * @param intent schedule this
      */
     public void scheduleAlarm(long millisWhen, Intent intent, int flags){
-        Log.d(TAG, String.format("scheduleAlarm(%d, %s, %d)", millisWhen, intent,flags));
+        Log.d(TAG, String.format("scheduleAlarm(%d, %s, %d)",
+                                 millisWhen, intent,flags));
+        alarmTime = millisWhen;
         PendingIntent alarmIntent
             = PendingIntent.getBroadcast(context, 0, intent, flags);
 

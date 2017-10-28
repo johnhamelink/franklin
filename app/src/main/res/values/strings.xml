@@ -41,6 +41,7 @@
     <string name="target_label">Target:</string>
     <string name="te_name">default timer</string>
     <string name="test">test</string>
+    <string name="timer_m_delete">delete timer</string>
     <string name="timer_m_edit">edit timer</string>
     <string name="timer_m_new">new timer</string><!-- td: merge w/ new task-->
     <string name="w_latitude">enter latitude</string>

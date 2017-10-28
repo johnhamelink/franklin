@@ -113,6 +113,9 @@ public class Timer extends AppCompatActivity
             case R.id.timer_m_edit:
                 editCurrentTask();
                 return true;
+            case R.id.timer_m_delete:
+                deleteCurrentTask();
+                return true;
             case R.id.timer_m_justlog:
                 getTask().logWithoutFinish();
                 return true;
@@ -215,6 +218,10 @@ public class Timer extends AppCompatActivity
         displayTime.setText(FormatMillis.format(displayTimeMillis));
     }
 
+    private void deleteCurrentTask() {
+        TimerStore.get(this).remove(TimerStore.getCurrentEntry(this));
+        ((ArrayAdapter)timerSpinner.getAdapter()).notifyDataSetChanged();
+    }
     private void editCurrentTask() {
         Intent i = new Intent(this, EditTimer.class);
         i.putExtra("edit", true);

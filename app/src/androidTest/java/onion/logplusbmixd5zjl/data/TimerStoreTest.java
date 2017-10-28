@@ -135,6 +135,17 @@ public class TimerStoreTest extends MetaTest {
     }
 
     @Test
+    public void test_save_twice() throws Exception {
+        int oldcount = ts.getCount();
+        TimerEntry te = new TimerEntry("save_twice", 123, 45);
+        ts.save(te);
+        te.mySetDuration(300);
+        assertEquals(true, ts.save(te));
+        ts.remove(te);
+        assertEquals(oldcount, ts.getCount());
+    }
+
+    @Test
     public void test_save_two() throws Exception {
         TimerEntry t1 = new TimerEntry("save_reminder", 123, 45, 1, 2);
         assertTrue(ts.save(t1));

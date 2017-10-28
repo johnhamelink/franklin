@@ -6,6 +6,9 @@
     <item android:id="@+id/timer_m_edit"
           android:icon="@drawable/edittimer"
           android:title="@string/timer_m_edit"/>
+    <item android:id="@+id/timer_m_delete"
+          android:icon="@drawable/ic_delete_timer"
+          android:title="@string/timer_m_delete"/>
     <!--td: icon: composite timer+edit-->
     <item android:id="@+id/timer_m_justlog"
           android:icon="@drawable/addlogs"
