@@ -243,11 +243,15 @@ public class Timer extends AppCompatActivity
     }
 
 
-    /** initializes the background alarm part */
+    /** initializes the background alarm part (strictly on time) */
     private void initializeAlarm(long countdownEnd) {//tdm to alarm(?)
-        //	alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
         if ( android.os.Build.VERSION.SDK_INT
-                >= android.os.Build.VERSION_CODES.KITKAT ) {
+             >= android.os.Build.VERSION_CODES.LOLLIPOP ) { // 21
+            alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(
+                countdownEnd, alarmIntent),
+                                        alarmIntent);
+        } else if ( android.os.Build.VERSION.SDK_INT
+                    >= android.os.Build.VERSION_CODES.KITKAT ) { // 19
             alarmManager.setExact(AlarmManager.RTC_WAKEUP,
                     countdownEnd, alarmIntent);
         } else {

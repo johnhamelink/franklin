@@ -69,6 +69,18 @@ public class ReminderTest extends MetaTest {
         TimerStore.get(getContext()).remove(t);
     }
 
+    @Test
+    public void test_counter() throws Exception {
+        CountEntry ce = new CountEntry(getContext(), "test_counter",
+                                      1000, 1, 10, 1);
+        CountStore.get(getContext()).save(ce);
+        Reminder r = ce.getReminder();
+        assertEquals(5 * 60 * 1000 + 60 * 1000, r.millisNeeded(getContext()));
+        ce.incrementCount(1000);
+        assertEquals(0, r.millisNeeded(getContext()));
+        CountStore.get(getContext()).remove(ce);
+    }
+
 
     @Test
     public void test_remindersToStringEmpty() throws Exception {
@@ -83,7 +95,7 @@ public class ReminderTest extends MetaTest {
                                   new TimerEntry("test_timeToday", 1000, 1));
         Vector<Reminder> v = new Vector<>();
         v.add(r);
-        assertEquals("12:00 PM test_timeToday(1)\n",
+        assertEquals("12:00 test_timeToday(1)\n",
                      Reminder.remindersToString(v));
     }
 
