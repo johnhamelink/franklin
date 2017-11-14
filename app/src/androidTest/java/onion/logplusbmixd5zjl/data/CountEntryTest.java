@@ -25,7 +25,7 @@ public class CountEntryTest extends MetaTest {
         assertEquals(e, e2);
         CountEntry e3 = new CountEntry(getContext(), "testcEquals_not", 123);
         assertNotEquals(e, e3);
-        CountEntry e4 = new CountEntry(getContext(), "testcEquals", -123); // not
+        CountEntry e4 = new CountEntry(getContext(), "testcEquals", -123);
         assertNotEquals(e, e4);
     }
 

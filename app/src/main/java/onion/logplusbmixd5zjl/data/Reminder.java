@@ -119,7 +119,7 @@ public class Reminder {
         Calendar c = p.first;
         Intent i = new Intent("my.minder")
             .putExtra("remind", remindersToString(p.second));
-        scheduler.scheduleAlarm(c.getTime().getTime() * 1000, i);
+        scheduler.scheduleAlarm(c.getTime().getTime(), i);
         Log.d(TAG, String.format("scheduled next alert at %s", c.getTime().toLocaleString()));
     }
 

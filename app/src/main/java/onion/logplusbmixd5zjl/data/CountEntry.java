@@ -28,10 +28,18 @@ public class CountEntry extends TaskEntry {
     public CountEntry() {
         super( MyApplication.context, null );
     }
+    public CountEntry(String name, long target) {
+        this(null, name, target);
+    }
     public CountEntry(Context context, String name, long target) {
         super(context, name);
         this.target = target;
         initCount();
+    }
+    public CountEntry(String name, long target,
+                      int hours, int minutes, int remindRepetitions) {
+        this(name, target);
+        setReminder(hours, minutes, remindRepetitions);
     }
     public CountEntry(Context context, String name, long target,
                       int hours, int minutes, int remindRepetitions) {
