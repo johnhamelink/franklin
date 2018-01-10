@@ -91,7 +91,7 @@ public class LogEntryUnitTest extends MetaTest {
     public void testCSVFromLogEntry() {
         String name = this.name + "CSVFromLogEntry";
         LogEntry le = new LogEntry(getContext(), name, duration, date);
-        //        le.setComment(comment);
+        //            le.setComment(comment);
         // le.save().save(); // todo: api is ugly
         String csv = le.toCSV();
         assertEquals("failed csv export", 
