@@ -1,17 +1,22 @@
 package onion.logplusbmixd5zjl;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import onion.logplusbmixd5zjl.data.TimerEntry;
@@ -63,25 +68,25 @@ public class EditAll extends FragmentActivity implements EditSth {
     @Override public void onResume() {
         super.onResume();
         Bundle extras = getIntent().getExtras();
-        ArrayList<String> names = extras.getStringArray(NAMES);
-        ArrayList<String> types = extras.getStringArray(TYPES);
-        ArrayList<String> values = extras.getStringArray(VALUES); // can be null
+        String[] names = extras.getStringArray(NAMES);
+        String[] types = extras.getStringArray(TYPES);
+        String[] values = extras.getStringArray(VALUES); // can be null
         for ( int i = 0; i < names.size() ; i++ ) {
-            value = null;
+            String value = null;
             if ( values != null ) {
-                value = values.get(i);
+                value = values[i];
             }
-            addElement(container, names.get(i), types.get(i), values.get(i));
+            addElement(container, names[i], types[i], value);
         }
     }
 
     public void addElement(TableLayout layout, String name, String type, String value) {
-        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
         TableRow row;
         if ( type == "int" ) {
             row = (TableRow)vi.inflate(R.layout.part_int, null);
             if ( value != null ) {
-                (TextView)row.findViewById(R.id.row_value).setText(value);
+                ((TextView)row.findViewById(R.id.row_value)).setText(value);
             }
             layout.addView(row);
         } else if ( type == "string" ) {
@@ -92,7 +97,7 @@ public class EditAll extends FragmentActivity implements EditSth {
         } else if ( type == "multiline-string" ) {
             row = (TableRow)vi.inflate(R.layout.part_multilinestring, null);
         } else {
-            Log.err(TAG, "unknown type: " + type);
+            Log.e(TAG, "unknown type: " + type);
         }
         (TextView)row.findViewById(R.id.row_label).setText(name);
     }
