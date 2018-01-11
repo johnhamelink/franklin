@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Call other tasks.
@@ -44,4 +45,19 @@ public class Test extends Activity {
     public void pressWakeup(View view) {
 	startActivity(new Intent(this, Wakeup.class));
     }
+    public void pressAllEasy(View view) {
+        Intent i = new Intent(this, EditAll.class)
+            .putExtra(EditAll.NAMES, new String[]{"hello", "world"})
+            .putExtra(EditAll.TYPES, new String[]{"string", "int"});
+        startActivityForResult(i, EditAll.ACTION_EDIT);
+    }
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (requestCode == EditAll.ACTION_EDIT) {
+             if (resultCode == RESULT_OK) {
+                 Toast.makeText( this, "result is ...", Toast.LENGTH_LONG).show();
+             }
+         }
+     }
+
 }

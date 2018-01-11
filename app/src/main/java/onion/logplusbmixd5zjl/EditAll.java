@@ -24,17 +24,21 @@ import onion.logplusbmixd5zjl.data.TimerStore;
 import onion.logplusbmixd5zjl.util.TextValidator;
 
 public class EditAll extends FragmentActivity implements EditSth {
-    public static final String NAMES = "NAMES";
-    public static final String TYPES = "TYPES";
-    public static final String VALUES = "VALUES";
+    public static final String NAMES = "onion.logplusbmixd5zjl.NAMES";
+    public static final String TYPES = "onion.logplusbmixd5zjl.TYPES";
+    public static final String VALUES = "onion.logplusbmixd5zjl.VALUES";
+    public static final int ACTION_EDIT = 1624658912; // random
 
     private static final String TAG = EditAll.class.getName();
 
     private TableLayout container;
+    private Button timeButton;
 
-    private ArrayList<String> names;
-    private ArrayList<String> types;
-    private ArrayList<String> values;
+    private String[] names;
+    private String[] types;
+    private String[] values;
+    private String hours;
+    private String minutes;
     // private Button timeButton;
     // private View timeView;
     // private EditText textName;
@@ -62,16 +66,16 @@ public class EditAll extends FragmentActivity implements EditSth {
         // timeButton = (Button) findViewById(R.id.e_a_time);
         // timeView = findViewById(R.id.e_t_reminder);
 
-        addListeners();
+        // addListeners();
     }
 
     @Override public void onResume() {
         super.onResume();
         Bundle extras = getIntent().getExtras();
-        String[] names = extras.getStringArray(NAMES);
-        String[] types = extras.getStringArray(TYPES);
-        String[] values = extras.getStringArray(VALUES); // can be null
-        for ( int i = 0; i < names.size() ; i++ ) {
+        names = extras.getStringArray(NAMES);
+        types = extras.getStringArray(TYPES);
+        values = extras.getStringArray(VALUES); // can be null
+        for ( int i = 0; i < names.length ; i++ ) {
             String value = null;
             if ( values != null ) {
                 value = values[i];
@@ -82,24 +86,30 @@ public class EditAll extends FragmentActivity implements EditSth {
 
     public void addElement(TableLayout layout, String name, String type, String value) {
         LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
-        TableRow row;
+        TableRow row = null;
         if ( type == "int" ) {
             row = (TableRow)vi.inflate(R.layout.part_int, null);
-            if ( value != null ) {
-                ((TextView)row.findViewById(R.id.row_value)).setText(value);
-            }
-            layout.addView(row);
         } else if ( type == "string" ) {
             row = (TableRow)vi.inflate(R.layout.part_string, null);
         } else if ( type == "date" ) {
             // BETTER: callback for more than one date entry? (would fail?)
             row = (TableRow)vi.inflate(R.layout.part_date, null);
+            timeButton = (Button)row.findViewById(R.id.row_value);
+            if ( value != null ) {
+                timeButton.setText(value);
+                hours = value.split(":")[0];
+                minutes = value.split(":")[1];
+            }
         } else if ( type == "multiline-string" ) {
             row = (TableRow)vi.inflate(R.layout.part_multilinestring, null);
-        } else {
-            Log.e(TAG, "unknown type: " + type);
+        }// else {
+        //            Log.e(TAG, "unknown type: " + type);
+        //        }
+        layout.addView(row);
+        ((TextView)row.findViewById(R.id.row_label)).setText(name);
+        if ( value != null ) {
+            ((TextView)row.findViewById(R.id.row_value)).setText(value);
         }
-        (TextView)row.findViewById(R.id.row_label).setText(name);
     }
 
 
@@ -112,48 +122,10 @@ public class EditAll extends FragmentActivity implements EditSth {
 - stringmultiline
      */
 
-    }
     // todo: save button etc, copy/merge from editcount
     @Override public void onPause() {
         Log.d(TAG, "onPause()");
-
-        long duration;
-        String name;
-        int repetitions;
-        // td: check why this, or write tests
-        // later: hours, minutes into map<solartime, integer>
-
-        name = textName.getText().toString();
-        try {
-            duration = Long.parseLong(textDurationSeconds.getText().toString());
-            duration *= 1000;
-            repetitions = Integer.parseInt(textDayRepeat.getText().toString());
-            if ( ( duration <= 0 || repetitions <= 0 || name.trim().equals("")
-                 || TimerStore.get(this).getEntry(name.trim()) != null )
-                   && task == null ) {
-                throw new NumberFormatException();
-            }
-        } catch ( NumberFormatException e ) {
-            Common.showToast(this, getResources().getString(R.string.saved_not));
-            super.onPause();
-            return;
-        }
-
-        if ( task == null ) {
-            Log.v(TAG, "task == null");
-            task = new TimerEntry(name, duration, repetitions);
-        } else {
-            task.update(name, duration, repetitions);
-        }
-        if ( tmphours >= 0 ) {
-            task.setReminder(tmphours, tmpminutes, repetitions);
-        }
-        boolean changed = TimerStore.get(this).save(task);
-
-        setResult(Activity.RESULT_OK, new Intent());
-        if ( changed ) {
-            Common.showToast(this, getResources().getString(R.string.saved));
-        }
+        // todo
         super.onPause();
     }
 
@@ -161,14 +133,14 @@ public class EditAll extends FragmentActivity implements EditSth {
 
 
     /** sets reminder time, called from pressEditAlarmTime dialog */
-    public void doSetTime(int hourOfDay, int minute) {
-        setTimeButtonText(hourOfDay, minute);
+    public void doSetTime(int hourOfDay, int minuteOfDay) {
+        setTimeButtonText(hourOfDay, minuteOfDay);
 
-        tmphours = hourOfDay;
-        tmpminutes = minute;
+        hours = String.valueOf( hourOfDay);
+        minutes = String.valueOf(minuteOfDay);
         Common.showToast(this,
                          String.format(Locale.US, "set time: %d:%02d",
-                                       hourOfDay, minute));
+                                       hourOfDay, minuteOfDay));
     }
 
 
@@ -179,49 +151,32 @@ public class EditAll extends FragmentActivity implements EditSth {
     }
 
 
-    /** adds a text validator to each field */
-    private void addListeners() {
-        // codup, but mostly boilerplate (?)
-        textDurationSeconds.addTextChangedListener(new TextValidator(textDurationSeconds) {
-                @Override public void validate(TextView textView, String text) {
-                    TextValidator.validatePositiveNumber(EditTimer.this,
-                                                         textView, text);
-                }
-            });
-        textDayRepeat.addTextChangedListener(new TextValidator(textDayRepeat) {
-                @Override public void validate(TextView textView, String text) {
-                    TextValidator.validatePositiveNumber(EditTimer.this,
-                                                         textView, text);
-                }
-            });
-        textName.addTextChangedListener(new TextValidator(textName) {
-                @Override public void validate(TextView textView, String text) {
-                    if ( text.trim().equals("") ) {
-                        textView.setError(getResources().getString(R.string.name_longer));
-                    } else if ( task == null
-                                && TimerStore.get(EditTimer.this).getEntry(text.trim()) != null) {
-                        textView.setError(getResources().getString(R.string.name_exists));
-                    }
-                }
-            });
-    }
-
-
-    private void fillTask() {
-        Bundle extras = getIntent().getExtras();
-        if (extras == null || !extras.containsKey("edit")) {
-            Log.v(TAG, "creating new task");
-        } else {
-            task = TimerStore.getCurrentEntry(this);
-            Log.v(TAG, "editing existing task: " + task);
-            textName.setText(task.getName());
-            textDurationSeconds.setText(String.valueOf(task.getDuration()/1000));
-            textDayRepeat.setText(String.valueOf(task.getRepetitions()));
-            if ( task.hours != -1 ) {
-                setTimeButtonText(task.hours, task.minutes);
-            }
-        }
-    }
+    // /** adds a text validator to each field */
+    // private void addListeners() {
+    //     // codup, but mostly boilerplate (?)
+    //     textDurationSeconds.addTextChangedListener(new TextValidator(textDurationSeconds) {
+    //             @Override public void validate(TextView textView, String text) {
+    //                 TextValidator.validatePositiveNumber(EditTimer.this,
+    //                                                      textView, text);
+    //             }
+    //         });
+    //     textDayRepeat.addTextChangedListener(new TextValidator(textDayRepeat) {
+    //             @Override public void validate(TextView textView, String text) {
+    //                 TextValidator.validatePositiveNumber(EditTimer.this,
+    //                                                      textView, text);
+    //             }
+    //         });
+    //     textName.addTextChangedListener(new TextValidator(textName) {
+    //             @Override public void validate(TextView textView, String text) {
+    //                 if ( text.trim().equals("") ) {
+    //                     textView.setError(getResources().getString(R.string.name_longer));
+    //                 } else if ( task == null
+    //                             && TimerStore.get(EditTimer.this).getEntry(text.trim()) != null) {
+    //                     textView.setError(getResources().getString(R.string.name_exists));
+    //                 }
+    //             }
+    //         });
+    // }
 
 
     private void setTimeButtonText(int hourOfDay, int minute) {

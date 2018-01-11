@@ -53,4 +53,10 @@
       android:onClick="pressWakeup"
       android:text="@string/t_wakeup"
       />
+  <Button
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:onClick="pressAllEasy"
+      android:text="edit all easy (remove this file for deployment)"
+      />
 </LinearLayout>
