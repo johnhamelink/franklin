@@ -40,15 +40,9 @@ public class EditAll extends FragmentActivity implements EditSth {
     private String[] values;
     private String hours;
     private String minutes;
-    // private Button timeButton;
-    // private View timeView;
-    // private EditText textName;
-    // private EditText textDurationSeconds;
-    // private EditText textDayRepeat;
 
-    // private TimerEntry task;
-    // private int tmphours = -1;
-    // private int tmpminutes = -1;
+    private int tmphours = -1;
+    private int tmpminutes = -1;
 
 
     @Override
@@ -60,13 +54,6 @@ public class EditAll extends FragmentActivity implements EditSth {
         setContentView(R.layout.edit_all);
 
         container = (TableLayout) findViewById(R.id.ea_container);
-
-        // textName = (EditText) findViewById(R.id.e_name);
-        // textDurationSeconds = (EditText) findViewById(R.id.e_duration);
-        // textDayRepeat = (EditText) findViewById(R.id.e_repeat);
-        // timeButton = (Button) findViewById(R.id.e_a_time);
-        // timeView = findViewById(R.id.e_t_reminder);
-
         // addListeners();
     }
 
@@ -143,7 +130,7 @@ public class EditAll extends FragmentActivity implements EditSth {
     public void doSetTime(int hourOfDay, int minuteOfDay) {
         setTimeButtonText(hourOfDay, minuteOfDay);
 
-        hours = String.valueOf( hourOfDay);
+        hours = String.valueOf(hourOfDay);
         minutes = String.valueOf(minuteOfDay);
         Common.showToast(this,
                          String.format(Locale.US, "set time: %d:%02d",
