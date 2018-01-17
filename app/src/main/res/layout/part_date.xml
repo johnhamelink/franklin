@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
+<TextView
+    android:id="@+id/row_label"
+    />
+<Button
+    android:id="@+id/row_value"
+    android:onClick="pressEditAlarmTime"
+    />
+</TableRow>

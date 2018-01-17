@@ -17,6 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 import onion.logplusbmixd5zjl.data.TimerEntry;
@@ -75,6 +76,8 @@ public class EditAll extends FragmentActivity implements EditSth {
         names = extras.getStringArray(NAMES);
         types = extras.getStringArray(TYPES);
         values = extras.getStringArray(VALUES); // can be null
+        Log.d(TAG, Arrays.toString( names));
+        Log.d(TAG, Arrays.toString( types));
         for ( int i = 0; i < names.length ; i++ ) {
             String value = null;
             if ( values != null ) {
@@ -85,26 +88,30 @@ public class EditAll extends FragmentActivity implements EditSth {
     }
 
     public void addElement(TableLayout layout, String name, String type, String value) {
-        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater vi = getLayoutInflater();// LayoutInflater.from(this);
         TableRow row = null;
-        if ( type == "int" ) {
-            row = (TableRow)vi.inflate(R.layout.part_int, null);
-        } else if ( type == "string" ) {
-            row = (TableRow)vi.inflate(R.layout.part_string, null);
-        } else if ( type == "date" ) {
+        if ( type.equals("int") ) {
+            Log.d(TAG, "int");
+            row = (TableRow)vi.inflate(R.layout.part_int, null, false);
+        } else if ( type.equals("string") ) {
+            Log.d(TAG, "string");
+            row = (TableRow)vi.inflate(R.layout.part_string, null, false);
+        } else if ( type.equals("date") ) {
+            Log.d(TAG, "date");
             // BETTER: callback for more than one date entry? (would fail?)
-            row = (TableRow)vi.inflate(R.layout.part_date, null);
+            row = (TableRow)vi.inflate(R.layout.part_date, null, false);
             timeButton = (Button)row.findViewById(R.id.row_value);
             if ( value != null ) {
                 timeButton.setText(value);
                 hours = value.split(":")[0];
                 minutes = value.split(":")[1];
             }
-        } else if ( type == "multiline-string" ) {
-            row = (TableRow)vi.inflate(R.layout.part_multilinestring, null);
-        }// else {
-        //            Log.e(TAG, "unknown type: " + type);
-        //        }
+        } else if ( type.equals("multiline-string") ) {
+            Log.d(TAG, "multiline-string");
+            row = (TableRow)vi.inflate(R.layout.part_multilinestring, null, false);
+        } else {
+            Log.e(TAG, "unknown type: " + type);
+        }
         layout.addView(row);
         ((TextView)row.findViewById(R.id.row_label)).setText(name);
         if ( value != null ) {
