@@ -19,6 +19,12 @@ public class Test extends Activity {
         setContentView(R.layout.test);
     }
 
+    public void pressAlarm(View view) {
+        Intent i = new Intent(this, EditAll.class)
+            .putExtra(EditAll.NAMES, new String[]{"name", "time"})
+            .putExtra(EditAll.TYPES, new String[]{"string", "date"});
+        startActivityForResult(i, EditAll.ACTION_EDIT);
+    }
     public void pressCheck(View view) {
 	startActivity(new Intent(this, Check.class));
     }
@@ -58,6 +64,5 @@ public class Test extends Activity {
                  Toast.makeText( this, "result is ...", Toast.LENGTH_LONG).show();
              }
          }
-     }
-
+    }
 }

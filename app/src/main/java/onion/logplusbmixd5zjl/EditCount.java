@@ -56,7 +56,6 @@ public class EditCount extends FragmentActivity implements EditSth {
         }
     }
 
-
     /** sets reminder time */
     public void doSetTime(int hourOfDay, int minute) {
         task.setHours(hourOfDay);

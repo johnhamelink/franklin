@@ -63,8 +63,8 @@ public class EditAll extends FragmentActivity implements EditSth {
         names = extras.getStringArray(NAMES);
         types = extras.getStringArray(TYPES);
         values = extras.getStringArray(VALUES); // can be null
-        Log.d(TAG, Arrays.toString( names));
-        Log.d(TAG, Arrays.toString( types));
+        Log.d(TAG, Arrays.toString(names));
+        Log.d(TAG, Arrays.toString(types));
         for ( int i = 0; i < names.length ; i++ ) {
             String value = null;
             if ( values != null ) {
@@ -72,6 +72,15 @@ public class EditAll extends FragmentActivity implements EditSth {
             }
             addElement(container, names[i], types[i], value);
         }
+    }
+
+    @Override
+    protected void onStop() {
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, returnIntent);
+        finish();
+
+        super.onStop();
     }
 
     public void addElement(TableLayout layout, String name, String type, String value) {
@@ -89,7 +98,6 @@ public class EditAll extends FragmentActivity implements EditSth {
             row = (TableRow)vi.inflate(R.layout.part_date, null, false);
             timeButton = (Button)row.findViewById(R.id.row_value);
             if ( value != null ) {
-                timeButton.setText(value);
                 hours = value.split(":")[0];
                 minutes = value.split(":")[1];
             }
@@ -105,25 +113,6 @@ public class EditAll extends FragmentActivity implements EditSth {
             ((TextView)row.findViewById(R.id.row_value)).setText(value);
         }
     }
-
-
-
-    // elements:
-    /*
-- time
-- count
-- string
-- stringmultiline
-     */
-
-    // todo: save button etc, copy/merge from editcount
-    @Override public void onPause() {
-        Log.d(TAG, "onPause()");
-        // todo
-        super.onPause();
-    }
-
-
 
 
     /** sets reminder time, called from pressEditAlarmTime dialog */
@@ -143,6 +132,28 @@ public class EditAll extends FragmentActivity implements EditSth {
         DialogFragment frag = new TimePickerFragment();
         frag.show(getSupportFragmentManager(), "dialog");
     }
+
+    /** saves all data, sets intent, calls finish */
+    public void pressSave(View view) {
+        ArrayList<String> out = new ArrayList<>();
+        for ( int i = 0; i < types.length; i++ ) {
+            TableRow row = (TableRow)container.getChildAt(i);
+            out.add( extractRowValue( row, types[i] ) );
+        }
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result", out);
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
+    }
+
+    private String extractRowValue(TableRow row, String type) {
+        if (type.equals("date")) {
+            return hours + "-" + minutes;
+        }
+        TextView valueView = (TextView)row.findViewById(R.id.row_value);
+        return valueView.getText().toString();
+    }
+
 
 
     // /** adds a text validator to each field */
