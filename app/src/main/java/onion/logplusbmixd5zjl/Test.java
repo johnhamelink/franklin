@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Call other tasks.
  */
@@ -61,7 +64,11 @@ public class Test extends Activity {
                                     Intent data) {
         if (requestCode == EditAll.ACTION_EDIT) {
              if (resultCode == RESULT_OK) {
-                 Toast.makeText( this, "result is ...", Toast.LENGTH_LONG).show();
+                 ArrayList<String> res = data.getStringArrayListExtra( "result" );
+                 String reString = Arrays.toString(res.toArray());
+                 Toast.makeText( this, "result is " + reString, Toast.LENGTH_LONG).show();
+             } else if (resultCode == RESULT_CANCELED) {
+                 Toast.makeText( this, "canceled", Toast.LENGTH_LONG).show();
              }
          }
     }
