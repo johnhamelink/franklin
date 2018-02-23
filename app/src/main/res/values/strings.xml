@@ -29,6 +29,7 @@
     <string name="saved">saved</string>
     <string name="saved_not">not saved</string>
     <string name="settings">Settings</string>
+    <string name="setAlarmActivity">Set Alarm</string>
     <string name="t_check">show check</string>
     <string name="t_count">show count</string>
     <string name="t_logs">show logs</string>
@@ -47,5 +48,6 @@
     <string name="w_latitude">enter latitude</string>
     <string name="w_longitude">enter longitude</string>
     <string name="w_set">set position</string>
+    <string name="title_activity_alarm">AlarmActivity</string>
 </resources>
-<!--td: find unused resources, SO?-->
+    <!--td: find unused resources, SO?-->

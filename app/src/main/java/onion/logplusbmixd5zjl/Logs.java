@@ -46,7 +46,7 @@ public class Logs extends FragmentActivity {
 
 
     @Override protected void onActivityResult(int req, int result, Intent i) {
-	if(result == Activity.RESULT_OK){
+	if (result == Activity.RESULT_OK){
 	    logAdapter.notifyDataSetChanged();
         }
     }
