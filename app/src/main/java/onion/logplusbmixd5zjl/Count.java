@@ -116,6 +116,7 @@ public class Count extends AppCompatActivity implements OnItemSelectedListener {
     public void onItemSelected(AdapterView<?> parent, View v, int pos, long id){
         Log.d(TAG, String.format("onItemSelected(adapterview, view, %d, %d)",
                                  pos, id));
+        CountStore.setCurrent(this, pos);
         updateCountView();
     }
     public void onNothingSelected(AdapterView<?> parent) {
