@@ -130,7 +130,7 @@ public class Reminder {
             return "no reminders, should only happen when testing";
         }
         StringBuilder sb = new StringBuilder();
-        DateFormat df = new SimpleDateFormat("h:mm");
+        DateFormat df = new SimpleDateFormat("H:mm");
         for ( Reminder r: reminders ) {
             sb.append(df.format(r.time().getTime()));
             sb.append(" ");
