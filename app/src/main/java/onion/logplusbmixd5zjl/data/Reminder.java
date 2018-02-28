@@ -7,8 +7,10 @@ import android.support.v4.util.Pair;
 import android.util.Log;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Vector;
 
@@ -128,7 +130,7 @@ public class Reminder {
             return "no reminders, should only happen when testing";
         }
         StringBuilder sb = new StringBuilder();
-        DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
+        DateFormat df = new SimpleDateFormat("h:mm");
         for ( Reminder r: reminders ) {
             sb.append(df.format(r.time().getTime()));
             sb.append(" ");

@@ -25,7 +25,7 @@ public class CountStoreTest extends MetaTest {
     @Test
     public void test_counter_reminder() throws Exception {
         CountEntry ce = new CountEntry("test_counter_reminder",
-                                      1000, 1, 10, 1);
+                                       1000, 1, 10, 1);
         CountStore.get(getContext()).save(ce);
         Reminder r = ce.getReminder();
         assertEquals(5 * 60 * 1000 + 60 * 1000, r.millisNeeded(getContext()));
@@ -45,7 +45,7 @@ public class CountStoreTest extends MetaTest {
         Reminder r = ce.getReminder();
         Reminder r2 = c2.getReminder();
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR, 1);
+        c.set(Calendar.HOUR_OF_DAY, 1);
         c.set(Calendar.MINUTE, 10);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
