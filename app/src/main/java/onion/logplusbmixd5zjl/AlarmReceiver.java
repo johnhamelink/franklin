@@ -16,7 +16,7 @@ import onion.logplusbmixd5zjl.util.WakeLocker;
 /**
  * Class that handles the broadcast that is set when the timer is paused.
  */
-public class Alarm extends BroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent i) {
 	if ( i.getAction().equals("my.nag") ) {
