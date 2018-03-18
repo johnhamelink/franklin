@@ -59,4 +59,10 @@
       android:onClick="pressAllEasy"
       android:text="edit all easy (remove this file for deployment)"
       />
+  <Button
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:onClick="pressAlarmEdit"
+      android:text="alarm activity"
+      />
 </LinearLayout>

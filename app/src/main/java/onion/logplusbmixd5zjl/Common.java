@@ -68,18 +68,18 @@ public final class Common {
     }
     /** @return previous "solar midnight plus three hours" */
     public static Calendar getStartOfToday(Context context) {
-        Calendar startOfDay = Calendar.getInstance();
-        startOfDay.setTime(new Date(getNextSolarMidnight(context)));
-        startOfDay.add(Calendar.HOUR, 3);
-        while ( startOfDay.after(Calendar.getInstance()) ) {
-            startOfDay.add(Calendar.DAY_OF_YEAR, -1);
-        }
-        return startOfDay;
+        return getNextSolarTime( context, 3, 0 );
     }
     /** @return next occurrence of hours+minutes after solar midnight */
-    public static Date getNextSolarTime(byte hours, byte minutes) {
-        throw new UnsupportedOperationException("not implemented");
-        // pass
+    public static Calendar getNextSolarTime(Context context, int hours, int minutes) {
+        Calendar out = Calendar.getInstance();
+        out.setTime(new Date(getNextSolarMidnight(context)));
+        out.add(Calendar.HOUR, hours);
+        out.add(Calendar.MINUTE, minutes);
+        while ( out.after(Calendar.getInstance()) ) {
+            out.add(Calendar.DAY_OF_YEAR, -1);
+        }
+        return out;
     }
     // td: refactor->move to date
     /** true if from (sun-approx) 9 am to 9 pm */

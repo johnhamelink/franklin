@@ -28,7 +28,7 @@ public class EditAll extends FragmentActivity implements EditSth {
     public static final String NAMES = "onion.logplusbmixd5zjl.NAMES";
     public static final String TYPES = "onion.logplusbmixd5zjl.TYPES";
     public static final String VALUES = "onion.logplusbmixd5zjl.VALUES";
-    public static final int ACTION_EDIT = 1624658912; // random
+    public static final int ACTION_EDIT = 1624; // random
 
     private static final String TAG = EditAll.class.getName();
 
@@ -148,7 +148,7 @@ public class EditAll extends FragmentActivity implements EditSth {
 
     private String extractRowValue(TableRow row, String type) {
         if (type.equals("date")) {
-            return hours + "-" + minutes;
+            return hours + ":" + minutes;
         }
         TextView valueView = (TextView)row.findViewById(R.id.row_value);
         return valueView.getText().toString();

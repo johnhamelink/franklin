@@ -19,7 +19,7 @@ public class Test extends Activity {
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.test);
+        setContentView(R.layout.activity_test);
     }
 
     public void pressAlarm(View view) {
@@ -29,30 +29,30 @@ public class Test extends Activity {
         startActivityForResult(i, EditAll.ACTION_EDIT);
     }
     public void pressCheck(View view) {
-	startActivity(new Intent(this, Check.class));
+        startActivity(new Intent(this, Check.class));
     }
     public void pressCount(View view) {
-	startActivity(new Intent(this, Count.class));
+        startActivity(new Intent(this, Count.class));
     }
     public void pressLog(View view) {
-	startActivity(new Intent(this, Logs.class));
+        startActivity(new Intent(this, Logs.class));
     }
     public void pressNag(View view) {
-	startActivity(new Intent(this, Nag.class));
+        startActivity(new Intent(this, Nag.class));
     }
     public void pressNagReminder(View view) {
         Intent i = new Intent(this, Nag.class);
         i.putExtra("remind", "reminder");
-	startActivity(i);
+        startActivity(i);
     }
     public void pressSettings(View view) {
-	startActivity(new Intent(this, Settings.class));
+        startActivity(new Intent(this, Settings.class));
     }
     public void pressTimer(View view) {
-	startActivity(new Intent(this, Timer.class));
+        startActivity(new Intent(this, Timer.class));
     }
     public void pressWakeup(View view) {
-	startActivity(new Intent(this, Wakeup.class));
+        startActivity(new Intent(this, Wakeup.class));
     }
     public void pressAllEasy(View view) {
         Intent i = new Intent(this, EditAll.class)
@@ -71,5 +71,9 @@ public class Test extends Activity {
                  Toast.makeText( this, "canceled", Toast.LENGTH_LONG).show();
              }
          }
+    }
+
+    public void pressAlarmEdit(View view) {
+        startActivity(new Intent(this, AlarmActivity.class));
     }
 }
