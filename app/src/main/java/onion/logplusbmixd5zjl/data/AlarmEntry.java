@@ -21,6 +21,7 @@ import onion.logplusbmixd5zjl.util.Scheduler;
 // move to ...store class
 /** an alarm */
 public class AlarmEntry  {
+    public final static String ALARM_NAME = "my.alarm";
 
     private final static String NAME = "ALARM_NAME";
     private final static String HOURS = "ALARM_HOURS";
@@ -43,7 +44,7 @@ public class AlarmEntry  {
     private getIntent(Context context) {
         if (alarmIntent == null) {
             alarmIntent = PendingIntent.getBroadcast(context, INTENT_ID,
-                new Intent("my.alarm"), 0);
+                new Intent(ALARM_NAME), 0);
         }
         return alarmIntent;
     }

@@ -39,14 +39,7 @@ public class AlarmActivity extends AppCompatActivity {
             .putExtra(EditAll.TYPES, new String[]{"string", "date"});
             //.putExtra(EditAll.VALUES, new String[]{"alarm name", "12:30"});
         startActivityForResult(i, EditAll.ACTION_EDIT);
-        /**
-           1. set options: 
-              - name
-              - date (hour+minute)
-           2. start editall
-           3. receive callback
-           0. [@0] show time in current
-           0. [@0] save time,
+        /*
            1. schedule alarm
            2. show as solar time
            3. reschedule on alarm
