@@ -8,11 +8,32 @@
     >
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_time"
+        android:id="@+id/tv_label_solar_time"
+        android:text="solar time:"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_solar_time"
         android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-        tools:text="12:50"
+        tools:text="12:50 (s)"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_label_normal_time"
+        android:text="real time:"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_normal_time"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+        tools:text="12:50 (n)"
         android:layout_gravity="center"
         />
   

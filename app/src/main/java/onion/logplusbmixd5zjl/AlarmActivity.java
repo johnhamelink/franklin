@@ -7,15 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.commons.lang3.ObjectUtils;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import onion.logplusbmixd5zjl.data.AlarmEntry;
 
 public class AlarmActivity extends AppCompatActivity {
-    TextView alarmView;
+    TextView solarTimeView;
+    TextView normalTimeView;
     AlarmEntry entry;
     
 
@@ -24,10 +24,18 @@ public class AlarmActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_alarm );
 
-        alarmView = (TextView) findViewById( R.id.tv_time );
+        solarTimeView = (TextView) findViewById( R.id.tv_solar_time );
+        normalTimeView = (TextView) findViewById( R.id.tv_normal_time );
+
         entry = AlarmEntry.load(this);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
         try {
-            alarmView.setText( entry.toString() );
+            solarTimeView.setText( entry.toString() );
+            DateFormat df = new SimpleDateFormat("H:mm");
+            normalTimeView.setText(df.format(entry.getSolarTime(this).getTime()));
         } catch (NullPointerException e) {
             // pass
         }
@@ -37,14 +45,10 @@ public class AlarmActivity extends AppCompatActivity {
         Intent i = new Intent(this, EditAll.class)
             .putExtra(EditAll.NAMES, new String[]{"name", "time"})
             .putExtra(EditAll.TYPES, new String[]{"string", "date"});
-            //.putExtra(EditAll.VALUES, new String[]{"alarm name", "12:30"});
+        if ( entry != null ) {
+            i.putExtra(EditAll.VALUES, new String[]{entry.getName(), entry.toString()});
+        }
         startActivityForResult(i, EditAll.ACTION_EDIT);
-        /*
-           1. schedule alarm
-           2. show as solar time
-           3. reschedule on alarm
-           4. schedule on bootup
-         */
     }
 
     protected void onActivityResult(int requestCode, int resultCode,
@@ -58,7 +62,7 @@ public class AlarmActivity extends AppCompatActivity {
                  entry.setName(res.get(0));
                  entry.setTime(res.get(1));
                  entry.save(this);
-                 alarmView.setText( entry.toString() );
+                 solarTimeView.setText( entry.toString() );
              } else if (resultCode == RESULT_CANCELED) {
                  Toast.makeText( this, "canceled", Toast.LENGTH_LONG).show();
              }

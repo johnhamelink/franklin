@@ -28,6 +28,7 @@ import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
 import onion.logplusbmixd5zjl.util.FormatMillis;
 import onion.logplusbmixd5zjl.util.Notify;
+import onion.logplusbmixd5zjl.util.Scheduler;
 import onion.logplusbmixd5zjl.util.State;
 
 
@@ -244,20 +245,8 @@ public class Timer extends AppCompatActivity
 
 
     /** initializes the background alarm part (strictly on time) */
-    private void initializeAlarm(long countdownEnd) {//tdm to alarm(?)
-        if ( android.os.Build.VERSION.SDK_INT
-             >= android.os.Build.VERSION_CODES.LOLLIPOP ) { // 21
-            alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(
-                countdownEnd, alarmIntent),
-                                        alarmIntent);
-        } else if ( android.os.Build.VERSION.SDK_INT
-                    >= android.os.Build.VERSION_CODES.KITKAT ) { // 19
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP,
-                    countdownEnd, alarmIntent);
-        } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP,
-                    countdownEnd, alarmIntent);
-        }
+    private void initializeAlarm(long countdownEnd) {
+        Scheduler.get(this).exactAlarm(countdownEnd, alarmIntent);
     }
 
     /**

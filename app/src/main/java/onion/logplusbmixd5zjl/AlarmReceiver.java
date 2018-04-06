@@ -8,6 +8,7 @@ import android.content.Intent;
 
 import android.support.v4.app.NotificationCompat;
 
+import onion.logplusbmixd5zjl.data.AlarmEntry;
 import onion.logplusbmixd5zjl.data.Stats;
 import onion.logplusbmixd5zjl.util.Notify;
 import onion.logplusbmixd5zjl.util.State;
@@ -17,6 +18,8 @@ import onion.logplusbmixd5zjl.util.WakeLocker;
  * Class that handles the broadcast that is set when the timer is paused.
  */
 public class AlarmReceiver extends BroadcastReceiver {
+    public final static String ACTION_ALARM = "my.alarm";
+
     @Override
     public void onReceive(Context context, Intent i) {
 	if ( i.getAction().equals("my.nag") ) {
@@ -27,9 +30,16 @@ public class AlarmReceiver extends BroadcastReceiver {
 	    Timer.stateBackgroundToClosed(context);
 
 	    notifyUser(context);
-	} else if ( i.getAction().equals(Intent.ACTION_BOOT_COMPLETED )
-		    && State.isActive(context) ) {
-	    Timer.stateBackgroundToClosed(context);
+	} else if ( i.getAction().equals( ACTION_ALARM ) ) {
+            // show alarm
+            nagUser(context, "arm al");
+            // reschedule
+            AlarmEntry.load(context).schedule(context);
+	} else if ( i.getAction().equals(Intent.ACTION_BOOT_COMPLETED ) ) {
+            AlarmEntry.load(context).schedule(context);
+            if ( State.isActive(context) ) {
+                Timer.stateBackgroundToClosed(context);
+            }
 	} else if ( i.getAction().equals("my.minder") ) {
             nagUser(context, "the next thing to do");
         }

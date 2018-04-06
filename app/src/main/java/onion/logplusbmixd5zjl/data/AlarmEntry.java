@@ -1,19 +1,17 @@
 package onion.logplusbmixd5zjl.data;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Vector;
 
-import onion.logplusbmixd5zjl.AlarmActivity;
+import onion.logplusbmixd5zjl.AlarmReceiver;
 import onion.logplusbmixd5zjl.Common;
 import onion.logplusbmixd5zjl.R;
-import onion.logplusbmixd5zjl.Timer;
 import onion.logplusbmixd5zjl.util.Scheduler;
 
 // todo: refactor common stuff with countentry: log, save, tag, storage,
@@ -21,17 +19,17 @@ import onion.logplusbmixd5zjl.util.Scheduler;
 // move to ...store class
 /** an alarm */
 public class AlarmEntry  {
-    public final static String ALARM_NAME = "my.alarm";
+    public static final String TAG = AlarmEntry.class.getSimpleName();
 
     private final static String NAME = "ALARM_NAME";
     private final static String HOURS = "ALARM_HOURS";
     private final static String MINUTES = "ALARM_MINUTES";
     private final static int INTENT_ID = 12312;
 
-    private final static PendingIntent alarmIntent;  // final?
+    private static PendingIntent alarmIntent;
 
-    int hours;
-    int minutes;
+    private int hours;
+    private int minutes;
     String name;
 
 
@@ -41,50 +39,6 @@ public class AlarmEntry  {
         this.minutes = minutes;
     }
 
-    private getIntent(Context context) {
-        if (alarmIntent == null) {
-            alarmIntent = PendingIntent.getBroadcast(context, INTENT_ID,
-                new Intent(ALARM_NAME), 0);
-        }
-        return alarmIntent;
-    }
-
-    public Calendar getSolarTime(Context context) {
-        return Common.getNextSolarTime( context, this.hours, this.minutes );
-    }
-
-    public void schedule(Context context) {
-        /*
-          1. [@0] create pending alarm (or outside)
-          2. get time in next 24 hours
-          3. schedule
-          4. (ensure reschedule (in AlarmReceiver?)
-         */
-        Calendar next = getSolarTime(context)
-
-
-
-        throw new UnsupportedOperationException( "not implemented" );
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setTime(String time) {
-        String[] split = time.split(":");
-        this.hours = Integer.parseInt( split[0] );
-        this.minutes = Integer.parseInt( split[1] );
-    }
-
-    public void save(Context context) {
-        SharedPreferences.Editor edit = PreferenceManager
-                .getDefaultSharedPreferences( context ).edit();
-        edit.putString( NAME, this.name );
-        edit.putInt( HOURS, this.hours );
-        edit.putInt( MINUTES, this.minutes );
-        edit.apply();
-    }
     /** @return saved AlarmEntry or null */
     public static AlarmEntry load(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences( context );
@@ -97,9 +51,58 @@ public class AlarmEntry  {
         return out;
     }
 
+    private PendingIntent getIntent(Context context) {
+        if (alarmIntent == null) {
+            alarmIntent = PendingIntent.getBroadcast(context, INTENT_ID,
+                new Intent( AlarmReceiver.ACTION_ALARM ), 0);
+        }
+        return alarmIntent;
+    }
+
+    public Calendar getSolarTime(Context context) {
+        return Common.getNextSolarTime( context, this.hours, this.minutes );
+    }
+
+    public void schedule(Context context) {
+        /*
+          0. [@0] create pending alarm (or outside)
+          1. get time in next 24 hours
+          0. [@0] schedule
+          1. (ensure reschedule (in AlarmReceiver?), also at bootup)
+         */
+        Calendar next = getSolarTime(context);
+        Log.i(TAG, "scheduled at " + next.getTime());
+        Scheduler.get(context)
+            .exactAlarm(getSolarTime(context).getTime().getTime(),
+                        getIntent(context));
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTime(String time) {
+        String[] split = time.split(":");
+        this.hours = Integer.parseInt( split[0] );
+        this.minutes = Integer.parseInt( split[1] );
+    }
+
+    /** saves (and schedules) this entry */
+    public void save(Context context) {
+        SharedPreferences.Editor edit = PreferenceManager
+                .getDefaultSharedPreferences( context ).edit();
+        edit.putString( NAME, this.name );
+        edit.putInt( HOURS, this.hours );
+        edit.putInt( MINUTES, this.minutes );
+        edit.apply();
+        schedule(context);
+    }
+
     public String toString() {
         return String.format("%d:%02d", hours, minutes);
     }
 
-    
+    public String getName() {
+        return name;
+    }
 }

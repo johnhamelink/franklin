@@ -81,6 +81,9 @@
             <intent-filter>
                 <action android:name="my.minder"/>
             </intent-filter>
+            <intent-filter>
+                <action android:name="my.alarm"/>
+            </intent-filter>
         </receiver>
 
         <activity

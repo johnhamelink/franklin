@@ -40,6 +40,20 @@ public class Scheduler {
         return instance;
     }
 
+    public void exactAlarm(long alarmMillis, PendingIntent intent) {
+        Log.i(TAG, "exactAlarm( " + alarmMillis + ", " + intent + " );");
+        if ( android.os.Build.VERSION.SDK_INT
+             >= android.os.Build.VERSION_CODES.LOLLIPOP ) { // 21
+            alarmManager.setAlarmClock(
+                    new AlarmManager.AlarmClockInfo(alarmMillis, intent),
+                    intent);
+        } else if ( android.os.Build.VERSION.SDK_INT
+                    >= android.os.Build.VERSION_CODES.KITKAT ) { // 19
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmMillis, intent);
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmMillis, intent);
+        }
+    }
 
     public Date getAlarmTime() { return new Date(alarmTime); }
 

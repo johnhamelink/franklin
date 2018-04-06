@@ -79,6 +79,7 @@ public final class Common {
         while ( out.after(Calendar.getInstance()) ) {
             out.add(Calendar.DAY_OF_YEAR, -1);
         }
+        out.add(Calendar.DAY_OF_YEAR, 1);
         return out;
     }
     // td: refactor->move to date
