@@ -35,19 +35,4 @@
 	  android:inputType="number"
 	  />
     </TableRow>
-    <TableRow
-        android:id="@+id/e_t_reminder"
-        >
-      <TextView
-	  android:text="@string/reminder_label"
-          android:layout_gravity="center_vertical"
-	  />
-      <Button
-          android:id="@+id/e_a_time"
-          android:onClick="pressEditAlarmTime"
-          android:text="@string/e_t_start"
-          android:layout_height="wrap_content"
-          android:layout_width="wrap_content"
-          />
-    </TableRow>
   </TableLayout>

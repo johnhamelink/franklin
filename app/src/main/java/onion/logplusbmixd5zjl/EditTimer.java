@@ -18,18 +18,15 @@ import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
 import onion.logplusbmixd5zjl.util.TextValidator;
 
-public class EditTimer extends FragmentActivity implements EditSth {
+public class EditTimer extends FragmentActivity {
     private static final String TAG = EditTimer.class.getName();
 
     private Button timeButton;
-    private View timeView;
     private EditText textName;
     private EditText textDurationSeconds;
     private EditText textDayRepeat;
 
     private TimerEntry task;
-    private int tmphours = -1;
-    private int tmpminutes = -1;
 
 
     @Override
@@ -43,8 +40,6 @@ public class EditTimer extends FragmentActivity implements EditSth {
         textName = (EditText) findViewById(R.id.e_name);
         textDurationSeconds = (EditText) findViewById(R.id.e_duration);
         textDayRepeat = (EditText) findViewById(R.id.e_repeat);
-        timeButton = (Button) findViewById(R.id.e_a_time);
-        timeView = findViewById(R.id.e_t_reminder);
 
         addListeners();
     }
@@ -81,9 +76,6 @@ public class EditTimer extends FragmentActivity implements EditSth {
         } else {
             task.update(name, duration, repetitions);
         }
-        if ( tmphours >= 0 ) {
-            task.setReminder(tmphours, tmpminutes, repetitions);
-        }
         boolean changed = TimerStore.get(this).save(task);
 
         setResult(Activity.RESULT_OK, new Intent());
@@ -97,33 +89,7 @@ public class EditTimer extends FragmentActivity implements EditSth {
     @Override public void onResume() {
         super.onResume();
         fillTask();
-        if ( PreferenceManager.getDefaultSharedPreferences(this)
-             .getBoolean("reminder", true) ) {
-            timeView.setVisibility(View.VISIBLE);
-        } else {
-            timeView.setVisibility(View.GONE);
-        }
     }
-
-
-    /** sets reminder time, called from pressEditAlarmTime dialog */
-    public void doSetTime(int hourOfDay, int minute) {
-        setTimeButtonText(hourOfDay, minute);
-
-        tmphours = hourOfDay;
-        tmpminutes = minute;
-        Common.showToast(this,
-                         String.format(Locale.US, "set time: %d:%02d",
-                                       hourOfDay, minute));
-    }
-
-
-    public void pressEditAlarmTime(View view) {
-        // td: start alarm edit dialog
-        DialogFragment frag = new TimePickerFragment();
-        frag.show(getSupportFragmentManager(), "dialog");
-    }
-
 
     /** adds a text validator to each field */
     private void addListeners() {
@@ -163,15 +129,8 @@ public class EditTimer extends FragmentActivity implements EditSth {
             textName.setText(task.getName());
             textDurationSeconds.setText(String.valueOf(task.getDuration()/1000));
             textDayRepeat.setText(String.valueOf(task.getRepetitions()));
-            if ( task.hours != -1 ) {
-                setTimeButtonText(task.hours, task.minutes);
-            }
         }
     }
 
 
-    private void setTimeButtonText(int hourOfDay, int minute) {
-        timeButton.setText(String.format(Locale.US, "%d:%02d",
-                                         hourOfDay, minute));
-    }
 }

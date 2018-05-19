@@ -18,15 +18,13 @@ import onion.logplusbmixd5zjl.data.CountEntry;
 import onion.logplusbmixd5zjl.data.CountStore;
 import onion.logplusbmixd5zjl.util.TextValidator;
 
-public class EditCount extends FragmentActivity implements EditSth {
+public class EditCount extends FragmentActivity {
     private static final String TAG = EditCount.class.getName();
 
     private CountEntry task;
 
-    private View timeView;
     private EditText textName;
     private EditText textTarget;
-    private Button timeButton;
 
     /** Called when the activity is first created. */
     @Override
@@ -39,36 +37,13 @@ public class EditCount extends FragmentActivity implements EditSth {
 
         textName = (EditText) findViewById(R.id.e_c_name);
         textTarget = (EditText) findViewById(R.id.e_c_target);
-        timeButton = (Button) findViewById(R.id.e_c_time);
-        timeView = findViewById(R.id.e_c_reminder);
         // some day maybe: addlisteners, see edittimer
     }
 
     @Override public void onResume() {
         super.onResume();
         fillCount();
-
-        if ( PreferenceManager.getDefaultSharedPreferences(this)
-             .getBoolean("reminder", true) ) {
-            timeView.setVisibility(View.VISIBLE);
-        } else {
-            timeView.setVisibility(View.GONE);
-        }
     }
-
-    /** sets reminder time */
-    public void doSetTime(int hourOfDay, int minute) {
-        task.setHours(hourOfDay);
-        task.setMinutes(minute);
-        setTimeButtonText();
-    }
-
-
-    public void pressEditAlarmTime(View view) {
-        DialogFragment frag = new TimePickerFragment();
-        frag.show(getSupportFragmentManager(), "dialog");
-    }
-
 
     public void pressSave(View view) {
         try {
@@ -97,17 +72,10 @@ public class EditCount extends FragmentActivity implements EditSth {
         } else {
             task = CountStore.getCurrentEntry(this);
             Log.v(TAG, "editing existing task: " + task);
-            // todo: real separate reminder object (with store?)
-            if ( task.repetitions != 0 ) {
-                setTimeButtonText();
-            }
+
         }
         // set name, target, remindrepetitions
         textName.setText(task.getName());
         textTarget.setText(String.valueOf(task.getTarget()));
-    }
-
-    private void setTimeButtonText() {
-        timeButton.setText(task.getTimeButtonText());
     }
 }

@@ -33,7 +33,7 @@ public class Wakeup extends Activity {
         setContentView(R.layout.wakeup);
 	ButterKnife.inject(this);
 
-	location = Location.getLocation(this);
+	location = Location.get(this);
 
 	// workaround for edittext filter not being normalized by state
 	if ( android.os.Build.VERSION.SDK_INT >= 17 ) {

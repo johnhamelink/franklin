@@ -36,16 +36,7 @@ public class CountEntry extends TaskEntry {
         this.target = target;
         initCount();
     }
-    public CountEntry(String name, long target,
-                      int hours, int minutes, int remindRepetitions) {
-        this(name, target);
-        setReminder(hours, minutes, remindRepetitions);
-    }
-    public CountEntry(Context context, String name, long target,
-                      int hours, int minutes, int remindRepetitions) {
-        this(context, name, target);
-        setReminder(hours, minutes, remindRepetitions);
-    }
+
     public void update(String name, long target) {
         this.name = name;
         this.target = target;
@@ -78,14 +69,6 @@ public class CountEntry extends TaskEntry {
 
     public void setTarget(long target) {
         this.target = target;
-    }
-
-    public String getTimeButtonText() {
-        if ( hours != -1 ) {
-            return String.format( Locale.US, "%d:%02d", hours, minutes);
-        } else {
-            return context.getResources().getString(R.string.e_t_start);
-        }
     }
 
     @Override public String toString() {

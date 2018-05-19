@@ -28,7 +28,7 @@ public final class Common {
 
     static final String acronym = "frkln";
     static final int DAY_START_HOUR = 6; // td: date
-    static final int DAY_END_HOUR = 18;
+    static final int DAY_END_HOUR = 21;
     static final int NOTIFICATION_ID = 0x6191a5f1;
     static final float ROW_SIZE = 19;
 
@@ -64,11 +64,15 @@ public final class Common {
     }
 
     public static AstronomicalCalendar getSolarCalendar(Context context) {
-        return new AstronomicalCalendar(Location.getLocation(context).getGeo());
+        return new AstronomicalCalendar(Location.get(context).getGeo());
     }
     /** @return previous "solar midnight plus three hours" */
     public static Calendar getStartOfToday(Context context) {
-        return getNextSolarTime( context, 3, 0 );
+        Calendar start = getNextSolarTime( context, 3, 0 );
+        if (start.after(Calendar.getInstance())) {
+            start.add(Calendar.DAY_OF_YEAR, -1);
+        }
+        return start;
     }
     /** @return next occurrence of hours+minutes after solar midnight */
     public static Calendar getNextSolarTime(Context context, int hours, int minutes) {

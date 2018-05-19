@@ -31,12 +31,6 @@ public class TimerEntry extends TaskEntry {
         this.durationMillis = durationMillis;
         this.repetitions = repetitions;
     }
-    public TimerEntry(String name, long durationMillis, int repetitions,
-                      int hours, int minutes) {
-        this(name, durationMillis, repetitions);
-        this.hours = hours;
-        this.minutes = minutes;
-    }
 
     @Override public boolean equals (Object other) {
         if ( !(other instanceof TimerEntry) ) {
@@ -46,8 +40,7 @@ public class TimerEntry extends TaskEntry {
 
         return super.equals(lhs) &&
             durationMillis == lhs.durationMillis &&
-            repetitions == lhs.repetitions &&
-            getReminder().equals(lhs.getReminder());
+            repetitions == lhs.repetitions;
     }
 
 
@@ -70,10 +63,6 @@ public class TimerEntry extends TaskEntry {
 
 
     @Override public final long getDuration()   { return durationMillis; }
-    public Reminder getReminder() {
-        return new Reminder(hours, minutes, repetitions, this);
-    }
-    public final int getRepetitions() { return repetitions; }
 
     // todo: maybe go to logedit
     /** this timer finished successfully */
@@ -118,9 +107,6 @@ public class TimerEntry extends TaskEntry {
             + "name=" + name
             + ", " + "durationMillis=" + durationMillis
             + ", " + "ID=" + ID
-            + ", " + "repetitions=" + repetitions
-            + ", " + "hours=" + hours
-            + ", " + "minutes=" + minutes
             + "]";
     }
 
@@ -136,6 +122,5 @@ public class TimerEntry extends TaskEntry {
                      durationMillis,
                      finishTime);
         Scheduler.get(context).scheduleNag();
-        Reminder.schedule(context);
     }
 }

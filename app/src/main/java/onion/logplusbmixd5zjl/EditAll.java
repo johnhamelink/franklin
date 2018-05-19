@@ -24,7 +24,7 @@ import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
 import onion.logplusbmixd5zjl.util.TextValidator;
 
-public class EditAll extends FragmentActivity implements EditSth {
+public class EditAll extends FragmentActivity {
     public static final String NAMES = "onion.logplusbmixd5zjl.NAMES";
     public static final String TYPES = "onion.logplusbmixd5zjl.TYPES";
     public static final String VALUES = "onion.logplusbmixd5zjl.VALUES";

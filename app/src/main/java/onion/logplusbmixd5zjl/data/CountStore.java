@@ -64,16 +64,13 @@ public final class CountStore {
         if ( ID < 0 || ID >= getCount() ) {
             return new CountEntry(context,
                 context.getResources().getString(R.string.te_name),
-                1000, -1, -1, -1);
+                1000);
         }
 
         CountEntry out
             = new CountEntry(context,
                 storage.getString(storagePart(ID, "name"), context.getResources().getString(R.string.te_name)),
-                      storage.getLong(storagePart(ID, "target"), 1000),
-                      storage.getInt(storagePart(ID, "hours"), -1),
-                      storage.getInt(storagePart(ID, "minutes"), -1),
-                      storage.getInt(storagePart(ID, "repetitions"), -1));
+                storage.getLong(storagePart(ID, "target"), 1000));
         out.setID(ID, context);
         return out;
     }
@@ -140,9 +137,6 @@ public final class CountStore {
     public void remove(CountEntry e) {
         storage.remove(storagePart(e.getID(), "target"))
             .remove(storagePart(e.getID(), "name"))
-            .remove(storagePart(e.getID(), "hours"))
-            .remove(storagePart(e.getID(), "minutes"))
-            .remove(storagePart(e.getID(), "repetitions"))
             .save();
         for ( int id = 0; id < getCount(); id++ ) {
             if ( ! storage.contains(storagePart(id, "name")) ) {
@@ -155,7 +149,6 @@ public final class CountStore {
         }
         setCount(storage, getCount() -1).save();
         e.setID(-1, null);
-        e.getReminder().schedule(context);
     }
 
     /** @return true if entry was saved, false if not (equal already in DB) */
@@ -173,12 +166,7 @@ public final class CountStore {
         // TODO?: extra object timerEntryStorage, saves e.getID, offers put...
         storage.putLong(storagePart(e.getID(), "target"), e.getTarget())
             .putString(storagePart(e.getID(), "name"), e.getName())
-            .putInt(storagePart(e.getID(), "hours"), e.hours)
-            .putInt(storagePart(e.getID(), "minutes"), e.minutes)
-            .putInt(storagePart(e.getID(), "repetitions"),
-                    e.repetitions)
             .save();
-        e.getReminder().schedule(context);
         return true;
     }
         

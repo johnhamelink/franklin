@@ -1,6 +1,7 @@
 package onion.logplusbmixd5zjl.data;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -61,17 +62,18 @@ public final class TimerStore {
 
     /** @return entry of ID, or default entry if it does not exist */
     public TimerEntry getEntry(int ID) {
+        Resources res = context.getResources();
         if ( ID < 0 || ID >= getCount() ) {
-            return new TimerEntry(context.getResources().getString(R.string.te_name),
-                                  300000, 1, -1, -1);
+            return new TimerEntry(
+                    res.getString(R.string.te_name),
+                    res.getInteger( R.integer.timer_duration_millis ),
+                    res.getInteger( R.integer.timer_repetitions));
         }
-
-        TimerEntry out
-            = new TimerEntry(storage.getString(storagePart(ID, "name"), context.getResources().getString(R.string.te_name)),
-                      storage.getLong(storagePart(ID, "duration"), 300000),
-                      storage.getInt(storagePart(ID, "repetitions"), 1),
-                      storage.getInt(storagePart(ID, "hours"), -1),
-                      storage.getInt(storagePart(ID, "minutes"), -1));
+        // todo: move defaults to xml
+        TimerEntry out = new TimerEntry(
+                storage.getString(storagePart(ID, "name"), res.getString(R.string.te_name)),
+                storage.getLong(storagePart(ID, "duration"), res.getInteger( R.integer.timer_duration_millis )),
+                storage.getInt(storagePart(ID, "repetitions"), res.getInteger( R.integer.timer_repetitions)));
         out.setID(ID, context);
         return out;
     }
@@ -132,8 +134,6 @@ public final class TimerStore {
         storage.remove(storagePart(e.getID(), "duration"))
             .remove(storagePart(e.getID(), "name"))
             .remove(storagePart(e.getID(), "repetitions"))
-            .remove(storagePart(e.getID(), "hours"))
-            .remove(storagePart(e.getID(), "minutes"))
             .save();
         for ( int id = 0; id < getCount(); id++ ) {
             if ( ! storage.contains(storagePart(id, "name")) ) {
@@ -146,7 +146,6 @@ public final class TimerStore {
         }
         setCount(storage, getCount() -1).save();
         e.setID(-1, null);
-        e.getReminder().schedule(context);
     }
 
     /** @return true if entry was saved, false if not (equal already in DB) */
@@ -164,10 +163,7 @@ public final class TimerStore {
         storage.putLong(storagePart(e.getID(), "duration"), e.getDuration())
             .putString(storagePart(e.getID(), "name"), e.getName())
             .putInt(storagePart(e.getID(), "repetitions"), e.getRepetitions())
-            .putInt(storagePart(e.getID(), "hours"), e.hours)
-            .putInt(storagePart(e.getID(), "minutes"), e.minutes)
             .save();
-        e.getReminder().schedule(context);
         return true;
     }
         

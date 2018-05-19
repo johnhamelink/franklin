@@ -8,24 +8,6 @@ import java.util.Vector;
  * unifies TimerEntry and CountEntry
  */
 public abstract class TaskEntry extends Entry {
-    public int getMinutes() {
-        return minutes;
-    }
-
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
-    }
-
-    public int getHours() {
-        return hours;
-    }
-
-    public void setHours(int hours) {
-        this.hours = hours;
-    }
-
-    public int hours = -1;
-    public int minutes = -1;
     public int repetitions = 1;
 
     // todo: way to skip these, and copy them from entry?
@@ -41,16 +23,6 @@ public abstract class TaskEntry extends Entry {
 
     protected TaskEntry(Context context, String name) {
         super(context, name);
-    }
-
-
-    public Reminder getReminder() {
-        return new Reminder(hours, minutes, repetitions, this);
-    }
-    public void setReminder(int hours, int minutes, int repetitions) {
-        this.hours = hours;
-        this.minutes = minutes;
-        this.repetitions = repetitions;
     }
 
 
@@ -81,19 +53,8 @@ public abstract class TaskEntry extends Entry {
 
         TaskEntry taskEntry = (TaskEntry) o;
 
-        if (hours != taskEntry.hours) return false;
-        if (minutes != taskEntry.minutes) return false;
         return repetitions == taskEntry.repetitions;
-
     }
 
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + hours;
-        result = 31 * result + minutes;
-        result = 31 * result + repetitions;
-        return result;
-    }
-    // td: getAll combines both
+    public final int getRepetitions() { return repetitions; }
 }

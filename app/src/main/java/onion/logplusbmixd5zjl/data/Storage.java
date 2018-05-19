@@ -3,17 +3,21 @@ package onion.logplusbmixd5zjl.data;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import java.util.Map;
 import java.util.Set;
 
 import onion.logplusbmixd5zjl.Common;
 
+
+//// todo #B refactor: one instance, static boolean to check if active, unset on save
+// same api, no static field leak
+// while do that: remove String "storage", after letting all access go through this
 /** Access to persistent storage  */
 @SuppressWarnings("StaticFieldLeak")
 public final class Storage {
     public static final String storage = Common.packageName;
-    private static final String acronym = "frkln";
 
     private static Storage instance;
 
@@ -121,7 +125,7 @@ public final class Storage {
         return this;
     }
     
-    // td: rename to sth else
+    // todo #C: rename to sth else
     /** saves scheduled data */
     public void save() { 
         // td: move here, adapt for multiple short-term saves
@@ -129,13 +133,13 @@ public final class Storage {
         editor = null;
     }
 
-    public static String debugPrint(Context context) {
+    static String debugPrint(Context context) {
         StringBuilder sb = new StringBuilder();
         SharedPreferences settings = getSharedPreferences(context);
         Set<String> keys = settings.getAll().keySet();
         Map map = settings.getAll();
         for ( String key : keys ) {
-            sb.append(key + ": " + map.get(key) + "\n");
+            sb.append(key).append(": ").append(map.get(key)).append("\n");
         }
         return sb.toString();
     }
@@ -148,6 +152,6 @@ public final class Storage {
     }
 
     private static SharedPreferences getSharedPreferences(Context context) {
-        return context.getSharedPreferences(acronym, Context.MODE_PRIVATE);
+        return PreferenceManager.getDefaultSharedPreferences( context );
     }
 }
