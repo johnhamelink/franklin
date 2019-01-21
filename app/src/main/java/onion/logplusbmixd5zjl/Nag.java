@@ -61,7 +61,7 @@ public class Nag extends Activity {
     }
     @Override public void onStart() {
     	super.onStart();
-	getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 	endAlarmAfter(awakeMillis);
 
 	playAlarm();

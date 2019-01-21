@@ -5,6 +5,8 @@ import android.util.Log;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Vector;
 
 import onion.logplusbmixd5zjl.Common;

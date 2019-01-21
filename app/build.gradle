@@ -1,8 +1,14 @@
 apply plugin: 'com.android.application'
-
 android {
+    signingConfigs {
+        config {
+            keyAlias 'alias'
+            keyPassword 'password'
+            storeFile file('/home/uni/src/f/meta/pwispwaliasisalias.jks')
+            storePassword 'password'
+        }
+    }
     compileSdkVersion 27
-
     defaultConfig {
         applicationId "onion.logplusbmixd5zjl"
         minSdkVersion 14
@@ -12,7 +18,6 @@ android {
         versionName "0.1." + getDate()
         vectorDrawables.useSupportLibrary = true
     }
-
     buildTypes {
         debug {
             testCoverageEnabled true
@@ -23,27 +28,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     testOptions {
         unitTests.returnDefaultValues = true
     }
-
     dependencies {
-        androidTestImplementation 'com.android.support:support-annotations:27.1.0'
-        androidTestImplementation 'com.android.support.test:runner:1.0.1'
+        androidTestImplementation 'com.android.support:support-annotations:27.1.1'
+        androidTestImplementation 'com.android.support.test:runner:1.0.2'
         androidTestImplementation 'com.android.support.test:rules:1.0.1'
 
         annotationProcessor 'com.jakewharton:butterknife:6.1.0'
 
         testImplementation 'junit:junit:4.12'
-        
+
         implementation fileTree(dir: 'libs', include: ['*.jar'])
         implementation group: 'com.jakewharton', name: 'butterknife', version: '6.1.0'
         implementation 'org.apache.commons:commons-lang3:3.4'
-        implementation 'com.android.support:appcompat-v7:27.1.0'
+        implementation 'com.android.support:appcompat-v7:27.1.1'
     }
 }
-
 static def getDate() {
     new Date().format('yyyyMMdd')
+}
+
+dependencies {
 }

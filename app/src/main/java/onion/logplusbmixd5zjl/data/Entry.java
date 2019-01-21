@@ -3,10 +3,12 @@ package onion.logplusbmixd5zjl.data;
 import android.content.Context;
 import android.os.Build;
 
+import java.util.Observable;
+
 /**
  * Entry base class.
  */
-public abstract class Entry implements Comparable<Entry> {
+public abstract class Entry extends Observable implements Comparable<Entry> {
     protected Context context;
     protected Storage storage;
 
