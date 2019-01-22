@@ -34,8 +34,6 @@ public final class Common {
 
     private static final long DB_VERSION = 8;
 
-    private static boolean inited = false;
-
     private Common() {}
 
     static { // this.getClass() for static functions
@@ -97,12 +95,6 @@ public final class Common {
         return now.after(start) && now.before(end);
     }
 
-    // td
-    public static void init(Context context) {
-        if ( ! inited ) {
-            migrateDBOnVersionUpdate(context);
-            inited = true;
-        }
         // debug
         // StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
         //                     .detectAll()
@@ -112,35 +104,11 @@ public final class Common {
         //                         .detectAll()
         //                         .penaltyLog()
         //                         .build());
-    }
 
     public static void removeNotification(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.cancel(NOTIFICATION_ID);
-    }
-    // td: this should be cleaned up on every release
-    // and should be migrated to [[data/Storage.java]]
-    public static void migrateDBOnVersionUpdate(Context context) {
-        Log.d(TAG, "migrateDBOnVersionUpdate()");
-        Storage s = Storage.get(context);
-        if ( ! s.contains(TAG + ".dbVersion") ) { // nothing to correct
-            s.putLong(TAG + ".dbVersion", DB_VERSION).save();
-            return;
-        }
-        // td: on new version, update etc like code below
-        // long lastDbVersion = settings.getLong(TAG + ".dbVersion", -1);
-        // if ( lastDbVersion < 8 ) { // logs.logCount to logs.count
-        //     Log.d(TAG, "lastDbVersion < 8");
-        //     SharedPreferences.Editor editor = settings.edit();
-        //     // codup move key
-        //     String key = "de.hu_berlin.informatik.franklin.log.logCount";
-        //     String newkey = "de.hu_berlin.informatik.franklin.log.count";
-        //     editor.putInt(newkey, settings.getInt(key, 0));
-        //     editor.remove(key);
-        //     editor.putLong(TAG + ".dbVersion", 8);
-        //     editor.commit();
-        // }
     }
 
     /** debug alert */

@@ -33,8 +33,6 @@ public class EditTimer extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Common.init(this);
-
         setContentView(R.layout.edit_timer);
 
         textName = (EditText) findViewById(R.id.e_name);

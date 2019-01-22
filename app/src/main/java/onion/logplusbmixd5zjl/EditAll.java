@@ -49,8 +49,6 @@ public class EditAll extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Common.init(this);
-
         setContentView(R.layout.edit_all);
 
         container = (TableLayout) findViewById(R.id.ea_container);

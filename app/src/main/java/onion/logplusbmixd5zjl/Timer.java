@@ -52,8 +52,6 @@ public class Timer extends AppCompatActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Common.init(this); //td: refactor common, at least rename to db...
-
         setContentView(R.layout.activity_timer);
         ButterKnife.inject(this);
 

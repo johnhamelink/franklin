@@ -31,8 +31,6 @@ public class EditCount extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Common.init(this);
-
         setContentView(R.layout.edit_count);
 
         textName = (EditText) findViewById(R.id.e_c_name);

@@ -29,8 +29,6 @@ public class EditLog extends Activity {
             finish();
         }
 
-        Common.init(this);
-
         int position = extras.getInt("position");
         logEntry = LogEntry.getReversed(this, position);
 

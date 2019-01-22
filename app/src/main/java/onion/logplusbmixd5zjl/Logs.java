@@ -37,8 +37,6 @@ public class Logs extends FragmentActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate()");
 
-        Common.init(this);
-
         setContentView(R.layout.logs);
 
         logView = (ListView) findViewById(R.id.s_all);
