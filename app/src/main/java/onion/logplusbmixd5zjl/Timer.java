@@ -90,8 +90,7 @@ public class Timer extends AppCompatActivity
 
     @Override public void onStop() {
         if ( state.is(State.IDLE) ) {
-            state.set(State.CLOSED);
-            state.save();
+            state.set(State.CLOSED).save();
         }
         super.onStop();
     }
