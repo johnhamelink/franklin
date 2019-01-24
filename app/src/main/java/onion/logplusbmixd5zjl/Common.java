@@ -145,17 +145,6 @@ public final class Common {
         }
     }
 
-    public static String toVerboseString(Vector<Entry> entries) {
-        StringBuilder out = new StringBuilder();
-        out.append("[");
-        for ( Entry entry: entries ) {
-            out.append(entry.verboseString());
-            out.append(", ");
-        }
-        out.append("]");
-        return out.toString();
-    }
-
     private static long getNextSolarMidnight(Context context) {
         AstronomicalCalendar calendar = getSolarCalendar(context);
         AstronomicalCalendar nextDayCalendar
