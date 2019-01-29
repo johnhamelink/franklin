@@ -85,12 +85,6 @@
                 <action android:name="my.alarm"/>
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".AlarmActivity"
-            android:label="@string/title_activity_alarm"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
     </application>
 
 </manifest>

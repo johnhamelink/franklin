@@ -64,9 +64,9 @@ public class EditLog extends Activity {
         }
 
         boolean changed = logEntry.save(this,
-                nameView.getText().toString(),
-                durationTmp * 1000,
-                commentView.getText().toString());
+                                        nameView.getText().toString(),
+                                        durationTmp * 1000,
+                                        commentView.getText().toString());
 
         if ( changed ) {
             Common.showToast(this, getResources().getString(R.string.saved));
