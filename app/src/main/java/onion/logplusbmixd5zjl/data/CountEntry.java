@@ -12,9 +12,7 @@ import java.util.Vector;
 /** a single countable */
 public class CountEntry extends TaskEntry {
     public static final String TAG = AlarmEntry.class.getSimpleName();
-
-    private static Vector<CountEntry> all = new Vector<CountEntry>();
-
+    
     private long target;
     private LogEntry count;
 
