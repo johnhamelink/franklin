@@ -5,11 +5,8 @@ import android.util.Log;
 
 import onion.logplusbmixd5zjl.Common;
 import onion.logplusbmixd5zjl.Count;
-import onion.logplusbmixd5zjl.MyApplication;
-import onion.logplusbmixd5zjl.R;
 import onion.logplusbmixd5zjl.util.Scheduler;
 
-import java.util.Locale;
 import java.util.Vector;
 
 /** a single countable */
@@ -24,9 +21,6 @@ public class CountEntry extends TaskEntry {
     // td: separate repetitions from count (f.ex. l.2 zu l.1.2)
     private void initCount() {
         count = LogEntry.getByName(context, name, Common.getStartOfToday(context).getTime());//td: move to own date class
-    }
-    public CountEntry() {
-        super( MyApplication.context, null );
     }
     public CountEntry(String name, long target) {
         this(null, name, target);
