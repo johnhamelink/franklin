@@ -12,7 +12,7 @@ import java.util.Vector;
 /** a single countable */
 public class CountEntry extends TaskEntry {
     public static final String TAG = AlarmEntry.class.getSimpleName();
-    
+
     private long target;
     private LogEntry count;
 
@@ -25,12 +25,6 @@ public class CountEntry extends TaskEntry {
     }
     public CountEntry(Context context, String name, long target) {
         super(context, name);
-        this.target = target;
-        initCount();
-    }
-
-    public void update(String name, long target) {
-        this.name = name;
         this.target = target;
         initCount();
     }
