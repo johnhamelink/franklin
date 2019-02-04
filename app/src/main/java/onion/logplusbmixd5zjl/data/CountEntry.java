@@ -45,14 +45,6 @@ public class CountEntry extends TaskEntry {
     }
     // this writes to sp twice, td: rework (?name as put/commit?)
 
-    /** clears the counter for this task */
-    public void resetCount() {
-        if ( count != null ) {
-            count.remove(context);
-            count = null;
-        }
-    }
-
     public void setTarget(long target) {
         this.target = target;
     }
