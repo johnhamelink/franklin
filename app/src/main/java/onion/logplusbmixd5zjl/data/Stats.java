@@ -102,10 +102,10 @@ public class Stats {
     private static void addToMap(Map<String, Long> map, String name, long value){
         Long oldVal = map.get(name);
         if ( oldVal == null ) {
-            oldVal = Long.valueOf(0);
+            oldVal = 0L;
         }
-        long out = oldVal.longValue() + value;
-        map.put(name, Long.valueOf(out));
+        long out = oldVal + value;
+        map.put(name, out);
     }
 
     // td: sort: most important info first
@@ -121,7 +121,7 @@ public class Stats {
                     out.append("[");
                     firstDone = true;
                 }
-                out.append(e.getKey() + ": " + (e.getValue() / Common.MINUTE));
+                out.append(e.getKey()).append(": ").append(e.getValue() / Common.MINUTE));
             }
         }
         if ( firstDone ) {
