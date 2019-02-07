@@ -23,7 +23,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-import onion.logplusbmixd5zjl.data.Stats;
+import onion.logplusbmixd5zjl.util.Stats;
 import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
 import onion.logplusbmixd5zjl.util.FormatMillis;

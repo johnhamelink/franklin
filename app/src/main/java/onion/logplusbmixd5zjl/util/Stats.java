@@ -1,4 +1,4 @@
-package onion.logplusbmixd5zjl.data;
+package onion.logplusbmixd5zjl.util;
 
 import android.content.Context;
 
@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import onion.logplusbmixd5zjl.Common;
+import onion.logplusbmixd5zjl.data.LogEntry;
+import onion.logplusbmixd5zjl.data.TaskEntry;
 
 /**
  * Keeps track of how much was done.
@@ -121,7 +123,7 @@ public class Stats {
                     out.append("[");
                     firstDone = true;
                 }
-                out.append(e.getKey()).append(": ").append(e.getValue() / Common.MINUTE));
+                out.append(e.getKey()).append(": ").append(e.getValue() / Common.MINUTE);
             }
         }
         if ( firstDone ) {

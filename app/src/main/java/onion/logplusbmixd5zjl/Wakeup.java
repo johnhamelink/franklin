@@ -13,7 +13,7 @@ import butterknife.InjectView;
 import java.text.ParseException;
 import java.util.Calendar;
 
-import onion.logplusbmixd5zjl.data.Stats;
+import onion.logplusbmixd5zjl.util.Stats;
 import onion.logplusbmixd5zjl.util.Location;
 
 public class Wakeup extends Activity {

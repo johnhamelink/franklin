@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 import onion.logplusbmixd5zjl.data.AlarmEntry;
-import onion.logplusbmixd5zjl.data.Stats;
+import onion.logplusbmixd5zjl.util.Stats;
 import onion.logplusbmixd5zjl.util.Notify;
 import onion.logplusbmixd5zjl.util.State;
 import onion.logplusbmixd5zjl.util.WakeLocker;

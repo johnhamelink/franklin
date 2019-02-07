@@ -132,7 +132,7 @@ public class LogEntry extends Entry {
         return getReversed(context).get(index);
     }
 
-    boolean after(Date other) {
+    public boolean after(Date other) {
         return date.after(other);
     }
     boolean after(LogEntry other) {

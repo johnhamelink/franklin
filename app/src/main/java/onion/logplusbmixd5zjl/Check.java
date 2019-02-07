@@ -1,6 +1,5 @@
 package onion.logplusbmixd5zjl;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,7 +18,7 @@ import android.widget.TextView;
 
 import onion.logplusbmixd5zjl.data.CountEntry;
 import onion.logplusbmixd5zjl.data.CountStore;
-import onion.logplusbmixd5zjl.data.Stats;
+import onion.logplusbmixd5zjl.util.Stats;
 import onion.logplusbmixd5zjl.data.TaskEntry;
 import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
