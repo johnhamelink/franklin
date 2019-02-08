@@ -45,9 +45,7 @@ public class TimerEntry extends TaskEntry {
             repetitions == lhs.repetitions;
     }
 
-
     @Override public Class getActivity() { return Timer.class; }
-
 
     @Override public int hashCode() {
         throw new UnsupportedOperationException();

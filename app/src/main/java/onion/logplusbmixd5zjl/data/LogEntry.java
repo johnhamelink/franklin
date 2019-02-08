@@ -26,30 +26,13 @@ public class LogEntry extends Entry {
         return h;
     }
     
-    //    private static Vector<LogEntry> all = null;
-    //    private static Vector<LogEntry> reversed = null;
-
     // TODO: maybe just seconds since epoch? (less conversion)
     private Date date;//TODO: changeable in logedit
     private String comment;
     // TODO: rename durationMillis to value due to CountEntry
     private long durationMillis;
 
-    // protected LogEntry(Context context, int itsIndex) {
-    //     super(context, null);
-    //     Log.d(TAG, String.format("LogEntry(context, %d)", itsIndex));
 
-    //     ID = itsIndex;
-
-    //     if ( ! storage.contains(storagePart("name")) ) {
-    //         throw new IllegalArgumentException("I: no log entry of ID " + ID);
-    //     }
-
-    //     comment = storage.getString(storagePart("comment"), null);
-    //     date = new Date(storage.getLong(storagePart("date"), -1));
-    //     durationMillis = storage.getLong(storagePart("duration"),-1);
-    //     name = storage.getString(storagePart("name"), "TODO: no name");
-    // }
     LogEntry(Cursor cursor) {
         this(cursor.getString(cursor.getColumnIndex(DbHelper.KEY_ENTRY_NAME)),
              cursor.getLong(cursor.getColumnIndex(DbHelper.KEY_ENTRY_DURATION)),
@@ -170,20 +153,6 @@ public class LogEntry extends Entry {
         getHelper(context).removeEntry(this);
     }
 
-    // // codup timerentry
-    // /** schedules name, duration, date at ID, does not commit */
-    // public Storage save() {
-    //     storage.putString(storagePart("name"), name);
-    //     storage.putLong(storagePart("duration"), durationMillis);
-    //     storage.putLong(storagePart("date"), date.getTime());
-    //     if ( comment == null ) {
-    //         storage.remove(comment);
-    //     } else {
-    //         storage.putString(storagePart("comment"), comment);
-    //     }
-    //     return storage;
-    // }
-
     /** @return true if some value changed from last save */
     public final boolean save(Context context,
                               String name, long durationMillis, String comment){
@@ -203,61 +172,6 @@ public class LogEntry extends Entry {
         this.durationMillis = durationMillis;
         return getHelper(context).updateEntry(this);
     }
-    // /** @return True if value changed */
-    // public boolean saveDuration(long durationMillis, boolean updateDate) {
-    //     boolean out = setDuration(durationMillis, false);
-    //     storage.save();
-    //     resortIfNecessary(new Date()); // close enough, no Date in between
-    //     return out;
-    // }
-
-    // // TODO: where to commit, best later?
-    // // TODO: empty string vs null comment, where to handle
-    // // package access for testing
-    // /** @return True if value changed */
-    // boolean setComment(String comment) {
-    //     if ( comment.equals(this.comment) ) {
-    //         return false;
-    //     } else {
-    //         this.comment = comment;
-    //         putComment();
-    //         return true;
-    //     }
-    // }
-
-    // /**
-    //  * also updates the date if updateDate
-    //  * @return True if value changed */
-    // public boolean setDuration(long durationMillis, boolean updateDate) {
-    //     if ( durationMillis == this.durationMillis ) {
-    //         return false;
-    //     } else {
-    //         this.durationMillis = durationMillis;
-    //         if ( updateDate ) {
-    //             date = new Date();
-    //             putDate();
-    //         }
-    //         putDuration();
-    //         return true;
-    //     }
-    // }
-
-    // public void setName(String name) {
-    //     if ( ! name.equals(this.name) ) {
-    //         this.name = name;
-
-    //         storage.putString(storagePart("name"), name);
-    //     }
-    // }
-
-    // private void resortIfNecessary(Date newDate) {
-    //     if ( ID > 0 && (new Date()).before(get(context, ID-1).getDate())
-    //                  || ID+1 < getCount(context)
-    //                  && (new Date()).after(get(context,ID+1).getDate()) ) {
-    //         sortAndSave(context);
-    //         initReversed(context);
-    //     }
-    // }
 
     public String toCSV() {
         return date.getTime() + ","
@@ -291,96 +205,9 @@ public class LogEntry extends Entry {
             + "]";
     }
 
-    // private static void addToAll(Context context, LogEntry le) {
-    //     Log.d(TAG, String.format("addToAll(context, %s)", le));
-    //     if ( all == null ) {
-    //         initAll(context); //TODO: maybe remove (+rewrite "// sort if ..."below)
-    //     } else {
-    //         all.add(le);
-    //         if ( reversed != null ) {
-    //             reversed.add(0, le);
-    //         }
-    //     }
-    //     // sort if necessary
-    //     if ( le.getID() != 0 && all.get(le.getID() -1).after(le.getDate()) ) {
-    //         sortAndSave(context);
-    //         initReversed(context);
-    //     }
-    // }
-
-
-    // /** initialises vector of LogEntries */
-    // private static void initAll(Context context) {
-    //     all =
-    // }
-    // /** all vector in reverse order */
-    // private static void initReversed(Context context) {
-    //     Log.d(TAG, "initReversed()");
-
-    //     if ( all == null ) {
-    //         initAll(context);
-    //     }
-
-    //     reversed = (Vector<LogEntry>)all.clone();
-    //     Collections.reverse(reversed);
-    // }
-    // // TODO: codup with timerentry
-    // private static void sortAndSave(Context context) {
-    //     Log.d(TAG, "sortAndSave()");
-    //     Collections.sort(all);
-    //     for ( int i = 0; i < all.size(); i++ ) {
-    //         LogEntry entry = all.get(i);
-    //         if ( entry.getID() != i ) {
-    //             // Log.v(TAG, "before id-switch: " + entry.verboseString());
-    //             entry.setID(i, context);
-    //             // Log.v(TAG, "after id-switch: " + entry.verboseString());
-    //         }
-    //     }
-    //     Storage.get(context).putInt(".log.count", all.size()).save();
-    // }
-
     private String dateToString() {
         return DateFormat.getDateTimeInstance(DateFormat.SHORT,
                                               DateFormat.MEDIUM).format(date);
         // TODO?: pro Tag eigenes mit Zeit, Tagesheader (wie Anruferliste)?
     }
-
-    // /** saves data to next free storage and returns its ID */
-    // private int getIDandSave() {
-    //     getHelper().createEntry(this);
-
-    //     return Common.ERROR_NUMBER;
-    // }
-
-    // /**
-    //  * schedules comment for removal if null or put to storage
-    //  */
-    // // TODO: rename to IfNecessary ?? (see also storage for refactor)
-    // private void putComment() {
-    //     if ( comment == null ) { // TODO: || comment.equals("")
-    //         storage.remove(storagePart("comment"));
-    //     } else {
-    //         storage.putString(storagePart("comment"), comment);
-    //     }
-    // }
-
-    // // TODO: remove this?
-    // private void putDate() {
-    //     storage.putLong(storagePart("date"), date.getTime());
-    // }
-
-    // // TODO: remove this?
-    // private void putDuration() {
-    //     storage.putLong(storagePart("duration"), durationMillis);
-    // }
-
-    // private void removeLastFromDB() {
-    //     Log.d(TAG, "removeLastFromDB()");
-    //     int last = getCount(context); // TODO: from timerstore?
-    //     storage.remove(storagePart(last, "name"));
-    //     storage.remove(storagePart(last, "date"));
-    //     storage.remove(storagePart(last, "duration"));
-    //     storage.remove(storagePart(last, "comment"));
-    //     storage.save();
-    // }
 }
