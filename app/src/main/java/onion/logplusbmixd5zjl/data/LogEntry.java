@@ -1,5 +1,5 @@
 package onion.logplusbmixd5zjl.data;
-// td: duplication of ".log." -part
+
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -9,8 +9,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Vector;
 
-import org.apache.commons.lang3.StringEscapeUtils; //td later: proguard
-import org.apache.commons.lang3.text.StrTokenizer; // same here
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.text.StrTokenizer;
 
 import onion.logplusbmixd5zjl.Common;
 
@@ -25,11 +25,9 @@ public class LogEntry extends Entry {
         }
         return h;
     }
-    
-    // TODO: maybe just seconds since epoch? (less conversion)
-    private Date date;//TODO: changeable in logedit
+
+    private Date date;
     private String comment;
-    // TODO: rename durationMillis to value due to CountEntry
     private long durationMillis;
 
 
@@ -75,8 +73,6 @@ public class LogEntry extends Entry {
         getHelper(context).createEntry(this);
     }
 
-    // todo: if too slow, just get one
-    // todo: index still working?
     public static LogEntry get(Context context, int index) {
         return getAll(context).get(index);
     }
@@ -88,7 +84,6 @@ public class LogEntry extends Entry {
         return getHelper(context).selectReversed();
     }
 
-    // hack TODO: sum in countentry
     static LogEntry getByName(Context context, String name, Date noOlder){
         for ( LogEntry entry: getReversed(context) ) {
             if ( entry.getDate().before(noOlder) ) {
@@ -102,7 +97,6 @@ public class LogEntry extends Entry {
         return null;
     }
 
-    // TODO: rm (ls)
     /** @return the number of log entries */
     public static int getCount(Context context) {
         Log.d(TAG, "getCount()");
@@ -137,12 +131,13 @@ public class LogEntry extends Entry {
         }
     }
     @Override public boolean equals(Object other) {
-        return other instanceof LogEntry && ((LogEntry) other).date.equals( this.date );
+        return other instanceof LogEntry
+            && ((LogEntry) other).date.equals( this.date );
     }
 
     public final String getComment() { return comment; }
     public final Date getDate()      { return (Date)date.clone(); }
-    public final long getDuration()  { return durationMillis; } //TODO: rename /ce
+    public final long getDuration()  { return durationMillis; }
 
     @Override public int hashCode() {
         throw new UnsupportedOperationException("equals() implemented");
@@ -208,6 +203,5 @@ public class LogEntry extends Entry {
     private String dateToString() {
         return DateFormat.getDateTimeInstance(DateFormat.SHORT,
                                               DateFormat.MEDIUM).format(date);
-        // TODO?: pro Tag eigenes mit Zeit, Tagesheader (wie Anruferliste)?
     }
 }
