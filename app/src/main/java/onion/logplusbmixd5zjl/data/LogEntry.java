@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.util.Log;
 
 import java.text.DateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Vector;
 
@@ -158,9 +157,9 @@ public class LogEntry extends Entry {
     }
 
     public final void saveDate(Context context, final Date newDate ) {
-        Date olddate = date;
+        Date old = date;
         date = newDate;
-        getHelper(context).updateEntry(this, olddate);
+        getHelper(context).updateEntry(this, old);
     }
 
     public boolean saveDuration(Context context, long durationMillis) {
