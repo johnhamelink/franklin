@@ -22,14 +22,14 @@ public final class CountStore {
     private Storage storage;
 
     private CountStore(Context context) {
-	this.context = context.getApplicationContext();
+        this.context = context.getApplicationContext();
         this.storage = Storage.get(this.context);
     }
     public static synchronized CountStore get(Context context) {
-	if ( ts == null ) {
+        if ( ts == null ) {
             ts = new CountStore(context);
-	}
-	return ts;
+        }
+        return ts;
     }
 
     /** @return List of all timer entries */
@@ -50,12 +50,12 @@ public final class CountStore {
         return CountStore.get(context).getCount();
     }
     public int getCount() {
-	if ( count < 0 ) {
-	    count = storage.getInt(".counts.count", 0);
-	}
-	Log.v(TAG, "getCount() with count " + count);
+        if ( count < 0 ) {
+            count = storage.getInt(".counts.count", 0);
+        }
+        Log.v(TAG, "getCount() with count " + count);
 
-	return count;
+        return count;
     }
     public static void invalidateCount() { count = -1; }
 
@@ -95,17 +95,17 @@ public final class CountStore {
         return CountStore.get(context).getCurrent();
     }
     public int getCurrent() {
-	if ( current < 0 && getCount() > 0 ) {
-	    current = storage.getInt(".counts.current", 0);
-	}
-	return current;
+        if ( current < 0 && getCount() > 0 ) {
+            current = storage.getInt(".counts.current", 0);
+        }
+        return current;
     }
     public static void setCurrent(Context context, int id) {
         CountStore.get(context).setCurrent(id);
     }
     public void setCurrent(int id) {
-	storage.putInt(".counts.current", id).save();
-	current = id;
+        storage.putInt(".counts.current", id).save();
+        current = id;
     }
 
     // td: change name, not only accessor
@@ -115,10 +115,10 @@ public final class CountStore {
         return CountStore.get(context).next();
     }
     public int next() {
-	if ( getCount(context) > 0 ) {
-	    setCurrent(context, (current+1) % count);
-	}
-	return current;
+        if ( getCount(context) > 0 ) {
+            setCurrent(context, (current+1) % count);
+        }
+        return current;
     }
     // td: change name, not only accessor
     /** decrements current to previous, returns */
@@ -126,14 +126,13 @@ public final class CountStore {
         return CountStore.get(context).previous();
     }
     public int previous() {
-	if ( getCount(context) > 0 ) {
-	    setCurrent(context,
-		       ((current-1) % count + count) % count);//modulo (\ge 0)
-	}
-	return current;
+        if ( getCount(context) > 0 ) {
+            setCurrent(context,
+                       ((current-1) % count + count) % count);  // modulo with result >= 0
+        }
+        return current;
     }
 
-    // td: one save instead of many
     public void remove(CountEntry e) {
         storage.remove(storagePart(e.getID(), "target"))
             .remove(storagePart(e.getID(), "name"))
@@ -143,7 +142,7 @@ public final class CountStore {
                 for ( int j = id+1; j < getCount(); j++ ) {
                     CountEntry toMove = getEntry(j);
                     toMove.setID(j-1, context);
-                    save(toMove);
+                    save(toMove, false);
                 }
             }
         }
@@ -151,8 +150,11 @@ public final class CountStore {
         e.setID(-1, null);
     }
 
-    /** @return true if entry was saved, false if not (equal already in DB) */
     public boolean save(CountEntry e) {
+        return save(e, true);
+    }
+    /** @return true if entry was saved, false if not (equal already in DB) */
+    public boolean save(CountEntry e, boolean commit) {
         CountEntry saved = getEntry(e.getID());
         if ( saved.equals(e) ) {
             return false;
@@ -165,8 +167,8 @@ public final class CountStore {
         // todo: kinda unify this with taskentry?
         // TODO?: extra object timerEntryStorage, saves e.getID, offers put...
         storage.putLong(storagePart(e.getID(), "target"), e.getTarget())
-            .putString(storagePart(e.getID(), "name"), e.getName())
-            .save();
+            .putString(storagePart(e.getID(), "name"), e.getName());
+        if (commit) storage.save();
         return true;
     }
         
