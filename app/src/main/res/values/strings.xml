@@ -50,5 +50,6 @@
     <string name="w_set">set position</string>
     <string name="title_activity_alarm">AlarmActivity</string>
     <string name="edit_alarm">Press to edit Alarm</string>
+    <string name="duration_hint">in seconds</string>
 </resources>
     <!--td: find unused resources, SO?-->

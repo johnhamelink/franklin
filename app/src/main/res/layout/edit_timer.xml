@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent"
-    >
-  <TableRow>
-      <TextView
-	  android:layout_height="wrap_content" 
-	  android:text="@string/name_label"
-	  />
-      <!-- td: better specific inputType? -->
-      <EditText
-	  android:id="@+id/e_name"
-	  android:hint="@string/e_n_hint"
-	  android:inputType="text" 
-	  />
-    </TableRow>
-    <TableRow>
-      <TextView
-	android:text="@string/duration_label"
+<TableLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_height="fill_parent"
+android:layout_width="fill_parent"
+android:layout_margin="12pt"
+>
+<TableRow>
+    <TextView
+	android:layout_height="wrap_content" 
+	android:text="@string/name_label"
 	/>
-      <EditText
-	  android:id="@+id/e_duration"
-	  android:inputType="number"
-	  />
-    </TableRow>
-    <TableRow>
-      <TextView
-	  android:text="@string/repetitions_label"
-	  />
-      <EditText
-	  android:id="@+id/e_repeat"
-	  android:hint="@string/e_r_hint"
-	  android:inputType="number"
-	  />
-    </TableRow>
-  </TableLayout>
+    <!-- td: better specific inputType? -->
+    <EditText
+	android:id="@+id/e_name"
+	android:hint="@string/e_n_hint"
+	android:inputType="text" 
+	/>
+</TableRow>
+<TableRow>
+    <TextView
+	android:text="@string/duration_label"
+	android:hint="@string/duration_hint"
+	/>
+    <EditText
+	android:id="@+id/e_duration"
+	android:inputType="number"
+	/>
+</TableRow>
+<TableRow>
+    <TextView
+	android:text="@string/repetitions_label"
+	/>
+    <EditText
+	android:id="@+id/e_repeat"
+	android:hint="@string/e_r_hint"
+	android:inputType="number"
+	/>
+</TableRow>
+</TableLayout>
