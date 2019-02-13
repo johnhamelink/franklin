@@ -34,7 +34,6 @@ android {
         implementation 'org.apache.commons:commons-lang3:3.4'
         implementation 'com.android.support:appcompat-v7:27.1.1'
     }
-    lintOptions.abortOnError = false
     signingConfigs {
         config {
             keyAlias 'alias'

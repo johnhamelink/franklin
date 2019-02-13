@@ -21,7 +21,6 @@ import onion.logplusbmixd5zjl.util.TextValidator;
 public class EditTimer extends FragmentActivity {
     private static final String TAG = EditTimer.class.getName();
 
-    private Button timeButton;
     private EditText textName;
     private EditText textDurationSeconds;
     private EditText textDayRepeat;
