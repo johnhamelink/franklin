@@ -5,6 +5,7 @@ android:
     - build-tools-27.0.3
     - android-27
     - extra
+    - emulator
 
     - sys-img-x86-android-27
 before_script:
