@@ -164,7 +164,7 @@ public class LogEntryUnitTest extends MetaTest {
         LogEntry le2 = new LogEntry(getContext(),
                                     "getTest2", 300, new Date().getTime());
         LogEntry leGot = LogEntry.get(getContext(),
-                                      LogEntry.getCount(getContext()) -2);
+                                      LogEntry.getCount(getContext()) -1);
         assertTrue("not equals: " + le1 + " vs " + leGot, leGot.equals(le1));
         le1.remove(getContext());
         le2.remove(getContext());
@@ -174,7 +174,7 @@ public class LogEntryUnitTest extends MetaTest {
     public void testGetFail() {
         try {
             LogEntry.get(getContext(), -23);
-            assertFalse("did not throw exception on non-existant entry", true);
+            assertFalse("did not throw exception on non-existing entry", true);
         } catch ( ArrayIndexOutOfBoundsException e ) {
             // OK
         }

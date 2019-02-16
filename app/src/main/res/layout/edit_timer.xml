@@ -7,14 +7,14 @@ android:layout_margin="12pt"
 >
 <TableRow>
     <TextView
-	android:layout_height="wrap_content" 
+	android:layout_height="wrap_content"
 	android:text="@string/name_label"
 	/>
     <!-- td: better specific inputType? -->
     <EditText
 	android:id="@+id/e_name"
 	android:hint="@string/e_n_hint"
-	android:inputType="text" 
+	android:inputType="text"
 	/>
 </TableRow>
 <TableRow>
