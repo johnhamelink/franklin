@@ -164,7 +164,7 @@ public class LogEntryUnitTest extends MetaTest {
         LogEntry le2 = new LogEntry(getContext(),
                                     "getTest2", 300, new Date().getTime());
         LogEntry leGot = LogEntry.get(getContext(),
-                                      LogEntry.getCount(getContext()) -1);
+                                      LogEntry.getCount(getContext()) -2);
         assertTrue("not equals: " + le1 + " vs " + leGot, leGot.equals(le1));
         le1.remove(getContext());
         le2.remove(getContext());
