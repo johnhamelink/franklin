@@ -1,5 +1,7 @@
 * logplus/franklin
   Timer and Counting with logging and stats.
+
+  [[https://travis-ci.org/serv-inc/franklin][https://img.shields.io/travis/serv-inc/franklin.svg]]
 ** Versions
 *** 0.1.0
 **** Added
