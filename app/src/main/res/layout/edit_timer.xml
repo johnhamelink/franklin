@@ -1,40 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_height="fill_parent"
-android:layout_width="fill_parent"
+android:layout_height="match_parent"
+android:layout_width="match_parent"
 android:layout_margin="12pt"
+android:stretchColumns="1"
+android:shrinkColumns="0"
 >
-<TableRow>
+<TableRow
+    android:layout_width="match_parent">
     <TextView
-	android:layout_height="wrap_content"
-	android:text="@string/name_label"
-	/>
-    <!-- td: better specific inputType? -->
+        android:layout_height="wrap_content"
+        android:text="@string/name_label"
+        />
     <EditText
-	android:id="@+id/e_name"
-	android:hint="@string/e_n_hint"
-	android:inputType="text"
-	/>
+        android:id="@+id/e_name"
+        android:hint="@string/e_n_hint"
+        android:inputType="text"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        />
 </TableRow>
-<TableRow>
+<TableRow
+    android:layout_width="match_parent">
     <TextView
-	android:text="@string/duration_label"
-	android:hint="@string/duration_hint"
-	/>
+        android:text="@string/duration_label"
+        android:hint="@string/duration_hint"
+        />
+
     <EditText
-	android:id="@+id/e_duration"
-	android:inputType="number"
-	/>
+        android:id="@+id/e_duration"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:hint="@string/e_d_hint"
+        android:inputType="number" />
 </TableRow>
-<TableRow>
+<TableRow
+    android:layout_width="match_parent">
     <TextView
-	android:text="@string/repetitions_label"
-	/>
+        android:text="@string/repetitions_label"
+        />
     <EditText
-	android:id="@+id/e_repeat"
-	android:hint="@string/e_r_hint"
-	android:inputType="number"
-	/>
+        android:id="@+id/e_repeat"
+        android:hint="@string/e_r_hint"
+        android:inputType="number"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        />
 </TableRow>
 </TableLayout>
