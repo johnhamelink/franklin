@@ -25,7 +25,6 @@ android:shrinkColumns="0"
     android:layout_width="match_parent">
     <TextView
         android:text="@string/duration_label"
-        android:hint="@string/duration_hint"
         />
 
     <EditText
