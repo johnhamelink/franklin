@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Vector;
 
 import onion.logplusbmixd5zjl.data.TimerEntry;
 import onion.logplusbmixd5zjl.data.TimerStore;
@@ -81,8 +82,36 @@ public class EditAll extends FragmentActivity {
         super.onStop();
     }
 
+    class Builder {
+        private Vector<String> names;
+        private Vector<String> types;
+        private Vector<String> values;
+        public Builder() {
+            names = new Vector<>();
+            types = new Vector<>();
+            values = new Vector<>();
+        }
+        public Builder addField(String name, String type) {
+            return addField(name, type, "");
+        }
+        public Builder addField(String name, String type, String value) {
+            names.add(name);
+            types.add(type);
+            values.add(value);
+            return this;
+        }
+        public void start(Activity activity) {
+            Intent i = new Intent(activity, EditAll.class)
+                    .putExtra(EditAll.NAMES, names.toArray())
+                    .putExtra(EditAll.TYPES, types.toArray())
+                    .putExtra(EditAll.VALUES, values.toArray());
+            activity.startActivityForResult(i, EditAll.ACTION_EDIT);
+        }
+    }
+
+
     public void addElement(TableLayout layout, String name, String type, String value) {
-        LayoutInflater vi = getLayoutInflater();// LayoutInflater.from(this);
+        LayoutInflater vi = getLayoutInflater();
         TableRow row = null;
         if ( type.equals("int") ) {
             Log.d(TAG, "int");
