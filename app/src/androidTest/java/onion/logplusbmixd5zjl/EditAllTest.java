@@ -21,7 +21,7 @@ public class EditAllTest extends MetaTest {
         Intent i = new Intent(getInstrumentation().getTargetContext(), EditAll.class)
                 .putExtra(EditAll.NAMES, new String[]{"name", "time"})
                 .putExtra(EditAll.TYPES, new String[]{"string", "date"});
-        getInstrumentation().getTargetContext().startActivity(i);
+        rule.launchActivity(i);
 
         //EditAll e = new CountEntry(getContext(), "testc_creation", 12);
         //assertEquals("testc_creation", e.getName());
