@@ -42,6 +42,10 @@
             android:label="@string/app_name">
         </activity>
         <activity
+            android:name=".EditAll"
+            android:label="@string/app_name">
+        </activity>
+        <activity
             android:name=".Logs"
             android:label="@string/app_name">
         </activity>
