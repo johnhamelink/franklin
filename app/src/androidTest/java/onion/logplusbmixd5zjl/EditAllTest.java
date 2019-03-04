@@ -22,9 +22,5 @@ public class EditAllTest extends MetaTest {
                 .putExtra(EditAll.NAMES, new String[]{"name", "time"})
                 .putExtra(EditAll.TYPES, new String[]{"string", "date"});
         rule.launchActivity(i);
-
-        //EditAll e = new CountEntry(getContext(), "testc_creation", 12);
-        //assertEquals("testc_creation", e.getName());
-        //assertEquals(12, e.getTarget());
     }
 }
