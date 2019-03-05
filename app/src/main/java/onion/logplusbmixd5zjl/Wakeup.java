@@ -19,11 +19,16 @@ import onion.logplusbmixd5zjl.util.Location;
 public class Wakeup extends Activity {
     private static final String TAG = Wakeup.class.getName();
 
-    @InjectView(R.id.w_daystart) TextView dayStart;
-    @InjectView(R.id.w_latitude) EditText latitude;
-    @InjectView(R.id.w_longitude) EditText longitude;
-    @InjectView(R.id.w_sunrise) TextView sunRise;
-    @InjectView(R.id.w_sunset) TextView sunSet;
+    @InjectView(R.id.w_daystart)
+    private TextView dayStart;
+    @InjectView(R.id.w_latitude)
+    private EditText latitude;
+    @InjectView(R.id.w_longitude)
+    private EditText longitude;
+    @InjectView(R.id.w_sunrise)
+    private TextView sunRise;
+    @InjectView(R.id.w_sunset)
+    private TextView sunSet;
 
     private Location location;
 

@@ -8,5 +8,6 @@
     android:id="@+id/row_value"
     android:layout_marginLeft="4dp"
     android:layout_marginStart="4dp"
+    android:inputType="text"
     />
 </TableRow>

@@ -27,8 +27,8 @@ public final class Common {
     public static final String TAG;
 
     static final String acronym = "frkln";
-    static final int DAY_START_HOUR = 6; // td: date
-    static final int DAY_END_HOUR = 21;
+    private static final int DAY_START_HOUR = 6; // td: date
+    private static final int DAY_END_HOUR = 21;
     static final int NOTIFICATION_ID = 0x6191a5f1;
     static final float ROW_SIZE = 19;
 
@@ -61,7 +61,7 @@ public final class Common {
         return getSolarCalendar(context).getEndNauticalTwilight();
     }
 
-    public static AstronomicalCalendar getSolarCalendar(Context context) {
+    private static AstronomicalCalendar getSolarCalendar(Context context) {
         return new AstronomicalCalendar(Location.get(context).getGeo());
     }
     /** @return previous "solar midnight plus three hours" */

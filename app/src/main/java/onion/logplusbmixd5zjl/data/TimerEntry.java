@@ -113,10 +113,10 @@ public class TimerEntry extends TaskEntry {
     // // todo: log should *only* log, not also schedule nag, 1: rename logEtc
     // 2. change this in timer or state or alarm (maybe best, most direct,
     // least surprise),
-    private final void logMeta(String logName) {
+    private void logMeta(String logName) {
         logMeta(logName, System.currentTimeMillis());
     }
-    private final void logMeta(String logName, long finishTime) {
+    private void logMeta(String logName, long finishTime) {
         new LogEntry(context,
                      logName,
                      durationMillis,

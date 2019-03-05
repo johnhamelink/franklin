@@ -33,11 +33,16 @@ import onion.logplusbmixd5zjl.util.OnSwipeTouchListener;
 public class Count extends AppCompatActivity implements OnItemSelectedListener {
     private static final String TAG = Count.class.getName();
 
-    @InjectView(R.id.c_all) LinearLayout all;
-    @InjectView(R.id.c_countView) TextView countView;
-    @InjectView(R.id.c_next) ImageButton next;
-    @InjectView(R.id.c_previous) ImageButton previous;
-    @InjectView(R.id.c_title) Spinner spinner;
+    @InjectView(R.id.c_all)
+    private LinearLayout all;
+    @InjectView(R.id.c_countView)
+    private TextView countView;
+    @InjectView(R.id.c_next)
+    private ImageButton next;
+    @InjectView(R.id.c_previous)
+    private ImageButton previous;
+    @InjectView(R.id.c_title)
+    private Spinner spinner;
 
 
     @Override public void onCreate(Bundle savedInstanceState) {

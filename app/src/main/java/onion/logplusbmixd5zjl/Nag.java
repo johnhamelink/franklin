@@ -36,8 +36,10 @@ public class Nag extends Activity {
 
     private MediaPlayer mediaPlayer;
 
-    @InjectView(R.id.n_remind) LinearLayout remind;
-    @InjectView(R.id.n_remindtext) TextView remindtext;
+    @InjectView(R.id.n_remind)
+	private LinearLayout remind;
+    @InjectView(R.id.n_remindtext)
+	private TextView remindtext;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +95,7 @@ public class Nag extends Activity {
 
     /** initializes the background resume
      * @param snoozeMillis snooze this many milliseconds */
-    void initializeAlarm(long snoozeMillis) {
+	private void initializeAlarm(long snoozeMillis) {
         Scheduler.get(this)
             .scheduleAlarm(System.currentTimeMillis() + snoozeMillis,
                            new Intent("my.nag"),
