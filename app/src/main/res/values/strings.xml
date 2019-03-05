@@ -6,7 +6,6 @@
     <string name="count_m_new">new count</string>
     <string name="count_m_edit">edit count</string>
     <string name="duration_label">Duration:</string>
-    <string name="e_a_n_hint">target before time</string>
     <string name="e_d_hint">in seconds</string>
     <string name="e_n_hint">timer name</string>
     <string name="e_r_hint">per day</string>

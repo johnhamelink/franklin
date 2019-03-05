@@ -153,10 +153,7 @@ public class Timer extends AppCompatActivity
         Intent restart = context
                 .getPackageManager()
                 .getLaunchIntentForPackage(context.getPackageName());
-        if ( android.os.Build.VERSION.SDK_INT
-                >= android.os.Build.VERSION_CODES.HONEYCOMB ) {
-            restart.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        }
+        restart.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(restart);
     }
 
