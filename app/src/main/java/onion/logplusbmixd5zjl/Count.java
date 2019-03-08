@@ -128,19 +128,11 @@ public class Count extends AppCompatActivity implements OnItemSelectedListener {
         // do nothing
     }
 
-    // todo: codup
-    public void press1(View view) {
-        getSelected().incrementCount(1);
-        ((ArrayAdapter)spinner.getAdapter()).notifyDataSetChanged();
-        updateCountView();
-    }
-    public void press10(View view) {
-        getSelected().incrementCount(10);
-        ((ArrayAdapter)spinner.getAdapter()).notifyDataSetChanged();
-        updateCountView();
-    }
-    public void press100(View view) {
-        getSelected().incrementCount(100);
+    public void press1(View view) { updateCurrent(1); }
+    public void press10(View view) { updateCurrent(10); }
+    public void press100(View view) { updateCurrent(100); }
+    private void updateCurrent(int amount) {
+        getSelected().incrementCount(amount);
         ((ArrayAdapter)spinner.getAdapter()).notifyDataSetChanged();
         updateCountView();
     }
