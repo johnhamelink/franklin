@@ -36,10 +36,8 @@ public class Nag extends Activity {
 
     private MediaPlayer mediaPlayer;
 
-    @InjectView(R.id.n_remind)
-	private LinearLayout remind;
-    @InjectView(R.id.n_remindtext)
-	private TextView remindtext;
+    @InjectView(R.id.n_remind) LinearLayout remind;
+    @InjectView(R.id.n_remindtext) TextView remindtext;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

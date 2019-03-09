@@ -44,12 +44,9 @@ public class Timer extends AppCompatActivity
     private State state;
 
     @InjectView(R.id.t_all) LinearLayout all;
-    @InjectView(R.id.t_current)
-    private TextView displayTime;
-    @InjectView(R.id.t_start)
-    private Button startButton;
-    @InjectView(R.id.t_name)
-    private Spinner timerSpinner;
+    @InjectView(R.id.t_current) TextView displayTime;
+    @InjectView(R.id.t_start) Button startButton;
+    @InjectView(R.id.t_name) Spinner timerSpinner;
 
 
     @Override
