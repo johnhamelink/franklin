@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -151,16 +152,6 @@ public class Timer extends AppCompatActivity
     }
 
 
-    @SuppressLint("InlinedApi")
-    public static void restartApp(final Context context){
-        Intent restart = context
-                .getPackageManager()
-                .getLaunchIntentForPackage(context.getPackageName());
-        restart.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        context.startActivity(restart);
-    }
-
-
     public void pressNext(View view) {
         setSpinner(TimerStore.getNext(this));
 
@@ -190,6 +181,18 @@ public class Timer extends AppCompatActivity
             stateIdleToRunning();
         }
     }
+    final int active_button = 1015;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        switch(keyCode){
+            case active_button:
+                pressStart(null);
+                return true;
+            default:
+                return false;
+        }
+    }
+
 
 
     /** alerts the user, logs, sets state to idle */

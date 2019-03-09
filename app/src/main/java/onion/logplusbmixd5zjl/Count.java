@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -136,6 +137,18 @@ public class Count extends AppCompatActivity implements OnItemSelectedListener {
         ((ArrayAdapter)spinner.getAdapter()).notifyDataSetChanged();
         updateCountView();
     }
+    final int active_button = 1015;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        switch(keyCode){
+            case active_button:
+                updateCurrent(1);
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public void pressNext(View view) { nextEntry(); }
     public void pressPrevious(View view) { previousEntry(); }
 
